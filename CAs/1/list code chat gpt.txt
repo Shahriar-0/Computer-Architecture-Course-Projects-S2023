@@ -1,0 +1,61 @@
+module list (
+    input clk,           // Clock signal
+    input rst,           // Reset signal
+    input [7:0] data_in, // Input data
+    input add_en,        // Flag to enable adding data
+    input read_en,       // Flag to enable reading data
+    output reg read_done, // Signal to indicate when reading is complete
+    output [7:0] data_out // Output data
+);
+
+// Define constants
+parameter MAX_LENGTH = 10;
+
+// Declare variables
+reg [7:0] list [0:MAX_LENGTH-1];
+reg [3:0] ptr;
+reg [3:0] last_ptr;
+reg [3:0] length;
+reg reading;
+
+// Reset signals
+always @ (posedge clk or posedge rst)
+begin
+    if (rst) begin
+        ptr <= 0;
+        last_ptr <= 0;
+        length <= 0;
+        reading <= 0;
+        read_done <= 0;
+    end
+end
+
+// Add data to list
+always @ (posedge clk)
+begin
+    if (add_en && (length < MAX_LENGTH)) begin
+        list[length] <= data_in;
+        length <= length + 1;
+    end
+end
+
+// Read data in reverse order
+always @ (posedge clk)
+begin
+    if (read_en && !reading && (length > 0)) begin
+        ptr <= length - 1;
+        last_ptr <= length - 1;
+        reading <= 1;
+        read_done <= 0;
+    end
+    else if (reading && (ptr >= 0)) begin
+        data_out <= list[ptr];
+        ptr <= ptr - 1;
+    end
+    else if (reading && (ptr < 0)) begin
+        ptr <= last_ptr; // Start reading from the last point again
+        reading <= 0;
+        read_done <= 1;
+    end
+end
+endmodule

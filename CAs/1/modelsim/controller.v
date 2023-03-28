@@ -37,6 +37,7 @@ module controller(input CLK,RST,start,Run,co,found,stack_empty,end_fifo,dout
 			fifow : nstate <= stack_empty ? done : fifow; {stack_pop, fifo_push}= 2'b1;
 			done : nstate <= show ? Run  : done; {Done, init_read_ptr} = 2'b1;
 			show : nstate <= done ? fifo_empty : show; fifo_read = 1'b1;
+		endcase	
 	}
 
 	reg counter = 8'b0;
