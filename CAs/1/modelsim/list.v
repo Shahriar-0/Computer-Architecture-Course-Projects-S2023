@@ -1,19 +1,28 @@
 `timescale 1ns/1ns
 
-module list (input clk,rst,push,en_read,input [7:0] data_in, output reg read_done, output [7:0] data_out);
+module list (CLK, RST, push, en_read, data_in, read_done, data_out);
 
     parameter MAX_LENGTH = 256;
     parameter WIDTH = 4;
-    reg [WIDTH-1:0] list [0:MAX_LENGTH-1];
+
+    input CLK;
+    input RST;
+    input push;
+    input en_read;
+    input [7:0] data_in;
+    output read_done;
+    output [7:0] data_out;
+    reg read_done;
+
+    reg [WIDTH - 1:0] list [0: MAX_LENGTH - 1];
     reg [8:0] ptr;
     reg [8:0] last_ptr;
     reg [8:0] length;
     reg reading;
 
-    // always @ (posedge clk or posedge rst)
-    always @ (posedge clk)
+    always @(posedge CLK or posedge RST)
     begin
-        if (rst) begin
+        if (RST) begin
             ptr <= 0;
             last_ptr <= 0;
             length <= 0;
@@ -22,7 +31,7 @@ module list (input clk,rst,push,en_read,input [7:0] data_in, output reg read_don
         end
     end
 
-    always @ (posedge clk)
+    always @(posedge CLK)
     begin
         if (push && (length < MAX_LENGTH)) begin
             list[length] <= data_in;
@@ -30,7 +39,7 @@ module list (input clk,rst,push,en_read,input [7:0] data_in, output reg read_don
         end
     end
 
-    always @ (posedge clk)
+    always @(posedge CLK)
     begin
         if (en_read && !reading && (length > 0)) begin
             ptr <= length - 1;
