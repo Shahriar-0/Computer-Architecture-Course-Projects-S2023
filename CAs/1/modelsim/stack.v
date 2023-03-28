@@ -1,6 +1,6 @@
 `timescale 1ns/1ns
 
-module Stack( CLK, RST, pop, push, empty, din, dout);
+module stack( CLK, RST, pop, push, empty, din, dout);
 
     parameter WIDTH = 4;
     parameter DEPTH = 256;
