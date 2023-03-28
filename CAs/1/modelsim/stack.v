@@ -23,11 +23,13 @@ module stack_dir( CLK, RST, pop, push, empty, din, dout);
     assign empty = !(|index);
 
 
-    always @(posedge CLK) begin
+    always @(posedge CLK or posedge RST) begin
 
     if(RST) begin
         dout  <= 8'd0;
+        next_dout  <= 8'd0;
         index <= 1'b0;
+        next_index <= 1'b0;
     end
 
     else if(push) begin
