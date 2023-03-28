@@ -49,7 +49,7 @@ module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, init_count, en_c
     register regx(.prl(mux1), .CLK(CLK), .RST(RST), .ld(ld_x), .init(init_x), .W(x));
     register regy(.prl(mux2), .CLK(CLK), .RST(RST), .ld(ld_y), .init(init_y), .W(y));
 
-    counter2bit counter2b(.init(init_count), .ld(ld_count), .en(en_count), .RST(RST), .CLK(CLK), .prl(stackp), .out(counter), .co(Co));
+    counter2bit counter2b(.init(init_count), .ld(ld_count), .en(en_count), .RST(RST), .CLK(CLK), .prl(stackp), .out(counter), .Co(Co));
 
     stack direction_stack(.CLK(CLK), .RST(RST), .pop(stack_dir_pop), .push(stack_dir_push), .empty(empty_stack), .din(counter), .dout(stackp));
 
