@@ -1,8 +1,8 @@
 `timescale 1ns/1ns
 
-module controller(CLK,RST,start,Run,co,found,stack_empty,end_fifo,dout
-	init_x,init_y,init_c,en_c,ldc,ldx,ldy, ld_maze,WR,RD,Din,stack_pop,
-	fifo_push,fifo_pop,init_read_ptr,stack_push,Done,Fail,Move);
+module controller(CLK, RST, start, Run, co, found, stack_empty, complete_read, dout
+	init_x, init_y, init_c, en_c, ldc, ldx, ldy, WR, RD, Din, stack_pop, stack_push,
+	list_push, en_read, init_list, Done, Fail, Move);
 
 	input CLK;
 	input RST;

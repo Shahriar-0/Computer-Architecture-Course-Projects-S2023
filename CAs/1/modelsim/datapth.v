@@ -1,6 +1,6 @@
 `timescale 1ns/1ns
 
-module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, init_count, en_count, list_push, en_read, init_list, init_stack, stack_dir_push, stack_dir_pop, r_update, x, y, Move, finish, empty_stack, list_empty, complete_read, Co);
+module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, init_count, en_count, list_push, en_read, init_list, init_stack, stack_dir_push, stack_dir_pop, r_update, x, y, Move, finish, empty_stack, read_done, complete_read, Co);
     
     // externall signals
     input CLK;
