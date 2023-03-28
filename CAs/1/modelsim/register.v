@@ -11,8 +11,8 @@ module register(prl, CLK, RST, ld, init, W);
     reg W;
     always @(posedge CLK or posedge RST) begin 
         if (RST) W <= N'b0;
-        else if(init) W <= N'b0;
-        else if(ld) W <= prl;
+        else if (init) W <= N'b0;
+        else if (ld) W <= prl;
     end
 endmodule
     
