@@ -1,11 +1,11 @@
-module MazeMemory(X, Y, D_in, RD, WR , init_maze, D_out);
+module maze_memory(X, Y, D_in, RD, WR, D_out);
     parameter N = 4;
     parameter FILENAME = "maze.dat";
     localparam WIDTH = 16;
     localparam HEIGHT = 16;
 
     input [N - 1:0] X, Y;
-    input D_in, RD, WR, init_maze;
+    input D_in, RD, WR;
     output D_out;
 
     reg [0:WIDTH - 1] maze [0:HEIGHT - 1];

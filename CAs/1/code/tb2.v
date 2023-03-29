@@ -3,7 +3,7 @@
 `include "intelligent_rat.v"
 `include "maze_memory.v"
 
-module tb();
+module tb2();
     wire Start, Run, CLK, RST, Fail, Done, Move, X, Y, D_in, D_out, RD, WR;
 
     intelligent_rat rat(
@@ -12,7 +12,7 @@ module tb();
         .D_in(D_in), .D_out(D_out), .RD(RD), .WR(WR)
     );
 
-    maze_memory maze(
+    maze_memory maze #("maze2.dat") (
         .X(X), .Y(Y), .D_in(D_in), .RD(RD), .WR(WR), .D_out(D_out)
     );
 
@@ -26,6 +26,10 @@ module tb();
         #10 Run = 1'b0;
         #200 RST = 1'b1;
         #200 RST = 1'b0;
+        #30 Start = 1'b0;
+        #30 Start = 1'b1;
+        #700 Run = 1'b1;
+        #10 Run = 1'b0;
     end
 
 endmodule
