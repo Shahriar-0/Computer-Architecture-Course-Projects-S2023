@@ -34,8 +34,8 @@ module controller(CLK, RST, start, Run, Co, found, stack_empty, Move,
 		   r_update, Move;
 		   
 
-	wire [4:0] pstate = `idle;
-	wire [4:0] nstate;
+	reg [4:0] pstate = `idle;
+	reg [4:0] nstate;
 
 
 	always @(Run or start or Co or pstate or D_out or complete_read or stack_empty or found) begin
