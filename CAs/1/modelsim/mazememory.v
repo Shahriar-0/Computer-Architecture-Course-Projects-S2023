@@ -9,7 +9,7 @@ module MazeMemory(x, y, D_in, RD, WR , init_maze, D_out);
     input D_in, RD, WR, init_maze;
     output D_out;
 
-    reg [WIDTH - 1 : 0] maze [HEIGHT - 1 : 0];
+    reg [0:WIDTH - 1] maze [0:HEIGHT - 1];
 
     initial begin
         $readmemh(FILENAME, maze);
