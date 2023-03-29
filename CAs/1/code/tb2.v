@@ -1,4 +1,7 @@
 `timescale 1ns / 1ns
+`define STRINGIFY(x) `"x`"
+`define HPATH maze2.dat
+
 
 module tb2();
     wire Start, Run, CLK, RST, Fail, Done, Move, X, Y, D_in, D_out, RD, WR;
@@ -8,8 +11,8 @@ module tb2();
         .Fail(Fail), .Done(Done), .Move(Move), .X(X), .Y(Y), 
         .D_in(D_in), .D_out(D_out), .RD(RD), .WR(WR)
     );
-
-    maze_memory maze #(4,"maze2.dat",16,16) (
+    string hpath = `STRINGIFY(`HPATH);
+    maze_memory maze #(4,hpath, 16, 16) (
         .X(X), .Y(Y), .D_in(D_in), .RD(RD), .WR(WR), .D_out(D_out)
     );
 
