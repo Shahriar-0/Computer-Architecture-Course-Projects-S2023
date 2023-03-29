@@ -1,11 +1,10 @@
-module MazeMemory(x, y, D_in, RD, WR , init_maze, D_out);
+module MazeMemory(X, Y, D_in, RD, WR , init_maze, D_out);
     parameter N = 4;
     parameter FILENAME = "maze.dat";
     localparam WIDTH = 16;
     localparam HEIGHT = 16;
 
-    input [N - 1:0] x;
-    input [N - 1:0] y;
+    input [N - 1:0] X, Y;
     input D_in, RD, WR, init_maze;
     output D_out;
 
@@ -15,7 +14,7 @@ module MazeMemory(x, y, D_in, RD, WR , init_maze, D_out);
         $readmemh(FILENAME, maze);
     end
     
-    assign D_out = (RD) ? maze[x][y] : D_out;
-    assign maze[x][y] = (WR) ? D_in : maze[x][y];
+    assign D_out = (RD) ? maze[X][Y] : D_out;
+    assign maze[X][Y] = (WR) ? D_in : maze[X][Y];
 
 endmodule

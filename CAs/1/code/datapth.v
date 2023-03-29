@@ -1,11 +1,11 @@
-module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, init_count, en_count, list_push, en_read, init_list, init_stack, stack_dir_push, stack_dir_pop, r_update, x, y, Move, finish, empty_stack, read_done, complete_read, Co);
+module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, init_count, en_count, list_push, en_read, init_list, init_stack, stack_dir_push, stack_dir_pop, r_update, X, Y, Move, finish, empty_stack, read_done, complete_read, Co);
     
     // externall signals
     input CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, init_count, en_count, list_push, en_read, init_list,
           init_stack, stack_dir_push, stack_dir_pop, r_update;
     //--
-    output [3:0] x;
-    output [3:0] y;
+    output [3:0] X;
+    output [3:0] Y;
     output [1:0] Move;
     output finish;
     output empty_stack;
@@ -24,14 +24,14 @@ module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, init_count, en_c
     wire fa_co;
 
     // modules instances
-    mux2in mux_1(.a(x), .b(add_res), .slc(slc_mux), .w(mux1));
-    mux2in mux_2(.a(add_res), .b(y), .slc(slc_mux), .w(mux2));
-    mux2in mux_3(.a(x), .b(y), .slc(slc_mux), .w(mux3));
+    mux2in mux_1(.a(X), .b(add_res), .slc(slc_mux), .w(mux1));
+    mux2in mux_2(.a(add_res), .b(Y), .slc(slc_mux), .w(mux2));
+    mux2in mux_3(.a(X), .b(Y), .slc(slc_mux), .w(mux3));
 
     fulladder FA(.a(mux3)., .b(num2add), .cin(1'b0), .w(add_res), .cout(fa_co));
 
-    register regx(.prl(mux1), .CLK(CLK), .RST(RST), .ld(ld_x), .init(init_x), .W(x));
-    register regy(.prl(mux2), .CLK(CLK), .RST(RST), .ld(ld_y), .init(init_y), .W(y));
+    register regx(.prl(mux1), .CLK(CLK), .RST(RST), .ld(ld_x), .init(init_x), .W(X));
+    register regy(.prl(mux2), .CLK(CLK), .RST(RST), .ld(ld_y), .init(init_y), .W(Y));
 
     counter2bit counter2b(.init(init_count), .ld(ld_count), .en(en_count), .RST(RST), .CLK(CLK), .prl(stackp), .out(counter), .Co(Co));
 
@@ -39,6 +39,6 @@ module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, init_count, en_c
 
     list result_list(.clk(CLK), .rst(RST), .push(list_push), .en_read(en_read), .data_in(stackp), .read_done(complete_read), .data_out(Move));
 
-    assign finish = &{x, y};
+    assign finish = &{X, Y};
 
 endmodule

@@ -1,7 +1,6 @@
 module mux2in(a, b, slc, w);
     parameter N = 4;
-    input [N - 1:0] a;
-    input [N - 1:0] b;
+    input [N - 1:0] a, b;
     input slc;
     output [N - 1:0] w;
 
