@@ -27,7 +27,7 @@ module controller(CLK, RST, start, Run, Co, found, stack_empty, Move,
 	input CLK, RST, start, Run, Co, found,
 		  stack_empty, complete_read, D_out;
 
-	output init_x, init_y, init_count, en_count,
+	output reg init_x, init_y, init_count, en_count,
 		   ldc, ldx, ldy, WR, RD, D_in, Done, 
 		   list_push, en_read, init_list, Fail,
 		   init_stack,stack_push, stack_pop,
