@@ -1,8 +1,5 @@
 `timescale 1ns / 1ns
 
-`include "intelligent_rat.v"
-`include "maze_memory.v"
-
 module tb();
     wire Start, Run, CLK, RST, Fail, Done, Move, X, Y, D_in, D_out, RD, WR;
 

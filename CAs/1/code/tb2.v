@@ -1,8 +1,5 @@
 `timescale 1ns / 1ns
 
-`include "intelligent_rat.v"
-`include "maze_memory.v"
-
 module tb2();
     wire Start, Run, CLK, RST, Fail, Done, Move, X, Y, D_in, D_out, RD, WR;
 
@@ -12,7 +9,7 @@ module tb2();
         .D_in(D_in), .D_out(D_out), .RD(RD), .WR(WR)
     );
 
-    maze_memory maze #("maze2.dat") (
+    maze_memory maze #(4,"maze2.dat",16,16) (
         .X(X), .Y(Y), .D_in(D_in), .RD(RD), .WR(WR), .D_out(D_out)
     );
 
@@ -30,7 +27,7 @@ module tb2();
         #30 Start = 1'b1;
         #700 Run = 1'b1;
         #10 Run = 1'b0;
-        $finish
+        #10 $finish;
     end
 
 endmodule
