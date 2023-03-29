@@ -38,15 +38,16 @@ module list (CLK, RST, push, en_read, data_in, read_done, data_out);
             read_done <= 0;
         end
 
-        else if (reading && (ptr >= 0)) begin
-            data_out <= list[ptr];
-            ptr <= ptr - 1;
-        end
-        
-        else if (reading && (ptr < 0)) begin
-            ptr <= last_ptr;
-            reading <= 0;
-            read_done <= 1;
+        else if (reading) begin
+            if (ptr >= 0) begin
+                data_out <= list[ptr];
+                ptr <= ptr - 1;
+            end
+            else begin
+                ptr <= last_ptr;
+                reading <= 0;
+                read_done <= 1;
+            end
         end
     end
     

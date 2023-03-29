@@ -11,7 +11,7 @@ module stack_dir(CLK, RST, pop, push, empty, din, dout);
     output [WIDTH - 1:0] dout;
     output empty, full;
 
-    reg [WIDTH - 1:0] stack [DEPTH-1:0];
+    reg [WIDTH - 1:0] stack [DEPTH - 1:0];
     reg [`BITS(DEPTH) - 1:0] index, next_index; 
     reg [WIDTH - 1:0] dout, next_dout;
 
