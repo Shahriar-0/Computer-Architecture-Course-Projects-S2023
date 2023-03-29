@@ -9,13 +9,13 @@ module list (CLK, RST, push, en_read, data_in, read_done, data_out);
     input CLK, RST, push, en_read;
     input [WIDTH - 1:0] data_in;
     output read_done;
-    output [WIDTH - 1:0] data_out;
+    output reg [WIDTH - 1:0] data_out;
     reg read_done;
 
     reg [WIDTH - 1:0] list [0: MAX_LENGTH - 1];
     reg [`BITS(MAX_LENGTH) - 1:0] ptr, last_ptr, length;
     reg reading;
-
+    integer result_file;
     always @(posedge CLK or posedge RST)
     begin
         if (RST) begin
