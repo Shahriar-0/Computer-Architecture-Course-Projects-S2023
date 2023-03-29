@@ -26,6 +26,7 @@ module tb();
         #10 Run = 1'b0;
         #200 RST = 1'b1;
         #200 RST = 1'b0;
+        $finish
     end
 
 endmodule

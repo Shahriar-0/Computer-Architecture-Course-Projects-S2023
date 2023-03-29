@@ -36,17 +36,20 @@ module list (CLK, RST, push, en_read, data_in, read_done, data_out);
             last_ptr <= length - 1;
             reading <= 1;
             read_done <= 0;
+            result_file = $fopen("result.txt", "wb");
         end
 
         else if (reading) begin
             if (ptr >= 0) begin
                 data_out <= list[ptr];
                 ptr <= ptr - 1;
+                $fdisplayb (result_file, data_out);
             end
             else begin
                 ptr <= last_ptr;
                 reading <= 0;
                 read_done <= 1;
+                $fclose(errFile);
             end
         end
     end

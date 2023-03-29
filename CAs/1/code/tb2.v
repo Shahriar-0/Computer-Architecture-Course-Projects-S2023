@@ -30,6 +30,7 @@ module tb2();
         #30 Start = 1'b1;
         #700 Run = 1'b1;
         #10 Run = 1'b0;
+        $finish
     end
 
 endmodule
