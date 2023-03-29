@@ -1,9 +1,3 @@
-`include "register.v"
-`include "stack.v"
-`include "mux2in.v"
-`include "list.v"
-`include "fulladder.v"
-`include "counter2bit.v"
 
 module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, Co,
                 init_count, en_count, list_push, en_read, init_list,
@@ -20,7 +14,7 @@ module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, Co,
 
     output [N - 1:0] X, Y;
     output [DIRECTION_SIZE - 1:0] Move;
-    output finish, empty_stack, complete_read, Co;
+    output finish,read_done, empty_stack, complete_read, Co;
     
     // internall wires
     wire [N - 1:0] mux1, mux2, mux3;
@@ -39,7 +33,7 @@ module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, Co,
     mux2in mux_2(.a(add_res), .b(Y), .slc(slc_mux), .w(mux2));
     mux2in mux_3(.a(X), .b(Y), .slc(slc_mux), .w(mux3));
 
-    fulladder FA(.a(mux3)., .b(num2add), .cin(1'b0), .w(add_res), .cout(fa_co));
+    fulladder FA(.a(mux3), .b(num2add), .cin(1'b0), .w(add_res), .cout(fa_co));
 
     register regx(.prl(mux1), .CLK(CLK), .RST(RST), .ld(ld_x), .init(init_x), .W(X));
     register regy(.prl(mux2), .CLK(CLK), .RST(RST), .ld(ld_y), .init(init_y), .W(Y));
