@@ -1,8 +1,10 @@
 `timescale 1ns / 1ns
 
 module tb();
-    wire Start, Run, CLK, RST, Fail, Done, Move, X, Y, D_in, D_out, RD, WR;
-
+    reg Start, Run, CLK, RST;
+    wire Fail, Done,D_in, D_out, RD, WR;
+    wire [3:0] X,Y;
+    wire [1:0] Move;
     intelligent_rat rat(
         .CLK(CLK), .RST(RST), .Run(Run), .Start(Start),
         .Fail(Fail), .Done(Done), .Move(Move), .X(X), .Y(Y), 
@@ -23,7 +25,7 @@ module tb();
         #10 Run = 1'b0;
         #200 RST = 1'b1;
         #200 RST = 1'b0;
-        $finish
+        #10 $finish;
     end
 
 endmodule
