@@ -1,36 +1,10 @@
-`timescale 1ns/1ns
-
 module controller(CLK, RST, start, Run, Co, found, stack_empty, complete_read, D_out
 	init_x, init_y, init_count, en_count, ldc, ldx, ldy, WR, RD, D_in, stack_pop, stack_push,
 	list_push, en_read, init_list, Done, Fail, Move);
 
-	input CLK;
-	input RST;
-	input start;
-	input Run;
-	input Co;
-	input found;
-	input stack_empty;
-	input complete_read;
-	input D_out;
-	output init_x;
-	output init_y;
-	output init_count;
-	output en_count;
-	output ldc;
-	output ldx;
-	output ldy;
-	output WR;
-	output RD;
-	output D_in;
-	output stack_pop;
-	output list_push;
-	output en_read;
-	output init_list;
-	output stack_push;
-	output Done;
-	output Fail;
-	output Move;
+	input CLK, RST, start, Run, Co, found, stack_empty, complete_read, D_out;
+	output init_x, init_y, init_count, en_count, ldc, ldx, ldy, WR, RD, D_in, stack_pop, list_push,
+		   en_read, init_list, stack_push, Done, Fail, Move;
 
 	parameter idle = 1, init = 2, init_search = 3,
 		add_to_stack = 4, make_wall = 5, update_xy = 6, check_goal = 7, check_wall = 8,

@@ -1,24 +1,8 @@
-`timescale 1ns/1ns
-
 module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, init_count, en_count, list_push, en_read, init_list, init_stack, stack_dir_push, stack_dir_pop, r_update, x, y, Move, finish, empty_stack, read_done, complete_read, Co);
     
     // externall signals
-    input CLK;
-    input RST;
-    input init_x;
-    input init_y;
-    input ld_x;
-    input ld_y;
-    input ld_count;
-    input init_count;
-    input en_count;
-    input list_push;
-    input en_read;
-    input init_list;
-    input init_stack;
-    input stack_dir_push;
-    input stack_dir_pop;
-    input r_update;
+    input CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, init_count, en_count, list_push, en_read, init_list,
+          init_stack, stack_dir_push, stack_dir_pop, r_update;
     //--
     output [3:0] x;
     output [3:0] y;

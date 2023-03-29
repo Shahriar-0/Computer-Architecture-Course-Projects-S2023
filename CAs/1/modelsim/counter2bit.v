@@ -1,11 +1,6 @@
-`timescale 1ns / 1ns
-
-module counter2bit(init, ld, en, RST, CLK, prl, out, co);
-    input init;
-    input ld;
-    input en;
-    input RST;
-    input CLK;
+module counter2bit(RST, CLK,init, ld, en, prl, out, co);
+   
+    input init, ld, en, RST, CLK;
     input [1:0] prl;
     output [1:0] out;
     output co;

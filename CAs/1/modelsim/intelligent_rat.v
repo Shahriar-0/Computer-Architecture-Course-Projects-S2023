@@ -1,18 +1,11 @@
 module intelligent_rat(CLK, RST, Run, Start, Fail, Done,
      Move, X, Y, D_in, D_out, RD, WR);
 
-    input CLK;
-    input RST;
-    input Run;
-    input Start;
-    input D_out;
+    input CLK, RST, Run, Start, D_out;
 
-    output D_in;
-    output Fail;
-    output Done;
+    output D_in, Fail, Done;
     output [1:0] Move;
-    output [3:0] X;
-    output [3:0] Y;
+    output [3:0] X, Y;
 
     wire init_x, init_y;
     wire ld_x, ld_y;

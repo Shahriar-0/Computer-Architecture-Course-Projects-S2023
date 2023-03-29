@@ -1,5 +1,3 @@
-`timescale 1ns/1ns
-
 module MazeMemory(x, y, D_in, RD, WR , init_maze, D_out);
     parameter N = 4;
     parameter FILENAME = "maze.dat";
@@ -8,10 +6,7 @@ module MazeMemory(x, y, D_in, RD, WR , init_maze, D_out);
 
     input [N - 1:0] x;
     input [N - 1:0] y;
-    input D_in;
-    input RD;
-    input WR;
-    input init_maze;
+    input D_in, RD, WR, init_maze;
     output D_out;
 
     reg [WIDTH - 1 : 0] maze [HEIGHT - 1 : 0];
