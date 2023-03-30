@@ -16,7 +16,7 @@ module list (CLK, RST, push, init, en_read, data_in, complete_read, data_out);
     reg [`BITS(MAX_LENGTH) - 1:0] ptr, last_ptr, length;
     reg read_ing;
     integer result_file;
-    always @(posedge CLK or posedge RST)
+    always @(posedge CLK , posedge RST)
     begin
         if (RST || init) begin
             ptr <= 0;

@@ -5,7 +5,7 @@ module register(prl, CLK, RST, ld, init, W);
     input CLK, RST, ld, init; 
     output reg [N - 1:0] W;
 
-    always @(posedge CLK or posedge RST) begin 
+    always @(posedge CLK , posedge RST) begin 
         if (RST || init) 
             W <= {N{1'b0}};
 
