@@ -19,13 +19,13 @@
 `define show                5'b10010             
 
 
-module controller(CLK, RST, start, Run, Co, found, stack_empty, Move,
+module controller(CLK, RST, start, Run, Co, found, empty_stack, Move,
 				  complete_read, D_out, init_x, init_y, init_count,
 				  en_count, ldc, ldx, ldy, WR, RD, D_in,init_stack, stack_pop,
 				  stack_push, r_update, list_push, en_read, init_list, Done, Fail);
 
 	input CLK, RST, start, Run, Co, found,
-		  stack_empty, complete_read, D_out;
+		  empty_stack, complete_read, D_out;
 
 	output reg init_x, init_y, init_count, en_count,
 		   ldc, ldx, ldy, WR, RD, D_in, Done, 
@@ -38,7 +38,7 @@ module controller(CLK, RST, start, Run, Co, found, stack_empty, Move,
 	reg [4:0] nstate;
 
 
-	always @(Run or start or Co or pstate or D_out or complete_read or stack_empty or found) begin
+	always @(Run or start or Co or pstate or D_out or complete_read or empty_stack or found) begin
 		case (pstate)
 			`idle:                nstate <= ~start? `idle : `init;                        
 			`init:                nstate <= ~start? `init_search : `init;                        
@@ -48,7 +48,7 @@ module controller(CLK, RST, start, Run, Co, found, stack_empty, Move,
 			`update_xy:           nstate <= `check_goal;                        
 			`check_goal:          nstate <= found ? `stack_read : `check_wall;                       
 			`check_wall:          nstate <= D_out ? `check_empty_stack : `init_search;                        
-			`check_empty_stack:   nstate <= stack_empty ? `fail : `pop_stack;                        
+			`check_empty_stack:   nstate <= empty_stack ? `fail : `pop_stack;                        
 			`pop_stack:           nstate <= `reload_counter;                         
 			`reload_counter:      nstate <= `update_reverse;                        
 			`update_reverse:      nstate <= `free_loc_check_bt;                       
@@ -56,7 +56,7 @@ module controller(CLK, RST, start, Run, Co, found, stack_empty, Move,
 			`change_dir:          nstate <= `add_to_stack;                        
 			`fail:                nstate <= `fail;                        
 			`stack_read:          nstate <= `update_list;                       
-			`update_list:         nstate <= ~stack_empty ? `stack_read : `done;                        
+			`update_list:         nstate <= ~empty_stack ? `stack_read : `done;                        
 			`done:                nstate <= Run ? `show : `done;                        
 			`show:                nstate <= complete_read ? `done : `show;            
 		endcase
