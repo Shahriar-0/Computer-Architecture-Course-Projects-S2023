@@ -2,8 +2,8 @@
 import sys
 sys.setrecursionlimit(20000)
 
-moves = [(0, -1), (1, 0), (-1, 0), (0, 1)]
-dick = {(0, -1): "up", (1, 0): "right", (-1, 0): "left", (0, 1): "down"}
+moves = [(-1, 0), (0, 1), (0, -1), (1, 0)]
+dick = {(-1, 0): "up", (0, 1): "right", (0, -1): "left", (1, 0): "down"}
 
 # ls = [['0' for _ in range(16)] for i in range(16)]
 
@@ -26,7 +26,6 @@ def backtrack(x = 0, y = 0) -> bool:
     if x < 0 or x > 15 or y < 0 or y > 15 or ls[x][y] == '1':
         return False
     
-    # print(f"x is: {x}, y is: {y}")
     
     if x == 15 and y == 15:
         return True
@@ -52,6 +51,6 @@ with open("result.txt", "wb") as result_file:
         result_file.write(f"No solution".encode("utf-8"))
     else:
         print("found!")
-        for x in result:
-            result_file.write(f"{x}\n".encode("utf-8"))
+        for i in result:
+            result_file.write(f"{i}\n".encode("utf-8"))
             
