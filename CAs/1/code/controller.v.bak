@@ -90,7 +90,7 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 			`show: en_read = 1'b1;            
 		endcase
 		$display ( "pstate: %h", pstate );
-		$display ( "initx: %h", init_x );
+
 	end
 
 	always @(posedge CLK or posedge RST) begin
