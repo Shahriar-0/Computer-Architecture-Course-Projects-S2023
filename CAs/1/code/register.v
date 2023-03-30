@@ -3,8 +3,7 @@ module register(prl, CLK, RST, ld, init, W);
 
     input [N - 1:0] prl;
     input CLK, RST, ld, init; 
-    output [N - 1:0] W;
-    reg W;
+    output reg [N - 1:0] W;
 
     always @(posedge CLK or posedge RST) begin 
         if (RST || init) 
