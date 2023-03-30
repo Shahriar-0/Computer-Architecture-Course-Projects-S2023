@@ -45,7 +45,7 @@ module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, Co,
 
     stack direction_stack(
         .CLK(CLK), .RST(RST), .pop(stack_dir_pop), .push(stack_dir_push),
-        .empty(empty_stack), .din(counter), .dout(stackp)
+        .init(init_stack), .empty(empty_stack), .din(counter), .dout(stackp)
     );
 
     list result_list(
