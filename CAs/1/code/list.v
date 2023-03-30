@@ -18,7 +18,7 @@ module list (CLK, RST, push, init, en_read, data_in, complete_read, data_out);
     integer result_file;
     always @(posedge CLK or posedge RST)
     begin
-        if (RST ot init) begin
+        if (RST || init) begin
             ptr <= 0;
             last_ptr <= 0;
             length <= 0;
