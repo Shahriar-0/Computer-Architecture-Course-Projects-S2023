@@ -19,10 +19,10 @@
 `define show                5'b10010             
 
 
-module controller(CLK, RST, start, Run, Co, found, empty_stack, Move,
-				  complete_read, D_out, init_x, init_y, init_count,
+module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
+				  complete_read, D_out, init_x, init_y, init_count, Fail,
 				  en_count, ldc, ldx, ldy, WR, RD, D_in,init_stack, stack_pop,
-				  stack_push, r_update, list_push, en_read, init_list, Done, Fail);
+				  stack_push, r_update, list_push, en_read, init_list);
 
 	input CLK, RST, start, Run, Co, found,
 		  empty_stack, complete_read, D_out;
@@ -31,7 +31,8 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Move,
 		   ldc, ldx, ldy, WR, RD, D_in, Done, 
 		   list_push, en_read, init_list, Fail,
 		   init_stack,stack_push, stack_pop,
-		   r_update, Move;
+		   r_update;
+
 		   
 
 	reg [4:0] pstate = `idle;
@@ -65,7 +66,7 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Move,
 	always @(pstate) begin
 		{init_x, init_y, init_count, en_count, ldc, ldx, ldy,
 		WR, RD, D_in, stack_pop, list_push, en_read, init_list,
-		stack_push, Done, Fail, Move} = 18'b0;
+		stack_push, Done, Fail} = 17'b0;
 		case (pstate)
 			`idle: ;             
 			`init: {init_x, init_count, init_y, init_list, init_stack} = 5'b1;             
