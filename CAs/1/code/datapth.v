@@ -18,7 +18,7 @@ module datapath(CLK, RST, init_x, init_y, ldx, ldy, ld_count, Co,
     
     // internall wires
     wire [N - 1:0] mux1, mux2, mux3;
-    reg [DIRECTION_SIZE:0] counter;
+    reg [DIRECTION_SIZE-1:0] counter;
     wire slc_mux;
     
     wire [N - 1:0] num2add;
