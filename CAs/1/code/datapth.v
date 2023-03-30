@@ -49,7 +49,7 @@ module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, Co,
     );
 
     list result_list(
-        .CLK(CLK), .RST(RST), .push(list_push), .en_read(en_read), 
+        .CLK(CLK), .RST(RST), .push(list_push), .init(init_list), .en_read(en_read), 
         .data_in(stackp), .read_done(complete_read), .data_out(Move)
     );
 
