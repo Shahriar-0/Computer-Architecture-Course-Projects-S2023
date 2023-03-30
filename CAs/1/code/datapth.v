@@ -25,7 +25,7 @@ module datapath(CLK, RST, init_x, init_y, ldx, ldy, ld_count, Co,
     assign num2add = {1, r_update^(~counter[0])};
 
     wire [DIRECTION_SIZE - 1:0] stackp;
-    reg [N - 1:0] add_res;
+    wire [N - 1:0] add_res;
     wire fa_co;
 
     // modules instances
