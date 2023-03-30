@@ -1,16 +1,16 @@
 `define BITS(x) $rtoi($ceil($clog2(x)))
 
 
-module list (CLK, RST, push, init, en_read, data_in, read_done, data_out);
+module list (CLK, RST, push, init, en_read, data_in, complete_read, data_out);
 
     parameter MAX_LENGTH = 256;
     parameter WIDTH = 2;
 
     input CLK, RST, push, init, en_read;
     input [WIDTH - 1:0] data_in;
-    output read_done;
+    output complete_read;
     output reg [WIDTH - 1:0] data_out;
-    reg read_done;
+    reg complete_read;
 
     reg [WIDTH - 1:0] list [0: MAX_LENGTH - 1];
     reg [`BITS(MAX_LENGTH) - 1:0] ptr, last_ptr, length;
@@ -23,7 +23,7 @@ module list (CLK, RST, push, init, en_read, data_in, read_done, data_out);
             last_ptr <= 0;
             length <= 0;
             reading <= 0;
-            read_done <= 0;
+            complete_read <= 0;
         end
 
         else if (push && (length < MAX_LENGTH)) begin
@@ -35,7 +35,7 @@ module list (CLK, RST, push, init, en_read, data_in, read_done, data_out);
             ptr <= length - 1;
             last_ptr <= length - 1;
             reading <= 1;
-            read_done <= 0;
+            complete_read <= 0;
             result_file = $fopen("result.txt", "wb");
         end
 
@@ -48,7 +48,7 @@ module list (CLK, RST, push, init, en_read, data_in, read_done, data_out);
             else begin
                 ptr <= last_ptr;
                 reading <= 0;
-                read_done <= 1;
+                complete_read <= 1;
                 $fclose(errFile);
             end
         end
