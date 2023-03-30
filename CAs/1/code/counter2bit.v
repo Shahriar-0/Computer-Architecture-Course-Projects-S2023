@@ -10,9 +10,6 @@ module counter2bit(RST, CLK, init, ld, en, prl, out, co);
         if (RST) 
             out <= 2'b0;
 
-        else if (init) 
-            out <= 2'b0;
-
         else if (ld) 
             out <= prl;
 
