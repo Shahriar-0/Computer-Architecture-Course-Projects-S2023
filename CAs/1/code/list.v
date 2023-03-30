@@ -49,7 +49,7 @@ module list (CLK, RST, push, init, en_read, data_in, complete_read, data_out);
                 ptr <= last_ptr;
                 read_ing <= 0;
                 complete_read <= 1;
-                $fclose(errFile);
+                $fclose(result_file);
             end
         end
     end

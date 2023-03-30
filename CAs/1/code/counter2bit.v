@@ -1,9 +1,9 @@
-module counter2bit(RST, CLK, init, ld, en, prl, out, co);
+module counter2bit(RST, CLK, init, ld, en, prl, out, Co);
    
     input init, ld, en, RST, CLK;
     input [1:0] prl;
     output [1:0] out;
-    output co;
+    output Co;
     reg out;
 
     always @(posedge CLK or posedge RST) begin
@@ -17,6 +17,6 @@ module counter2bit(RST, CLK, init, ld, en, prl, out, co);
             out <= out + 1;
     end
 
-    assign co = &out;
+    assign Co = &out;
 
 endmodule
