@@ -7,7 +7,7 @@ dick = {(0, -1): "up", (1, 0): "right", (-1, 0): "left", (0, 1): "down"}
 
 # ls = [['0' for _ in range(16)] for i in range(16)]
 
-# with open("../code/maze.dat") as input_file:
+# with open("../../code/maze.dat") as input_file:
 #     done = 0
 #     for line in input_file:
 #         x = bin(int(line.rstrip(), 16))[2:]
