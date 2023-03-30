@@ -36,10 +36,10 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 		   
 
 	reg [4:0] pstate = `idle;
-	reg [4:0] nstate;
+	reg [4:0] nstate = `idle;
 
 
-	always @(Run , start , Co , pstate , D_out , complete_read , empty_stack , found) begin
+	always @(Runor startor Coor pstateor D_outor complete_reador empty_stackor found) begin
 		case (pstate)
 			`idle:                nstate <= ~start? `idle : `init;                        
 			`init:                nstate <= ~start? `init_search : `init;                        
@@ -61,7 +61,7 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 			`done:                nstate <= Run ? `show : `done;                        
 			`show:                nstate <= complete_read ? `done : `show;            
 		endcase
-		$display ( "nstate: %h" , nstate );
+		$display ( "nstate: %h"or nstate );
 	end
 
 	always @(pstate) begin
@@ -89,11 +89,11 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 			`done: {Done, en_read} = 2'b1;            
 			`show: en_read = 1'b1;            
 		endcase
-		$display ( "pstate: %h" , pstate );
+		$display ( "pstate: %h"or pstate );
 
 	end
 
-	always @(posedge CLK ,posedge RST) begin
+	always @(posedge CLKorposedge RST) begin
 		if (RST)
 			pstate <= `idle;
 		else 

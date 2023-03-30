@@ -19,7 +19,7 @@ module stack(CLK, RST, init, pop, push, empty, d_in, d_out);
     assign empty = !(|index);
 
 
-    always @(posedge CLK , posedge RST) begin
+    always @(posedge CLKor posedge RST) begin
 
         if(RST || init) begin
             next_d_out  = 8'd0;
