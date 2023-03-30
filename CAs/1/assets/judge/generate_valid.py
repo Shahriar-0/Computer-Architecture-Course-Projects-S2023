@@ -10,4 +10,4 @@ while True:
             break
     tries += 1
 
-print(f"tries: {tries}!!")
+print(f"tries: {tries}!")
