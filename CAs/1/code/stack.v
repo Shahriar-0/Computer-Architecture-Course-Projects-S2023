@@ -21,7 +21,7 @@ module stack(CLK, RST, init, pop, push, empty, d_in, d_out);
 
     always @(posedge CLK or posedge RST) begin
 
-        if(RST or init) begin
+        if(RST || init) begin
             next_d_out  = 8'd0;
             next_index = 1'b0;
         end
