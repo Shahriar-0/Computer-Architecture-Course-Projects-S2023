@@ -1,11 +1,11 @@
 `define BITS(x) $rtoi($ceil($clog2(x)))
 
-module stack_dir(CLK, RST, pop, push, empty, din, dout);
+module stack(CLK, RST,init, pop, push, empty, din, dout);
 
     parameter WIDTH = 2;
     parameter DEPTH = 256;
 
-    input CLK, RST, pop, push;
+    input CLK, RST, pop, push, init;
     input [WIDTH - 1:0] din;
 
     output [WIDTH - 1:0] dout;
@@ -21,7 +21,7 @@ module stack_dir(CLK, RST, pop, push, empty, din, dout);
 
     always @(posedge CLK or posedge RST) begin
 
-        if(RST) begin
+        if(RST or init) begin
             next_dout  = 8'd0;
             next_index = 1'b0;
         end

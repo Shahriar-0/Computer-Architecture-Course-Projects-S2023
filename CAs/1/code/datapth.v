@@ -22,7 +22,7 @@ module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, Co,
     wire slc_mux;
     
     wire [N - 1:0] num2add;
-    assign num2add = {1, r_update^counter[1]};
+    assign num2add = {1, r_update^(~counter[0])};
 
     wire [DIRECTION_SIZE - 1:0] stackp;
     reg [N - 1:0] add_res;
@@ -45,11 +45,11 @@ module datapath(CLK, RST, init_x, init_y, ld_x, ld_y, ld_count, Co,
 
     stack direction_stack(
         .CLK(CLK), .RST(RST), .pop(stack_dir_pop), .push(stack_dir_push),
-        .empty(empty_stack), .din(counter), .dout(stackp)
+        .init(init_stack), .empty(empty_stack), .din(counter), .dout(stackp)
     );
 
     list result_list(
-        .CLK(CLK), .RST(RST), .push(list_push), .en_read(en_read), 
+        .CLK(CLK), .RST(RST), .push(list_push), .init(init_list), .en_read(en_read), 
         .data_in(stackp), .read_done(complete_read), .data_out(Move)
     );
 
