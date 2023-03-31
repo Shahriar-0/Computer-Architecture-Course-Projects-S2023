@@ -43,7 +43,7 @@ module list (CLK, RST, push, init, en_read, data_in, complete_read, data_out);
             if (ptr >= 0) begin
                 data_out <= list[ptr];
                 ptr <= ptr - 1;
-                $fdisplayb (result_file, data_out);
+                $fdisplayb(result_file, data_out);
             end
             else begin
                 ptr <= last_ptr;
