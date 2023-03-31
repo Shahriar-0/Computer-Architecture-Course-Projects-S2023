@@ -17,23 +17,25 @@ module intelligent_rat(CLK, RST, Run, Start,
         en_read, init_list, init_stack, 
         stack_dir_push, stack_dir_pop, 
         r_update, finish, empty_stack, 
-        complete_read, Co;
+        complete_read, Co, invalid;
 
 
     datapath dp(
         .CLK(CLK), .RST(RST), .init_x(init_x), .init_y(init_y), .ldx(ldx), .ldy(ldy),
-        .ld_count(ld_count), .init_count(init_count), .en_count(en_count), .list_push(list_push),
-        .en_read(en_read), .init_list(init_list), .init_stack(init_stack), .X(X), .Y(Y),                         
-        .stack_dir_push(stack_dir_push), .stack_dir_pop(stack_dir_pop), .r_update(r_update),  
-        .Move(Move), .finish(finish), .empty_stack(empty_stack), .complete_read(complete_read), .Co(Co)
+        .ld_count(ld_count), .init_count(init_count), .en_count(en_count), 
+        .en_read(en_read), .init_list(init_list), .init_stack(init_stack), .X(X),                         
+        .stack_dir_push(stack_dir_push), .stack_dir_pop(stack_dir_pop),  .Y(Y), 
+        .Move(Move), .finish(finish), .empty_stack(empty_stack), .r_update(r_update),
+        .complete_read(complete_read), .list_push(list_push), .Co(Co), .invalid(invalid)
     );
 
     controller cu(
-        .CLK(CLK), .RST(RST), .start(Start), .Run(Run), .Co(Co), .found(found), .WR(WR), .RD(RD),
-        .complete_read(complete_read), .D_out(D_out), .init_x(init_x), .init_y(init_y), .ldy(ldy), 
-        .D_in(D_in), .init_stack(init_stack), .init_count(init_count), .en_count(en_count), .ldc(ld_count), .ldx(ldx),
-        .stack_pop(stack_dir_pop), .stack_push(stack_dir_push), .r_update(r_update), .list_push(list_push),
-        .en_read(en_read), .init_list(init_list), .Done(Done), .Fail(Fail), .empty_stack(empty_stack)
+        .CLK(CLK), .RST(RST), .start(Start), .Run(Run), .Co(Co), .found(found), .WR(WR),
+        .complete_read(complete_read), .D_out(D_out), .init_x(init_x), .init_y(init_y),
+        .D_in(D_in), .init_stack(init_stack), .init_count(init_count), .en_count(en_count), 
+        .stack_pop(stack_dir_pop), .stack_push(stack_dir_push), .r_update(r_update),
+        .en_read(en_read), .init_list(init_list), .Done(Done), .Fail(Fail), .empty_stack(empty_stack),
+        .ldc(ld_count), .ldx(ldx), .list_push(list_push), .ldy(ldy), .RD(RD), .invalid(invalid)
     );
 
 endmodule
