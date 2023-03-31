@@ -31,7 +31,7 @@ module datapath(CLK, RST, init_x, init_y, ldx, ldy, ld_count, Co,
     // modules instances
     mux2in mux_1(.a(X), .b(add_res), .slc(slc_mux), .w(mux1));
     mux2in mux_2(.a(add_res), .b(Y), .slc(slc_mux), .w(mux2));
-    mux2in mux_3(.a(X), .b(Y), .slc(slc_mux), .w(mux3));
+    mux2in mux_3(.a(Y), .b(X), .slc(slc_mux), .w(mux3));
 
     inc_dec inc_dec_instance(.a(mux3), .dec_en(dec_en), .w(add_res), .invalid(invalid));
 
