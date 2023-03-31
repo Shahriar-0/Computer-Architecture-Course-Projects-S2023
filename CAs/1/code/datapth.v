@@ -22,7 +22,7 @@ module datapath(CLK, RST, init_x, init_y, ldx, ldy, ld_count, Co,
     wire slc_mux;
     
     wire [N - 1:0] num2add;
-    assign num2add = {1, r_update^(~counter[0])};
+    assign num2add = {r_update^(~counter[0]),r_update^(~counter[0]),r_update^(~counter[0]),1};
 
     wire [DIRECTION_SIZE - 1:0] stackp;
     wire [N - 1:0] add_res;
