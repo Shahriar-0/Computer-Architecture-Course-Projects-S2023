@@ -1,9 +1,11 @@
 dick = {"00": "up", "01": "right", "10": "left", "11": "down"}
 
 sth = []
-with open("../../code/result.txt") as file:
+with open("../../code/code_result.txt") as file:
     for line in file:
         print(line)
+        if not line in dick:
+            continue
         x = dick[line.rstrip()]
         sth.append(x)
         
