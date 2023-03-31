@@ -33,7 +33,7 @@ module datapath(CLK, RST, init_x, init_y, ldx, ldy, ld_count, Co,
     mux2in mux_2(.a(add_res), .b(Y), .slc(slc_mux), .w(mux2));
     mux2in mux_3(.a(X), .b(Y), .slc(slc_mux), .w(mux3));
 
-    fulladder FA(.a(mux3), .b(dec_en), .w(add_res), .cout(fa_co));
+    inc_dec inc_dec_instance(.a(mux3), .dec_en(dec_en), .w(add_res), .invalid(invalid));
 
     register regx(.prl(mux1), .CLK(CLK), .RST(RST), .ld(ldx), .init(init_x), .W(X));
     register regy(.prl(mux2), .CLK(CLK), .RST(RST), .ld(ldy), .init(init_y), .W(Y));
