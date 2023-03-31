@@ -87,7 +87,7 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 			`fail: Fail = 1'b1;             
 			`stack_read: stack_pop = 1'b1;      
 			`update_list: list_push = 1'b1;      
-			`done: begin Done = 1'b1; en_read = 1'b1; end        
+			`done: Done = 1'b1;        
 			`show: en_read = 1'b1;            
 		endcase
 		// $display ( "pstate: %h", pstate );
