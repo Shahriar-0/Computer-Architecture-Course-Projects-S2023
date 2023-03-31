@@ -23,6 +23,7 @@ module tb();
         #30 Start = 1'b0;
         #50000 Run = 1'b1;
         #10 Run = 1'b0;
+	#1000
         #200 RST = 1'b1;
         #200 RST = 1'b0;
         #10 $stop;
