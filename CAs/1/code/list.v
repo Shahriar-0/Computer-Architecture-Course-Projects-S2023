@@ -19,11 +19,11 @@ module list (CLK, RST, push, init, en_read, data_in, complete_read, data_out);
     always @(posedge CLK or posedge RST)
     begin
         if (RST || init) begin
-            ptr <= 0;
-            last_ptr <= 0;
-            length <= 0;
-            read_ing <= 0;
-            complete_read <= 0;
+            ptr <= 1'b0;
+            last_ptr <= 1'b0;
+            length <= 1'b0;
+            read_ing <= 1'b0;
+            complete_read <= 1'b0;
         end
 
         else if (push && (length < MAX_LENGTH)) begin
@@ -34,8 +34,8 @@ module list (CLK, RST, push, init, en_read, data_in, complete_read, data_out);
         else if (en_read && !read_ing && (length > 0)) begin
             ptr <= length - 1;
             last_ptr <= length - 1;
-            read_ing <= 1;
-            complete_read <= 0;
+            read_ing <= 1'b1;
+            complete_read <= 1'b0;
             result_file = $fopen("result.txt", "wb");
         end
 
@@ -47,8 +47,8 @@ module list (CLK, RST, push, init, en_read, data_in, complete_read, data_out);
             end
             else begin
                 ptr <= last_ptr;
-                read_ing <= 0;
-                complete_read <= 1;
+                read_ing <= 1'b0;
+                complete_read <= 1'b1;
                 $fclose(result_file);
             end
         end
