@@ -2,8 +2,8 @@
 `define init                5'b00001             
 `define init_search         5'b00010                    
 `define add_to_stack        5'b00011                     
-`define make_wall           5'b00100                  
-`define update_xy           5'b00101                  
+`define update_xy           5'b00100                  
+`define make_wall           5'b00101                  
 `define check_goal          5'b00110                   
 `define check_wall          5'b00111                   
 `define check_empty_stack   5'b01000                          
@@ -22,10 +22,10 @@
 module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 				  complete_read, D_out, init_x, init_y, init_count, Fail,
 				  en_count, ldc, ldx, ldy, WR, RD, D_in,init_stack, stack_pop,
-				  stack_push, r_update, list_push, en_read, init_list);
+				  stack_push, r_update, list_push, en_read, init_list, invalid);
 
 	input CLK, RST, start, Run, Co, found,
-		  empty_stack, complete_read, D_out;
+		  empty_stack, complete_read, D_out, invalid;
 
 	output reg init_x, init_y, init_count, en_count,
 		   ldc, ldx, ldy, WR, RD, D_in, Done, 
@@ -43,9 +43,9 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 		case (pstate)
 			`idle:                nstate <= ~start? `idle : `init;                        
 			`init:                nstate <= ~start? `init_search : `init;                        
-			`init_search:         nstate <= `add_to_stack;                        
-			`add_to_stack:        nstate <= `make_wall;                       
-			`make_wall:           nstate <= `update_xy;                        
+			`init_search:         nstate <= `make_wall;                        
+			`make_wall:           nstate <= ~invalid? `add_to_stack : `free_loc_check_bt;                        
+			`add_to_stack:        nstate <= `update_xy;                       
 			`update_xy:           nstate <= `check_goal;                        
 			`check_goal:          nstate <= found ? `stack_read : `check_wall;                       
 			`check_wall:          nstate <= D_out ? `check_empty_stack : `init_search;                        
@@ -73,8 +73,8 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 				    init_stack = 1'b1; init_count= 1'b1;
 				  end           
 			`init_search: init_count = 1'b1;      
- 			`add_to_stack: stack_push = 1'b1;      
 			`make_wall: begin WR = 1'b1; D_in = 1'b1; end      
+ 			`add_to_stack: stack_push = 1'b1;      
 			`update_xy:  begin ldx = 1'b1; ldy = 1'b1; end ;      
 			`check_goal: ;       
 			`check_wall: RD = 1'b1;       
