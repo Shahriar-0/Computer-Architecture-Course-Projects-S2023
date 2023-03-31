@@ -39,7 +39,7 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 	reg [4:0] nstate = `idle;
 
 
-	always @(Run or start or Co or pstate or D_out or complete_read or empty_stack or found) begin
+	always @(Run or start or Co or pstate or D_out or complete_read or empty_stack or found or invalid) begin
 		case (pstate)
 			`idle:                nstate <= ~start? `idle : `init;                        
 			`init:                nstate <= ~start? `init_search : `init;                        
@@ -54,7 +54,7 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 			`reload_counter:      nstate <= `update_reverse;                        
 			`update_reverse:      nstate <= `free_loc_check_bt;                       
 			`free_loc_check_bt:   nstate <= Co ? `check_empty_stack : `change_dir;                       
-			`change_dir:          nstate <= `add_to_stack;                        
+			`change_dir:          nstate <= `make_wall;                        
 			`fail:                nstate <= `fail;                        
 			`stack_read:          nstate <= `update_list;                       
 			`update_list:         nstate <= ~empty_stack ? `stack_read : `done;                        
@@ -90,7 +90,7 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 			`done: begin Done = 1'b1; en_read = 1'b1; end        
 			`show: en_read = 1'b1;            
 		endcase
-		$display ( "pstate: %h", pstate );
+		// $display ( "pstate: %h", pstate );
 		// $display ( "initx: %h", init_x );
 	end
 
