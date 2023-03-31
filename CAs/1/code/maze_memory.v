@@ -12,13 +12,16 @@ module maze_memory(X, Y, D_in, RD, WR, D_out);
 
     initial begin
         $readmemh(FILENAME, maze);
+        // $display(maze[0][0]);
+        // $display(maze[15][11]);
+        // $display(maze[11][15]);
     end
     
     always @(WR, RD) begin 
         if(WR)
-            maze[X][Y] = D_in;
+            maze[Y][X] = D_in;
         else if (RD)
-            // D_out = maze[X][Y];
-            D_out = 1'b0;
+            D_out = maze[Y][X];
+            //D_out = 1'b0;
     end
 endmodule
