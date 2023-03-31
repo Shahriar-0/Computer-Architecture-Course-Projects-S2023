@@ -1,4 +1,4 @@
-module inc_dec(a, dec_en, w, invalid);
+module inc_dec(a, dec_en, w,cout, invalid);
     parameter N = 4;
     input [N - 1:0] a, b;
     input dec_en;
