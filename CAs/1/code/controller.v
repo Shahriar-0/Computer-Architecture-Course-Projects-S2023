@@ -61,36 +61,37 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 			`done:                nstate <= Run ? `show : `done;                        
 			`show:                nstate <= complete_read ? `done : `show;            
 		endcase
-		$display ( "nstate: %h", nstate );
 	end
 
 	always @(pstate) begin
-		{init_x, init_y, init_count, en_count, ldc, ldx, ldy,
+		{init_x, init_y, init_count,init_stack, en_count, ldc, ldx, ldy,
 		WR, RD, D_in, stack_pop, list_push, en_read, init_list,
-		stack_push, Done, Fail} = 17'b0;
+		r_update , stack_push, Done, Fail} = 19'b0;
 		case (pstate)
 			`idle: ;             
-			`init: {init_x, init_count, init_y, init_list, init_stack} = 5'b1;             
+			`init: begin init_x = 1'b1; init_y = 1'b1; init_list = 1'b1;
+				    init_stack = 1'b1; init_count= 1'b1;
+				  end           
 			`init_search: init_count = 1'b1;      
-			`add_to_stack: stack_push = 1'b1;      
-			`make_wall: {WR, D_in} = 2'b1;        
-			`update_xy: ;       
+ 			`add_to_stack: stack_push = 1'b1;      
+			`make_wall: begin WR = 1'b1; D_in = 1'b1; end      
+			`update_xy:  begin ldx = 1'b1; ldy = 1'b1; end ;      
 			`check_goal: ;       
 			`check_wall: RD = 1'b1;       
 			`check_empty_stack: ;
 			`pop_stack: stack_pop = 1'b1;        
 			`reload_counter: ldc = 1'b1;   
-			`update_reverse: {ldx, ldy, r_update} = 3'b1;  
+			`update_reverse: begin ldx = 1'b1; ldy = 1'b1; r_update = 1'b1; end
 			`free_loc_check_bt: WR = 1'b1;
 			`change_dir: en_count = 1'b1;       
 			`fail: Fail = 1'b1;             
 			`stack_read: stack_pop = 1'b1;      
 			`update_list: list_push = 1'b1;      
-			`done: {Done, en_read} = 2'b1;            
+			`done: begin Done = 1'b1; en_read = 1'b1; end        
 			`show: en_read = 1'b1;            
 		endcase
 		$display ( "pstate: %h", pstate );
-		$display ( "initx: %h", init_x );
+		// $display ( "initx: %h", init_x );
 	end
 
 	always @(posedge CLK or posedge RST) begin

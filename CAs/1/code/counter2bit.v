@@ -6,7 +6,7 @@ module counter2bit(RST, CLK, init, ld, en, prl, out, Co);
     output Co;
 
     always @(posedge CLK or posedge RST) begin
-        if (RST) 
+        if (RST || init) 
             out <= 2'b0;
 
         else if (ld) 
