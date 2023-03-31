@@ -1,12 +1,19 @@
 dick = {"00": "up", "01": "right", "10": "left", "11": "down"}
 
 sth = []
-with open("../../code/code_result.txt") as file:
+with_solution, num = map(int, input("1 for with solution otherwise 0, number of test: ").split())
+directory_name = "maps with solution" if with_solution else "maps without solution"
+sep = "-------------------------------------------"
+
+
+with open(f"../maps/{directory_name}/code_result_{num}.txt") as file:
     for line in file:
-        print(line)
+        line = line.rstrip()
         if not line in dick:
+            if len(sth) > 0 and sth[-1] != sep:
+                sth.append(sep)
             continue
-        x = dick[line.rstrip()]
+        x = dick[line]
         sth.append(x)
         
 with open("verilog_result.txt", "wb") as file2:
