@@ -53,7 +53,7 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 			`pop_stack:           nstate <= `reload_counter;                         
 			`reload_counter:      nstate <= `update_reverse;                        
 			`update_reverse:      nstate <= `free_loc_check_bt;                       
-			`free_loc_check_bt:   nstate <= Co ? `fail : `pop_stack;                       
+			`free_loc_check_bt:   nstate <= Co ? `check_empty_stack : `change_dir;                       
 			`change_dir:          nstate <= `add_to_stack;                        
 			`fail:                nstate <= `fail;                        
 			`stack_read:          nstate <= `update_list;                       
@@ -75,9 +75,9 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 			`init_search: init_count = 1'b1;      
 			`make_wall: begin WR = 1'b1; D_in = 1'b1; end      
  			`add_to_stack: stack_push = 1'b1;      
-			`update_xy:  begin ldx = 1'b1; ldy = 1'b1; end ;      
-			`check_goal: ;       
-			`check_wall: RD = 1'b1;       
+			`update_xy:  begin ldx = 1'b1; ldy = 1'b1; end      
+			`check_goal:  RD = 1'b1 ;       
+			`check_wall:;       
 			`check_empty_stack: ;
 			`pop_stack: stack_pop = 1'b1;        
 			`reload_counter: ldc = 1'b1;   

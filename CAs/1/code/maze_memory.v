@@ -14,10 +14,12 @@ module maze_memory(X, Y, D_in, RD, WR, D_out);
         $readmemh(FILENAME, maze);
     end
     
-    assign D_out = (RD) ? maze[X][Y] : D_out;
-
-    always @(WR) begin 
+    // assign D_out = (RD) ? maze[X][Y] : D_out;
+    $display ("fuck this shit :::::::::::::::::::: " , maze[X][Y])
+    always @(WR, RD) begin 
         if(WR)
             maze[X][Y] = D_in;
+        else if (RD)
+            D_out = maze[X][Y];
     end
 endmodule

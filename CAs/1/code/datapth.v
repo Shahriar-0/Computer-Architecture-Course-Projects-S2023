@@ -2,7 +2,7 @@
 module datapath(CLK, RST, init_x, init_y, ldx, ldy, ld_count, Co,
                 init_count, en_count, list_push, en_read, init_list,
                 init_stack, stack_dir_push, stack_dir_pop, r_update,
-                X, Y, Move, finish, empty_stack, complete_read, invalid);
+                X, Y, Move, found, empty_stack, complete_read, invalid);
     
     parameter DIRECTION_SIZE = 2;
     parameter N = 4;
@@ -14,7 +14,7 @@ module datapath(CLK, RST, init_x, init_y, ldx, ldy, ld_count, Co,
 
     output [N - 1:0] X, Y;
     output [DIRECTION_SIZE - 1:0] Move;
-    output finish, empty_stack, complete_read, Co, invalid;
+    output found, empty_stack, complete_read, Co, invalid;
     
     // internall wires
     wire [N - 1:0] mux1, mux2, mux3;
@@ -27,7 +27,7 @@ module datapath(CLK, RST, init_x, init_y, ldx, ldy, ld_count, Co,
     wire [DIRECTION_SIZE - 1:0] stackp;
     wire [N - 1:0] add_res;
     wire fa_co;
-
+    assign slc_mux = ^counter;
     // modules instances
     mux2in mux_1(.a(X), .b(add_res), .slc(slc_mux), .w(mux1));
     mux2in mux_2(.a(add_res), .b(Y), .slc(slc_mux), .w(mux2));
@@ -53,6 +53,6 @@ module datapath(CLK, RST, init_x, init_y, ldx, ldy, ld_count, Co,
         .data_in(stackp), .complete_read(complete_read), .data_out(Move)
     );
 
-    assign finish = &{X, Y};
+    assign found = &{X, Y};
 
 endmodule

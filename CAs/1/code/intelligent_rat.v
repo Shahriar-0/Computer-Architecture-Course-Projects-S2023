@@ -16,7 +16,7 @@ module intelligent_rat(CLK, RST, Run, Start,
         init_count,ld_count, en_count, list_push,
         en_read, init_list, init_stack, 
         stack_dir_push, stack_dir_pop, 
-        r_update, finish, empty_stack, 
+        r_update, found, empty_stack, 
         complete_read, Co, invalid;
 
 
@@ -25,7 +25,7 @@ module intelligent_rat(CLK, RST, Run, Start,
         .ld_count(ld_count), .init_count(init_count), .en_count(en_count), 
         .en_read(en_read), .init_list(init_list), .init_stack(init_stack), .X(X),                         
         .stack_dir_push(stack_dir_push), .stack_dir_pop(stack_dir_pop),  .Y(Y), 
-        .Move(Move), .finish(finish), .empty_stack(empty_stack), .r_update(r_update),
+        .Move(Move), .found(found), .empty_stack(empty_stack), .r_update(r_update),
         .complete_read(complete_read), .list_push(list_push), .Co(Co), .invalid(invalid)
     );
 
