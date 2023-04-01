@@ -33,11 +33,8 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 		   init_stack,stack_push, stack_pop,
 		   r_update;
 
-		   
-
 	reg [4:0] pstate = `idle;
 	reg [4:0] nstate = `idle;
-
 
 	always @(Run or start or Co or pstate or D_out or complete_read or empty_stack or found or invalid) begin
 		case (pstate)
@@ -90,8 +87,6 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 			`done: Done = 1'b1;        
 			`show:begin en_read = 1'b1; Done = 1'b1; end             
 		endcase
-		// $display ( "pstate: %h", pstate );
-		// $display ( "initx: %h", init_x );
 	end
 
 	always @(posedge CLK or posedge RST) begin

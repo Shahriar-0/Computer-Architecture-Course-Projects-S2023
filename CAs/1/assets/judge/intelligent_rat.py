@@ -1,4 +1,4 @@
-# let's danceeeeeeeeeeeeeeeeeeeeeeeeee
+# let's dance :)
 import sys
 sys.setrecursionlimit(20000)
 
@@ -19,13 +19,11 @@ with open("map.txt") as map:
     for line in map:
         ls.append(list(line.rstrip()))
 
-
 result = []
 
 def backtrack(x = 0, y = 0) -> bool:
     if x < 0 or x > 15 or y < 0 or y > 15 or ls[x][y] == '1':
         return False
-    
     
     if x == 15 and y == 15:
         return True
@@ -48,7 +46,7 @@ def backtrack(x = 0, y = 0) -> bool:
 with open("result.txt", "wb") as result_file:
     if not backtrack():
         print("not found!")
-        result_file.write(f"No solution".encode("utf-8"))
+        result_file.write("No solution".encode("utf-8"))
     else:
         print("found!")
         for i in result:

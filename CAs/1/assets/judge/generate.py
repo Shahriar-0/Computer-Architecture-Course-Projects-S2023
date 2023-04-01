@@ -11,7 +11,6 @@ while lst[-1][-1] in ['1', '3', '5', '7', '9', 'b', 'd', 'f']:
 with open("../../code/maze.dat", "wb") as result_file:
     for line in lst:
         result_file.write(f"{line}\n".encode("utf-8")) 
-        
 
 
 ls = [['0' for _ in range(16)] for i in range(16)]
