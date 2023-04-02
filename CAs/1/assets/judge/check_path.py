@@ -5,7 +5,7 @@ class color:
    RED = '\033[91m'
    BASE = '\033[0m'
 
-dick = {"up": [0,-1], "right": [1,0], "left": [-1,0], "down": [0, 1]}
+dick = {"up": [0, -1], "right": [1, 0], "left": [-1, 0], "down": [0, 1]}
 
 sth = []
 num = int(input("number of test: "))
@@ -36,5 +36,4 @@ with open(f"../maps/maps with solution/result_{num}.txt") as file:
         maze[y][x] = 'x'
         sleep(1 / 3)
 
-        
 print_maze(maze)
