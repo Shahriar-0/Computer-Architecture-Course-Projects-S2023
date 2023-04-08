@@ -12,7 +12,8 @@ module tb();
     );
 
     maze_memory maze(
-        .clk(CLK), .X(X), .Y(Y), .D_in(D_in), .RD(RD), .WR(WR), .D_out(D_out)
+        .clk(CLK), .X(X), .Y(Y), .D_in(D_in), 
+        .RD(RD), .WR(WR), .D_out(D_out)
     );
 
     always #5 CLK = ~CLK;

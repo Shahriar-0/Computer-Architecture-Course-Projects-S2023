@@ -8,10 +8,8 @@ module counter2bit(RST, CLK, init, ld, en, prl, out, Co);
     always @(posedge CLK or posedge RST) begin
         if (RST || init) 
             out <= 2'b0;
-
         else if (ld) 
             out <= prl;
-
         else if (en) 
             out <= out + 1;
     end

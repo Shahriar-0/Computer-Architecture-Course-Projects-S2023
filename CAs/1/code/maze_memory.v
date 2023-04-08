@@ -14,7 +14,7 @@ module maze_memory(clk, X, Y, D_in, RD, WR, D_out);
         $readmemh(FILENAME, maze);
     end
     
-    always @(posedge clk , posedge RD) begin 
+    always @(posedge clk, posedge RD) begin 
         if(WR)
             maze[Y][X] = D_in;
         else if (RD)
