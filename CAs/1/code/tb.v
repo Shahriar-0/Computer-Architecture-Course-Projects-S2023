@@ -22,8 +22,9 @@ module tb();
         {Start, Run, CLK, RST} = 4'b0;
         #30 Start = 1'b1;
         #30 Start = 1'b0;
-        #50000 Run = 1'b1;
+        #40000 Run = 1'b1;
         #10 Run = 1'b0;
+        #3000
         #200 RST = 1'b1;
         #200 RST = 1'b0;
         #10 $stop;
