@@ -1,0 +1,264 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/Asus/source/dld-lab/ex3/code
+vcontroller
+Z0 !s110 1682789205
+!i10b 1
+!s100 <GN6aNIQlGG>aVjg:1R0I1
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I1ldoV:0S9d8ALS9@T<1gA3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dC:/Users/Asus/source/ca_uni/1/code
+Z4 w1682789012
+8C:/Users/Asus/source/ca_uni/1/code/controller.v
+FC:/Users/Asus/source/ca_uni/1/code/controller.v
+!i122 0
+L0 22 78
+Z5 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z6 !s108 1682789205.000000
+!s107 C:/Users/Asus/source/ca_uni/1/code/controller.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/controller.v|
+!i113 1
+Z7 o-work work
+Z8 tCvgOpt 0
+vcounter2bit
+R0
+!i10b 1
+!s100 o0abFaP^Lk@aF=LgbL>UO0
+R1
+IYm]`QP6]ON_BB@Qk0>;F>2
+R2
+R3
+R4
+8C:/Users/Asus/source/ca_uni/1/code/counter2bit.v
+FC:/Users/Asus/source/ca_uni/1/code/counter2bit.v
+!i122 1
+L0 1 19
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/Asus/source/ca_uni/1/code/counter2bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/counter2bit.v|
+!i113 1
+R7
+R8
+vdatapath
+Z9 !s110 1682789206
+!i10b 1
+!s100 ^Bf^A0FL2LMQlhQH0_I7H1
+R1
+Ib9S2;W[DVTg7S_RV8G:n00
+R2
+R3
+R4
+8C:/Users/Asus/source/ca_uni/1/code/datapth.v
+FC:/Users/Asus/source/ca_uni/1/code/datapth.v
+!i122 2
+L0 2 57
+R5
+r1
+!s85 0
+31
+Z10 !s108 1682789206.000000
+!s107 C:/Users/Asus/source/ca_uni/1/code/datapth.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/datapth.v|
+!i113 1
+R7
+R8
+vinc_dec
+R9
+!i10b 1
+!s100 k@M[U8n>EPD1YB?H>95Cc0
+R1
+IaGPgZZg`71G7SnB=BAEnj2
+R2
+R3
+R4
+8C:/Users/Asus/source/ca_uni/1/code/inc_dec.v
+FC:/Users/Asus/source/ca_uni/1/code/inc_dec.v
+!i122 3
+L0 1 17
+R5
+r1
+!s85 0
+31
+R10
+!s107 C:/Users/Asus/source/ca_uni/1/code/inc_dec.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/inc_dec.v|
+!i113 1
+R7
+R8
+vintelligent_rat
+R9
+!i10b 1
+!s100 ^[STBzIimTh`a8hF1F`0_0
+R1
+I0U<>BAMC[1J9hZHo`J]MB0
+R2
+R3
+R4
+8C:/Users/Asus/source/ca_uni/1/code/intelligent_rat.v
+FC:/Users/Asus/source/ca_uni/1/code/intelligent_rat.v
+!i122 4
+L0 2 40
+R5
+r1
+!s85 0
+31
+R10
+!s107 C:/Users/Asus/source/ca_uni/1/code/intelligent_rat.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/intelligent_rat.v|
+!i113 1
+R7
+R8
+vlist
+Z11 !s110 1682789207
+!i10b 1
+!s100 Slg<MLHWB4^bVIKoi`AT13
+R1
+I:9Gf1VjYJja?X20NFhT4e0
+R2
+R3
+R4
+8C:/Users/Asus/source/ca_uni/1/code/list.v
+FC:/Users/Asus/source/ca_uni/1/code/list.v
+!i122 5
+L0 4 54
+R5
+r1
+!s85 0
+31
+R10
+!s107 C:/Users/Asus/source/ca_uni/1/code/list.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/list.v|
+!i113 1
+R7
+R8
+vmaze_memory
+R11
+!i10b 1
+!s100 `gch?M<JbESnn8R77g_nG3
+R1
+IHTJcUmOHaYg?=OGf<8YZF0
+R2
+R3
+R4
+8C:/Users/Asus/source/ca_uni/1/code/maze_memory.v
+FC:/Users/Asus/source/ca_uni/1/code/maze_memory.v
+!i122 6
+L0 1 23
+R5
+r1
+!s85 0
+31
+Z12 !s108 1682789207.000000
+!s107 C:/Users/Asus/source/ca_uni/1/code/maze_memory.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/maze_memory.v|
+!i113 1
+R7
+R8
+vmux2in
+R11
+!i10b 1
+!s100 hdT][@afVMKGAJ2>1=O<m3
+R1
+IT:J<mSz^XJ4PW=YjGDL5D3
+R2
+R3
+R4
+8C:/Users/Asus/source/ca_uni/1/code/mux2in.v
+FC:/Users/Asus/source/ca_uni/1/code/mux2in.v
+!i122 7
+L0 1 8
+R5
+r1
+!s85 0
+31
+R12
+!s107 C:/Users/Asus/source/ca_uni/1/code/mux2in.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/mux2in.v|
+!i113 1
+R7
+R8
+vregister
+R11
+!i10b 1
+!s100 S]?6SN@m4CDIZ=2IKn6420
+R1
+I>YciLL9hB^CM`4SM8eCCN1
+R2
+R3
+R4
+8C:/Users/Asus/source/ca_uni/1/code/register.v
+FC:/Users/Asus/source/ca_uni/1/code/register.v
+!i122 8
+L0 1 15
+R5
+r1
+!s85 0
+31
+R12
+!s107 C:/Users/Asus/source/ca_uni/1/code/register.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/register.v|
+!i113 1
+R7
+R8
+vstack
+Z13 !s110 1682789208
+!i10b 1
+!s100 ?Ia?W0d5<CX;jNH[cVg^T3
+R1
+I`>h?Ogz5=geAfCnE?QIQC1
+R2
+R3
+R4
+8C:/Users/Asus/source/ca_uni/1/code/stack.v
+FC:/Users/Asus/source/ca_uni/1/code/stack.v
+!i122 9
+L0 3 46
+R5
+r1
+!s85 0
+31
+R12
+!s107 C:/Users/Asus/source/ca_uni/1/code/stack.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/stack.v|
+!i113 1
+R7
+R8
+vtb
+R13
+!i10b 1
+!s100 IW:FAb8nikbl>kf]TDoiN3
+R1
+IPSc7^eD3c3g^TOE<oB:RP3
+R2
+R3
+R4
+8C:/Users/Asus/source/ca_uni/1/code/tb.v
+FC:/Users/Asus/source/ca_uni/1/code/tb.v
+!i122 10
+L0 3 30
+R5
+r1
+!s85 0
+31
+!s108 1682789208.000000
+!s107 C:/Users/Asus/source/ca_uni/1/code/tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Asus/source/ca_uni/1/code/tb.v|
+!i113 1
+R7
+R8

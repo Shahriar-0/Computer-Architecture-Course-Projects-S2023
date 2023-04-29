@@ -1,0 +1,78 @@
+C:/Users/Asus/source/ca_uni/1/code/list.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/list.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module list
+
+Top level modules:
+	list
+
+} {} {}} C:/Users/Asus/source/ca_uni/1/code/controller.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/controller.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module controller
+
+Top level modules:
+	controller
+
+} {} {}} C:/Users/Asus/source/ca_uni/1/code/register.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/register.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module register
+
+Top level modules:
+	register
+
+} {} {}} C:/Users/Asus/source/ca_uni/1/code/maze_memory.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/maze_memory.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module maze_memory
+
+Top level modules:
+	maze_memory
+
+} {} {}} C:/Users/Asus/source/ca_uni/1/code/intelligent_rat.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/intelligent_rat.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module intelligent_rat
+
+Top level modules:
+	intelligent_rat
+
+} {} {}} C:/Users/Asus/source/ca_uni/1/code/inc_dec.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/inc_dec.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module inc_dec
+
+Top level modules:
+	inc_dec
+
+} {} {}} C:/Users/Asus/source/ca_uni/1/code/counter2bit.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/counter2bit.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module counter2bit
+
+Top level modules:
+	counter2bit
+
+} {} {}} C:/Users/Asus/source/ca_uni/1/code/tb.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module tb
+
+Top level modules:
+	tb
+
+} {} {}} C:/Users/Asus/source/ca_uni/1/code/stack.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/stack.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module stack
+
+Top level modules:
+	stack
+
+} {} {}} C:/Users/Asus/source/ca_uni/1/code/datapth.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/datapth.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module datapath
+
+Top level modules:
+	datapath
+
+} {} {}} C:/Users/Asus/source/ca_uni/1/code/mux2in.v {1 {vlog -work work -stats=none C:/Users/Asus/source/ca_uni/1/code/mux2in.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module mux2in
+
+Top level modules:
+	mux2in
+
+} {} {}}
