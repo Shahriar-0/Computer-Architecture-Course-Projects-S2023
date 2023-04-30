@@ -1,0 +1,52 @@
+# Compile of controller.v was successful.
+# Compile of counter2bit.v was successful.
+# Compile of datapth.v was successful.
+# Compile of inc_dec.v was successful.
+# Compile of intelligent_rat.v was successful.
+# Compile of list.v was successful.
+# Compile of maze_memory.v was successful.
+# Compile of mux2in.v was successful.
+# Compile of register.v was successful.
+# Compile of stack.v was successful.
+# Compile of tb.v was successful.
+# 11 compiles, 0 failed with no errors.
+vsim -gui work.tb
+# vsim -gui work.tb 
+# Start time: 21:56:56 on Apr 29,2023
+# Loading work.tb
+# Loading work.intelligent_rat
+# Loading work.datapath
+# Loading work.mux2in
+# Loading work.inc_dec
+# Loading work.register
+# Loading work.counter2bit
+# Loading work.stack
+# Loading work.list
+# Loading work.controller
+# Loading work.maze_memory
+add wave -position insertpoint  \
+sim:/tb/CLK \
+sim:/tb/D_in \
+sim:/tb/D_out \
+sim:/tb/Done \
+sim:/tb/Fail \
+sim:/tb/Move \
+sim:/tb/RD \
+sim:/tb/RST \
+sim:/tb/Run \
+sim:/tb/Start \
+sim:/tb/WR \
+sim:/tb/X \
+sim:/tb/Y
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+run -all
+# ** Note: $stop    : C:/Users/Asus/source/ca_uni/1/code/tb.v(29)
+#    Time: 50480 ns  Iteration: 0  Instance: /tb
+# Break in Module tb at C:/Users/Asus/source/ca_uni/1/code/tb.v line 29
+# WARNING: No extended dataflow license exists
+quit -sim
+# End time: 23:03:12 on Apr 29,2023, Elapsed time: 1:06:16
+# Errors: 0, Warnings: 1
+# Break key hit
+# Break key hit
