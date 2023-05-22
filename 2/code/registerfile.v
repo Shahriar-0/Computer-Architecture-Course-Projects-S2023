@@ -1,24 +1,37 @@
-module RegisterFile(clk, regWrite, A1, A2, A3, WD, RD1, RD2);
-    parameter RN = 5;
-    parameter N = 32;
+`define BITS(x) $rtoi($ceil($clog2(x)))
 
-    input clk, regWrite;
-    input [RN-1:0] A1, A2, A3;
-    input [N-1:0] WD;
-    
-    output [N-1:0] RD1, RD2;
+module RegisterFile(clk, regWrite, sRst, rst,
+                    readRegister1, readRegister2,
+                    writeRegister, writeData,
+                    readData1, readData2);
 
-    reg [N-1:0] registers [0:N-1];
+    parameter WordLen = 32;
+    parameter WordCount = 32;
+
+    input regWrite, sRst, clk, rst;
+    input [`BITS(WordCount)-1:0] readRegister1, readRegister2, writeRegister;
+    input [WordLen-1:0] writeData;
+    output [WordLen-1:0] readData1, readData2;
+
+    reg [WordLen-1:0] registerFile [0:WordCount-1]
 
     initial 
-        registers[0] = 32'd0;
-    
-    assign ReadData1 = (ReadRegister1 == 5'd0) ? 32'd0 : registers[ReadRegister1];
-    assign ReadData2 = (ReadRegister2 == 5'd0) ? 32'd0 : registers[ReadRegister2];
+        registerFile[0] = 32'd0;
+    // ------------------------------------------------------------------------------
 
-    always @(posedge clk) begin
-        if(regWrite && A3 != 5'b0)
-            registers[A3] <= WD;
+    integer i;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst)
+            for (i = 0; i < WordCount; i = i + 1)
+                registerFile[i] <= {WordLen{1'b0}};
+        else if (sRst)
+            registerFile[writeRegister] <= {WordLen{1'b0}};
+        else if (regWrite & writeRegister)// Forbid writing to R0
+            registerFile[writeRegister] <= writeData;
     end
+
+    assign readData1 = registerFile[ReadRegister1];
+    assign readData2 = registerFile[ReadRegister2];
 
 endmodule

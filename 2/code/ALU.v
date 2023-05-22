@@ -7,13 +7,18 @@ module ALU(opc, a, b, zero, w);
     
     output zero;
     output [N-1:0] w;
-
-    w = (opc == 3'b000) ?  a + b :
-        (opc == 3'b001) ?  a - b :
-        (opc == 3'b010) ?  a & b :
-        (opc == 3'b011) ?  a | b :
-        (opc == 3'b101) ? // TODO: FIX THIS LINE : 3'bz;
     
+    always @(a, b, opc) begin
+        case (opc)
+            3'b000 :  w = a + b;
+            3'b001 :  w = a - b;
+            3'b010 :  w = a & b;
+            3'b011 :  w = a | b;
+            3'b100 :  w = a < b ? 1'd1 : 1'd0;
+            default:  w = {N{1'bz}};
+        endcase
+    end
+
     assign zero = (~|w);
 
 endmodule
