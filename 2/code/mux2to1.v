@@ -6,6 +6,6 @@ module mux2to1(slc, a, b, w);
 
     output [N-1:0] w;
     
-    w = slc ? a : b;
+    assign w = slc ? a : b;
 
 endmodule
