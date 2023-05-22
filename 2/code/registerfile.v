@@ -1,4 +1,4 @@
-module registerFile(clk, regWrite, A1, A2, A3, WD, RD1, RD2);
+module RegisterFile(clk, regWrite, A1, A2, A3, WD, RD1, RD2);
     parameter RN = 5;
     parameter N = 32;
 
