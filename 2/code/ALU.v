@@ -14,6 +14,6 @@ module ALU(opc, a, b, zero, w);
         (opc == 3'b011) ?  a | b :
         (opc == 3'b101) ? // TODO: FIX THIS LINE : 3'bz;
     
-    zero = (~|w);
+    assign zero = (~|w);
 
 endmodule
