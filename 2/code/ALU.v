@@ -7,6 +7,7 @@ module ALU(ALUcntrl, A, B, zero, W);
     
     output zero;
     output [N-1:0] W;
+    
     w = (ALUcntrl  == 3'b000) ?  A + B :
         (ALUcntrl  == 3'b001) ?  A - B :
         (ALU cntrl == 3'b010) ?  A & B :
@@ -14,5 +15,5 @@ module ALU(ALUcntrl, A, B, zero, W);
         (ALU cntrl == 3'b101) ? : 3'bz;
     
     zero = ( ~|w );
-    
+
 endmodule
