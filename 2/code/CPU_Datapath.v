@@ -21,16 +21,16 @@ module CPU_Datapath(clk, RegWrite, ALUSrcB,
         .in(PCNext), .clk(clk), .out(PC)
     );
 
-    mux2to1 BMux(
+    Mux2to1 BMux(
         .slc(ALUSrcB), .a(RD2), .b(ImmExt), w(SrcB)
     );
     
-    mux4to1 PCMux(
+    Mux4to1 PCMux(
         .slc(PCSrc), .a(PCPlus4), .b(Result), 
         .c(ALUResult), .d(32'b0), w(PCNext)
     );
     
-    mux4to1 ResultMux(
+    Mux4to1 ResultMux(
         .slc(ResultSrc), .a(ALUResult), .b(ReadData), 
         .c(PCPlus4), .d(ImmExt), .w(Result)
     );
