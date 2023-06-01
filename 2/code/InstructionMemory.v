@@ -1,9 +1,9 @@
 module InstructionMemory (pc, instruction);
     input [31:0] pc;
-    
+
     output [31:0] instruction;
 
-    reg [7:0] instMem [0:$pow(2, 17)-1]; // 32KB 
+    reg [7:0] instMem [0:$pow(2, 16)-1]; // 64KB 
 
     wire [31:0] adr;
     assign adr = {pc[31:2], 2'b00}; 

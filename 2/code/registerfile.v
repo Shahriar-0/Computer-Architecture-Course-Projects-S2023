@@ -6,7 +6,7 @@ module RegisterFile(clk, regWrite, sRst,
                     readData1, readData2);
 
     parameter WordLen = 32;
-    parameter WordCount = $pow(2, 15);
+    parameter WordCount = $pow(2, 14);
 
     input regWrite, sRst, clk, rst;
     input [`BITS(WordCount)-1:0] readRegister1, readRegister2, writeRegister;
