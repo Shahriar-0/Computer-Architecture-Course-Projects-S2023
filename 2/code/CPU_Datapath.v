@@ -1,9 +1,16 @@
-module CPU_Datapath(input clk, RegWrite, ALUSrcB, MemWrite,
-                     input [1:0] ResultSrc, PCSrc,
-                     input [2:0] ALUControl, ImmSrc,
-                     output zero, neg, output[6:0] op,
-                     func7, output[2:0]func3);
+module CPU_Datapath(clk, RegWrite, ALUSrcB,
+                     ResultSrc, PCSrc,
+                     ALUControl, ImmSrc,
+                     zero, neg,op,
+                     func7, MemWrite, func3);
 
+
+    input clk, RegWrite, ALUSrcB, MemWrite;
+    input [1:0] ResultSrc, PCSrc;
+
+    output zero, neg;
+    output [6:0] op, func7;
+    output [2:0] func3;
 
     wire [31:0] PC, PCNext, PCPlus4, PCTarget;
     wire [31:0] ImmExt, instr, SrcB, ALUResult;
