@@ -1,12 +1,13 @@
 module CPU_Datapath(clk, RegWrite, ALUSrcB,
                     ResultSrc, PCSrc,
-                    ALUControl, ImmSrc,
-                    zero, neg,op,
+                    ALUControl, immSrc,
+                    zero, neg, op,
                     func7, MemWrite, func3);
 
 
     input clk, RegWrite, ALUSrcB, MemWrite;
     input [1:0] ResultSrc, PCSrc;
+    input [2:0] immSrc, ALUControl;
 
     output zero, neg;
     output [6:0] op, func7;
@@ -44,7 +45,7 @@ module CPU_Datapath(clk, RegWrite, ALUSrcB,
     );
 
     ImmExtension ImmExtensionInstance(
-        .ImmSrc(ImmSrc), .data(PC[31:7]), .w(ImmExt)
+        .immSrc(immSrc), .data(PC[31:7]), .w(ImmExt)
     );
 
     ALU ALU_Instance(
