@@ -41,7 +41,7 @@ module CPU_Datapath(clk, RegWrite, ALUSrcB,
     );
 
     Adder PCP4(
-        .a(PC), 4, .w(PCPlus4)
+        .a(PC), 32'd4, .w(PCPlus4)
     );
 
     ImmExtension ImmExtensionInstance(
