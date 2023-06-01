@@ -1,3 +1,9 @@
+`define ADD 3'b000
+`define SUB 3'b001
+`define AND 3'b010
+`define OR 3'b011
+`define SLT 3'b100
+`define XOR 3'b101
 module ALU(opc, a, b, zero, neg, w);
     parameter N = 32;
 
@@ -10,11 +16,12 @@ module ALU(opc, a, b, zero, neg, w);
     
     always @(a, b, opc) begin
         case (opc)
-            3'b000 :  w = a + b;
-            3'b001 :  w = a - b;
-            3'b010 :  w = a & b;
-            3'b011 :  w = a | b;
-            3'b100 :  w = a < b ? 32'b1 : 32'b0;
+            `ADD :  w = a + b;
+            `SUB :  w = a - b;
+            `AND :  w = a & b;
+            `OR :  w = a | b;
+            `SLT :  w = a < b ? 32'b1 : 32'b0;
+            `XOR :  w = a ^ b;
             default:  w = {N{1'bz}};
         endcase
     end
