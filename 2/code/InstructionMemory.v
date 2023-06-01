@@ -10,6 +10,6 @@ module InstructionMemory (pc, instruction);
 
     initial $readmemb("instructions.mem", instMem);
 
-    assign instruction = {instMem[adr], instMem[adr + 1], instMem[adr + 2], instMem[adr + 3]};
+    assign instruction = {instMem[adr + 3], instMem[adr + 2], instMem[adr + 1], instMem[adr]};
 
 endmodule

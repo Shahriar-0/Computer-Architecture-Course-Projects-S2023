@@ -10,7 +10,7 @@ module BranchController(func3, branch, neg, zero, w);
 
     output w;
     
-    always@(func3) begin
+    always @(func3) begin
         case(func3) begin
             `BEQ: w <= branch & zero;
             `BNE: w <= branch & ~zero;

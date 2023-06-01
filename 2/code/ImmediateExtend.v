@@ -11,8 +11,9 @@ module ImmExtension(ImmSrc, data, w);
 
     output [31:0] w;
 
-    always@(ImmSrc) begin
+     (ImmSrc) begin
         case(ImmSrc) begin
+            // TODO: check
             `I_T: w <= {20{data[31]}, data[31:20]};
             `S_T: w <= {20{data[31]}, data[31:25], data[11:7]};
             `J_T: w <= {data[31], data[19:12], data[20], data[30:21], 1'b0};
