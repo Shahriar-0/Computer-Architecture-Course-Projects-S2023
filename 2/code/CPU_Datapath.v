@@ -1,7 +1,7 @@
 module CPU_Datapath(input clk, RegWrite, ALUSrcB, MemWrite,
                      input [1:0] ResultSrc, PCSrc,
                      input [2:0] ALUControl, ImmSrc,
-                     output zero, neg output[6:0] op,
+                     output zero, neg, output[6:0] op,
                      func7, output[2:0]func3);
 
 
