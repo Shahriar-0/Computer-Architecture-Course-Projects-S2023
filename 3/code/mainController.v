@@ -35,7 +35,8 @@ module MainController(clk, op, func3, func7, zero, neg,
         output [1:0] ResultSrc, ALUSrcA, ALUSrcB;
         output [2:0] ImmSrc, ALUOp;
         output AdrSrc, RegWrite, ءemWrite, PCUpdate, branch, IRWrite;
-        reg [3:0] pstate, nstate;
+        reg [3:0] pstate;
+        reg [3:0] nstate = `IF;
 
         always @(pstate) begin
             {ResultSrc, ءemWrite, ALUOp, ALUSrc,ImmSrc, RegWrite , PCUpdate, branch} <= 13'b0;
