@@ -5,6 +5,10 @@ module DataMemory(memAdr, writeData, clk, memWrite, readData);
     input [N-1:0] memAdr, writeData;
 
     output [N-1:0] readData;
+    always @(posedge clk) begin
+        if(memWrite)
+            
+    end
 
    
 endmodule

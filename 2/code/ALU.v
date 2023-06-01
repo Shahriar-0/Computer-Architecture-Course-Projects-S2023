@@ -1,4 +1,4 @@
-module ALU(opc, a, b, zero, w);
+module ALU(opc, a, b, zero, neg, w);
     parameter N = 32;
 
     input [2:0] opc;
@@ -14,11 +14,12 @@ module ALU(opc, a, b, zero, w);
             3'b001 :  w = a - b;
             3'b010 :  w = a & b;
             3'b011 :  w = a | b;
-            3'b100 :  w = a < b ? 1'd1 : 1'd0;
+            3'b100 :  w = a < b ? 32'b1 : 32'b0;
             default:  w = {N{1'bz}};
         endcase
     end
 
     assign zero = (~|w);
+    assign neg = w[N-1];
 
 endmodule
