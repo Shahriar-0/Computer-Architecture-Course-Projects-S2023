@@ -1,8 +1,8 @@
 module CPU_Datapath(clk, RegWrite, ALUSrcB,
-                     ResultSrc, PCSrc,
-                     ALUControl, ImmSrc,
-                     zero, neg,op,
-                     func7, MemWrite, func3);
+                    ResultSrc, PCSrc,
+                    ALUControl, ImmSrc,
+                    zero, neg,op,
+                    func7, MemWrite, func3);
 
 
     input clk, RegWrite, ALUSrcB, MemWrite;
@@ -17,26 +17,58 @@ module CPU_Datapath(clk, RegWrite, ALUSrcB,
     wire [31:0] ReadData, WriteData, Result;
     wire [31:0] SrcA, Rd2;
 
-    Register PCR(.in(PCNext), .clk(clk), .out(PC));
+    Register PCR(
+        .in(PCNext), .clk(clk), .out(PC)
+    );
 
-    mux2to1 BMux(.slc(ALUSrcB), .a(RD2), .b(ImmExt), w(SrcB));
-    mux4to1 PCMux(.slc(PCSrc), .a(PCPlus4), .b(Result), .c(ALUResult), .d(32'b0), w(PCNext));
-    mux4to1 ResultMux(.slc(ResultSrc), .a(ALUResult), .b(ReadData), .c(PCPlus4), .d(ImmExt), .w(Result));
+    mux2to1 BMux(
+        .slc(ALUSrcB), .a(RD2), .b(ImmExt), w(SrcB)
+    );
+    
+    mux4to1 PCMux(
+        .slc(PCSrc), .a(PCPlus4), .b(Result), 
+        .c(ALUResult), .d(32'b0), w(PCNext)
+    );
+    
+    mux4to1 ResultMux(
+        .slc(ResultSrc), .a(ALUResult), .b(ReadData), 
+        .c(PCPlus4), .d(ImmExt), .w(Result)
+    );
 
-    Adder PCTar(.a(PC), .b(ImmExt), .w(PCTarget));
-    Adder PCP4(.a(PC), 4, .w(PCPlus4));
+    Adder PCTar(
+        .a(PC), .b(ImmExt), .w(PCTarget)
+    );
 
-    ImmExtension Extend(.ImmSrc(ImmSrc), .data(PC[31:7]), .w(ImmExt));
+    Adder PCP4(
+        .a(PC), 4, .w(PCPlus4)
+    );
 
-    ALU Alu(.opc(ALUControl), .a(SrcA), .b(SrcB), .zero(zero), .neg(neg), .w(ALUResult));
+    ImmExtension ImmExtensionInstance(
+        .ImmSrc(ImmSrc), .data(PC[31:7]), .w(ImmExt)
+    );
 
-    DataMemory DM(.memAdr(ALUResult), .writeData(WriteData), .clk(clk), .memWrite(MemWrite), .readData(ReadData));
+    ALU ALU_Instance(
+        .opc(ALUControl), .a(SrcA), .b(SrcB), 
+        .zero(zero), .neg(neg), .w(ALUResult)
+    );
 
-    InstructionMemory IM(.pc(PC), .instruction(instr));
+    DataMemory DM(
+        .memAdr(ALUResult), .writeData(WriteData), 
+        .clk(clk), .memWrite(MemWrite), 
+        .readData(ReadData)
+    );
 
-    RegisterFile RF(.clk(clk), .regWrite(RegWrite), .sRst(1'b0), .rst(1'b0),
-                    .readRegister1(instr[19:15]), .readRegister2(instr[[24:20]]),
-                    .writeRegister(instr[11:7]), .writeData(ALUResult),
-                    .readData1(SrcA), .readData2(RD2));
+    InstructionMemory IM(
+        .pc(PC), .instruction(instr)
+    );
+
+    RegisterFile RF(
+        .clk(clk), .regWrite(RegWrite),
+        .writeData(ALUResult), .sRst(1'b0),
+        .readData1(SrcA), .readData2(RD2)
+        .readRegister1(instr[19:15]), 
+        .readRegister2(instr[[24:20]]),
+        .writeRegister(instr[11:7]), 
+    );
 
 endmodule

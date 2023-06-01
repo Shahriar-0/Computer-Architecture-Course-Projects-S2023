@@ -13,7 +13,7 @@ module ALU_Controller(func3, ALUOp, ALUControl);
 
     output reg [2:0] ALUControl;
     
-    always @(ALUOp, func3)begin
+    always @(ALUOp or func3)begin
         ALUControl = `ADD;
         case (ALUOp):
             2'b00: ALUControl <= `ADD;

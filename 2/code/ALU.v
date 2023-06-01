@@ -15,13 +15,13 @@ module ALU(opc, a, b, zero, neg, w);
     output zero;
     output [N-1:0] w;
     
-    always @(a, b, opc) begin
+    always @(a or b or opc) begin
         case (opc)
             `ADD :  w = a + b;
             `SUB :  w = a - b;
             `AND :  w = a & b;
             `OR  :  w = a | b;
-            `SLT :  w = a < b ? 32'b1 : 32'b0;
+            `SLT :  w = a < b ? 32'd1 : 32'd0;
             `XOR :  w = a ^ b;
             default:  w = {N{1'bz}};
         endcase

@@ -1,6 +1,6 @@
 `define BITS(x) $rtoi($ceil($clog2(x)))
 
-module RegisterFile(clk, regWrite, sRst, rst,
+module RegisterFile(clk, regWrite, sRst,
                     readRegister1, readRegister2,
                     writeRegister, writeData,
                     readData1, readData2);
@@ -17,17 +17,12 @@ module RegisterFile(clk, regWrite, sRst, rst,
 
     initial 
         registerFile[0] = 32'd0;
-    // ------------------------------------------------------------------------------
 
-    integer i;
-
-    always @(posedge clk or posedge rst) begin
-        if (rst)
-            for (i = 0; i < WordCount; i = i + 1)
-                registerFile[i] <= {WordLen{1'b0}};
-        else if (sRst)
+    always @(posedge clk) begin
+        if (sRst)
             registerFile[writeRegister] <= {WordLen{1'b0}};
-        else if (regWrite & writeRegister)// Forbid writing to R0
+
+        else if (regWrite & writeRegister) // Forbid writing to R0
             registerFile[writeRegister] <= writeData;
     end
 
