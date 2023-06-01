@@ -4,6 +4,7 @@
 `define B_T 7'd3
 `define U_T 7'd4
 `define J_T 7'd5
+
 `define LW 3'b110
 `define JALR 3'b111
 
@@ -17,12 +18,13 @@ module MainController(op, func3, func7, zero,
     input [6:0] func7;
     input zero, neg;
 
-    output [1:0] resultSrc;
-    output [2:0] immSrc, ALUOp;
+    output [1:0] resultSrc, ALUOp;
+    output [2:0] immSrc;
     output regWrite, memWrite, ALUSrc, jal, jalr, branch;
 
     always @(op, func3, func7) begin 
         {memWrite, regWrite, ALUSrc, jal, jalr, branch, immSrc, resultSrc} = 9'b0;
+        
         case(op):
             
             `R_T:begin
