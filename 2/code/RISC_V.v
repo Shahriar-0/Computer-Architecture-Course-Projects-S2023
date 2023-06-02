@@ -1,4 +1,5 @@
 module RISC_V(clk);
+
     input clk;
     
     wire [2:0] func3, ALUControl;
@@ -21,4 +22,5 @@ module RISC_V(clk);
         .zero(), .neg(neg), .op(op),
         .func7(func7), .memWrite(memWrite), .func3(func3)
     );
+    
 endmodule
