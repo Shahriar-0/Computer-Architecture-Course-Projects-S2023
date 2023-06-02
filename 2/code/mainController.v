@@ -39,10 +39,9 @@ module MainController(op, func3, func7, zero,
                 regWrite  <= 1'b1;
                 immSrc    <= 3'b000;
                 ALUSrc    <= 1'b1;
-                jalr      <= (func3 == `JALR) ? 1'b1 : 1'b0;
+                jalr      <= (func3 == `JALR) ? 1'b1  : 1'b0;
                 resultSrc <= (func3 == `JALR) ? 2'b10 :
-                                (func3 == `Lw) ? 2'b01 :
-                                2'b00;
+                             (func3 == `Lw)   ? 2'b01 : 2'b00;
                 end
 
             `S_T:begin
@@ -56,7 +55,7 @@ module MainController(op, func3, func7, zero,
                 resultSrc <= 2'b10;
                 immSrc    <= 3'b011;
                 jal       <= 1'b1;
-                regWrite  <=1'b1;
+                regWrite  <= 1'b1;
             end
 
             `B_T:begin
