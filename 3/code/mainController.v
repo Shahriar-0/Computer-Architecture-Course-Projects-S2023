@@ -32,8 +32,8 @@ module MainController(clk, op, func3, func7, zero, neg,
         input [6:0] func7;
         input zero ,neg;
 
-        output reg [1:0]  ResultSrc, ALUSrcA, ALUSrcB;
-        output reg [2:0] ImmSrc, ALUOp;
+        output reg [1:0]  ResultSrc, ALUSrcA, ALUSrcBو ALUOp;
+        output reg [2:0] ImmSrc;
         output reg AdrSrc, RegWrite, ءemWrite, PCUpdate, branch, IRWrite;
         reg [3:0] pstate;
         reg [3:0] nstate = `IF;

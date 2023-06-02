@@ -18,8 +18,8 @@ module MainController(op, func3, func7, zero,
     input [6:0] func7;
     input zero, neg;
 
-        output reg [1:0] resultSrc;
-        output reg [2:0] immSrc, ALUOp;
+        output reg [1:0] resultSrcو ALUOp;
+        output reg [2:0] immSrc;
         output reg regWrite, memWrite, ALUSrc, jal, jalr, branch;
         always @(op, func3) begin 
             {memWrite, regWrite, ALUSrc, jal, jalr, branch, immSrc, resultSrc} = 9'b0;
