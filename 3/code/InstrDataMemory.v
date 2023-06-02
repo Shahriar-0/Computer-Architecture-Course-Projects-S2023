@@ -4,7 +4,7 @@ module DataMemory (memAdr, writeData, memWrite, clk, readData);
     output [31:0] readData;
     reg [31:0] readData;
 
-    reg [7:0] dataMem [0:$pow(2, 12)-1];
+    reg [7:0] dataMem [0:$pow(2, 16)-1];
 
     wire [31:0] adr;
     assign adr = {memAdr[31:2], 2'b00};
