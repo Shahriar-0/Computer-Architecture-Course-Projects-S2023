@@ -1,12 +1,12 @@
-module CPU_Datapath(clk, RegWrite, ALUSrcB,
-                    ResultSrc, PCSrc,
-                    ALUControl, immSrc,
-                    zero, neg, op,
-                    func7, MemWrite, func3);
+module RISC_V_Datapath(clk, regWrite, ALUSrcB,
+                       resultSrc, PCSrc,
+                       ALUControl, immSrc,
+                       zero, neg, op,
+                       func7, memWrite, func3);
 
 
-    input clk, RegWrite, ALUSrcB, MemWrite;
-    input [1:0] ResultSrc, PCSrc;
+    input clk, regWrite, ALUSrcB, memWrite;
+    input [1:0] resultSrc, PCSrc;
     input [2:0] immSrc, ALUControl;
 
     output zero, neg;
@@ -32,7 +32,7 @@ module CPU_Datapath(clk, RegWrite, ALUSrcB,
     );
     
     Mux4to1 ResultMux(
-        .slc(ResultSrc), .a(ALUResult), .b(ReadData), 
+        .slc(resultSrc), .a(ALUResult), .b(ReadData), 
         .c(PCPlus4), .d(ImmExt), .w(Result)
     );
 
@@ -53,13 +53,13 @@ module CPU_Datapath(clk, RegWrite, ALUSrcB,
         .zero(zero), .neg(neg), .w(ALUResult)
     );
 
-    DataMemory DM(.memAdr(ALUResult), .writeData(RD2), .clk(clk), .memWrite(MemWrite), .readData(ReadData));
+    DataMemory DM(.memAdr(ALUResult), .writeData(RD2), .clk(clk), .memWrite(memWrite), .readData(ReadData));
 
     InstructionMemory IM(
         .pc(PC), .instruction(instr)
     );
 
-    RegisterFile RF(.clk(clk), .regWrite(RegWrite),
+    RegisterFile RF(.clk(clk), .regWrite(regWrite),
                     .readRegister1(instr[19:15]), .readRegister2(instr[[24:20]]),
                     .writeRegister(instr[11:7]), .writeData(ALUResult),
                     .readData1(SrcA), .readData2(RD2));

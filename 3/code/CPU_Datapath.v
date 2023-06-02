@@ -1,11 +1,11 @@
 module CPU_Datapath(clk, PCWrite, AdrSrc, MemWrite,
-                    IRWrite, ResultSrc, ALUControl,
-                    ALUSrcA, ALUSrcB, ImmSrc, RegWrite,
+                    IRWrite, resultSrc, ALUControl,
+                    ALUSrcA, ALUSrcB, immSrc, RegWrite,
                     op, func3, func7, zero, neg);
 
     input clk, PCWrite, AdrSrc, MemWrite, IRWrite, RegWrite;
-    input [1:0] ResultSrc, ALUSrcA, ALUSrcB;
-    input [2:0] ALUControl, ImmSrc;
+    input [1:0] resultSrc, ALUSrcA, ALUSrcB;
+    input [2:0] ALUControl, immSrc;
 
     wire [31:0] PC, Adr, ReadData, OldPC;
     wire [31:0] ImmExt, Instr, Data, ALUResult;
@@ -23,9 +23,9 @@ module CPU_Datapath(clk, PCWrite, AdrSrc, MemWrite,
     mux2to1 AdrMux(.slc(AdrSrc), .a(PC), .b(Result), w(Adr));
     mux4to1 AMux(.slc(ALUSrcA), .a(PC), .b(OldPC), .c(A), .d(32'b0), .w(SrcA));
     mux4to1 BMux(.slc(ALUSrcB), .a(B), .b(ImmExt), .c(32'd4), .d(32'b0), .w(SrcB));
-    mux4to1 BMux(.slc(ResultSrc), .a(ALUOut), .b(Data), .c(ALUResult), .d(ImmExt), .w(Result));
+    mux4to1 BMux(.slc(resultSrc), .a(ALUOut), .b(Data), .c(ALUResult), .d(ImmExt), .w(Result));
 
-    ImmExtension Extend(.ImmSrc(ImmSrc), .data(PC[31:7]), .w(ImmExt));
+    ImmExtension Extend(.immSrc(immSrc), .data(PC[31:7]), .w(ImmExt));
 
     ALU Alu(.opc(ALUControl), .a(SrcA), .b(SrcB), .zero(zero), .neg(neg), .w(ALUResult));
 

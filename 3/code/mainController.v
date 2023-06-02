@@ -25,40 +25,40 @@
 
 module MainController(clk, op, func3, func7, zero, neg,
                     PCUpdate, AdrSrc, MemWrite, branch,
-                    IRWrite, ResultSrc, ALUOp,
-                    ALUSrcA, ALUSrcB, ImmSrc, RegWrite);
+                    IRWrite, resultSrc, ALUOp,
+                    ALUSrcA, ALUSrcB, immSrc, RegWrite);
         input [6:0] op;
         input [2:0] func3;
         input [6:0] func7;
         input zero ,neg;
 
-        output reg [1:0]  ResultSrc, ALUSrcA, ALUSrcBو ALUOp;
-        output reg [2:0] ImmSrc;
+        output reg [1:0]  resultSrc, ALUSrcA, ALUSrcBو ALUOp;
+        output reg [2:0] immSrc;
         output reg AdrSrc, RegWrite, ءemWrite, PCUpdate, branch, IRWrite;
         reg [3:0] pstate;
         reg [3:0] nstate = `IF;
 
         always @(pstate) begin
-            {ResultSrc, ءemWrite, ALUOp, ALUSrc,ImmSrc, RegWrite , PCUpdate, branch} <= 13'b0;
+            {resultSrc, ءemWrite, ALUOp, ALUSrc,immSrc, RegWrite , PCUpdate, branch} <= 13'b0;
             case(pstate):
                 `IF : begin
                     IRWrite <= 1'b1;
                     ALUSrcA <= 2'b00;
                     ALUSrcB <= 2'b10;
                     ALUOp <= 2'b00;
-                    ResultSrc <= 2'b10;
+                    resultSrc <= 2'b10;
                     PCUpdate <= 1'b1;
                  end
                 `ID: begin
                     ALUSrcA <= 2'b01;
                     ALUSrcB <= 2'b01;
                     ALUOp <= 2'b00;
-                    ImmSrc <= 3'b010;
+                    immSrc <= 3'b010;
                  end
                 `EX1: begin 
                     ALUSrcA <= 2'b10;
                     ALUSrcB <= 2'b01;
-                    ImmSrc <= 3'b000;
+                    immSrc <= 3'b000;
                     ALUOp <= 2'b10;
                     end
                 `EX2: begin
@@ -70,7 +70,7 @@ module MainController(clk, op, func3, func7, zero, neg,
                     ALUSrcA <= 2'b10;
                     ALUSrcB <= 2'b00;
                     ALUOp <= 2'b01;
-                    ResultSrc <= 2'b0;
+                    resultSrc <= 2'b0;
                     branch <= 1'b1;
                  end
                 `EX4: begin
@@ -82,50 +82,50 @@ module MainController(clk, op, func3, func7, zero, neg,
                     ALUSrcA <= 2'b01;
                     ALUSrcB <= 2'b10;
                     ALUOp <= 2'b00;
-                    ResultSrc <= 2'b00;
+                    resultSrc <= 2'b00;
                     PCUpdate <= 1'b1;
                  end
                 `EX6: begin
                     ALUSrcA <= 2'b10;
                     ALUSrcB <= 2'b01;
                     ALUOp <= 2'b00;
-                    ImmSrc <= 3'b001;
+                    immSrc <= 3'b001;
                  end
                 `EX7: begin
                     RegWrite <= 1'b1;
                     ALUSrcA <= 2'10;
                     ALUSrcB <= 2'b01;
-                    ImmSrc <= 3'b100;
+                    immSrc <= 3'b100;
                     ALUOp <= 2'b00;
                  end
                 `MEM1: begin
-                    ResultSrc <= 2'b00;
+                    resultSrc <= 2'b00;
                     AdrSrc <= 1'b1;
                  end
                 `MEM2: begin
-                    ResultSrc <= 2'b00;
+                    resultSrc <= 2'b00;
                     RegWrite <= 1'b1;
                  end
                 `MEM3: begin
-                    ResultSrc <= 2'b00;
+                    resultSrc <= 2'b00;
                     AdrSrc <= 1'b1;
                     MemWrite <= 1'b1;
                  end
                 `MEM4: begin
-                    ResultSrc <= 2'b00;
+                    resultSrc <= 2'b00;
                     RegWrite <= 1'b1;
                  end
                 `MEM5: begin
-                    ResultSrc <= 2'b11;
-                    ImmSrc <= 3'b011;
+                    resultSrc <= 2'b11;
+                    immSrc <= 3'b011;
                     RegWrite <= 1'b1;
                  end
                 `MEM6: begin
-                    ResultSrc <= 2'b00;
+                    resultSrc <= 2'b00;
                     PCUpdate <= 1'b1;
                  end
                 `WB: begin
-                    ResultSrc <= 2'b01;
+                    resultSrc <= 2'b01;
                     RegWrite <= 1'b1;
                  end
             endcase

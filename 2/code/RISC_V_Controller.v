@@ -1,6 +1,6 @@
-module CPU_Controller(op, func3, func7, zero, PCSrc,
-                      resultSrc, memWrite, ALUControl,
-                      ALUSrc, immSrc, neg, regWrite);
+module RISC_V_Controller(op, func3, func7, zero, PCSrc,
+                         resultSrc, memWrite, ALUControl,
+                         ALUSrc, immSrc, neg, regWrite);
 
         input [6:0] op;
         input [2:0] func3;

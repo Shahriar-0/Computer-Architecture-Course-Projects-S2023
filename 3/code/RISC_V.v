@@ -4,8 +4,8 @@ module RISC_V(clk);
                       resultSrc, memWrite, ALUControl,
                       ALUSrc,immSrc,regWrite);
     CPU_Datapath DP(clk, RegWrite, ALUSrcB, MemWrite,
-                     ResultSrc, PCSrc,
-                     ALUControl, ImmSrc,
+                     resultSrc, PCSrc,
+                     ALUControl, immSrc,
                      zero, neg, op,
                      func7, func3);
 endmodule
