@@ -23,16 +23,16 @@
 `define MEM6 4'b1110
 `define WB 4'b1111
 
-module MainController(clk, op, func3, func7, zero, neg,
+module MainController(clk, rst, op, func3, func7, zero, neg,
                     PCUpdate, AdrSrc, MemWrite, branch,
                     IRWrite, resultSrc, ALUOp,
                     ALUSrcA, ALUSrcB, immSrc, RegWrite);
         input [6:0] op;
         input [2:0] func3;
         input [6:0] func7;
-        input zero ,neg;
+        input clk, rst, zero ,neg;
 
-        output reg [1:0]  resultSrc, ALUSrcA, ALUSrcBو ALUOp;
+        output reg [1:0]  resultSrc, ALUSrcA, ALUSrcB, ALUOp;
         output reg [2:0] immSrc;
         output reg AdrSrc, RegWrite, ءemWrite, PCUpdate, branch, IRWrite;
         reg [3:0] pstate;
@@ -160,7 +160,10 @@ module MainController(clk, op, func3, func7, zero, neg,
             endcase
         end
 
-        always @(posedge clk) begin
-            pstate <= nstate;
+        always @(posedge clk,posedge rst) begin
+            if(rst)
+                pstate <= `IF;
+            else
+                pstate <= nstate;
          end
 endmodule

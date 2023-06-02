@@ -19,7 +19,7 @@ module RegisterFile(clk, regWrite,
         registerFile[0] = 32'd0;
 
     always @(posedge clk) begin
-        else if (regWrite & writeRegister)
+        if (regWrite & writeRegister)
             registerFile[writeRegister] <= writeData;
     end
 

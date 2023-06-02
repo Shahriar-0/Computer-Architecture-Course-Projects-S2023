@@ -1,11 +1,11 @@
-module RISC_V_Datapath(clk, regWrite, ALUSrcB,
+module RISC_V_Datapath(clk, rst, regWrite, ALUSrcB,
                        resultSrc, PCSrc,
                        ALUControl, immSrc,
                        zero, neg, op,
                        func7, memWrite, func3);
 
 
-    input clk, regWrite, ALUSrcB, memWrite; 
+    input clk, rst, regWrite, ALUSrcB, memWrite; 
     input [1:0] resultSrc, PCSrc;
     input [2:0] immSrc, ALUControl;
 
@@ -19,7 +19,7 @@ module RISC_V_Datapath(clk, regWrite, ALUSrcB,
                 SrcA, SrcB, RD2, RD1;
 
     Register PC_Register(
-        .in(PCNext), .clk(clk), .out(PC)
+        .in(PCNext), .rst(rst) .clk(clk), .out(PC)
     );
 
     Mux4to1 PC_Mux(
