@@ -8,7 +8,7 @@ module BranchController(func3, branch, neg, zero, w);
     input branch, zero, neg;
     inout [2:0] func3;
 
-    output w;
+    output reg w;
     
     always @(func3) begin
         case(func3) begin
@@ -17,6 +17,7 @@ module BranchController(func3, branch, neg, zero, w);
             `BLT: w <= branch & neg;
             `BGE: w <= branch & (zero | ~neg);
             default: w <= 1'b0;
+        end
         endcase
     end
 
