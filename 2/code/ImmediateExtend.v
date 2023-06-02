@@ -15,7 +15,7 @@ module ImmExtension(immSrc, data, w);
                 (immSrc == `J_T) ? {12{1'b{data[31]}}, data[31], data[19:12], data[20], data[30:21], 1'b0}:
                 32'b0;
 
-    always @(immSrc) begin
+    always @(immSrc, data) begin
         case(immSrc) begin
             // TODO: check
             `I_T: w <= {20{data[31]}, data[31:20]};
