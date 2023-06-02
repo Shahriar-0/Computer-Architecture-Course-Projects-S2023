@@ -6,9 +6,9 @@ module CPU_Datapath(input clk, RegWrite, ALUSrcB, MemWrite,
 
 
     wire [31:0] PC, PCNext, PCPlus4, PCTarget;
-    wire [31:0] ImmExt, instr, SrcB, ALUResult;
-    wire [31:0] ReadData, WriteData, Result;
-    wire [31:0] SrcA, Rd2;
+    wire [31:0] ImmExt, instr, ALUResult;
+    wire [31:0] ReadData, Result;
+    wire [31:0] SrcA, SrcB, Rd2;
 
     Register PCR(.in(PCNext), .clk(clk), .out(PC));
 
@@ -23,11 +23,11 @@ module CPU_Datapath(input clk, RegWrite, ALUSrcB, MemWrite,
 
     ALU Alu(.opc(ALUControl), .a(SrcA), .b(SrcB), .zero(zero), .neg(neg), .w(ALUResult));
 
-    DataMemory DM(.memAdr(ALUResult), .writeData(WriteData), .clk(clk), .memWrite(MemWrite), .readData(ReadData));
+    DataMemory DM(.memAdr(ALUResult), .writeData(RD2), .clk(clk), .memWrite(MemWrite), .readData(ReadData));
 
     InstructionMemory IM(.pc(PC), .instruction(instr));
 
-    RegisterFile RF(.clk(clk), .regWrite(RegWrite), .sRst(1'b0), .rst(1'b0),
+    RegisterFile RF(.clk(clk), .regWrite(RegWrite),
                     .readRegister1(instr[19:15]), .readRegister2(instr[[24:20]]),
                     .writeRegister(instr[11:7]), .writeData(ALUResult),
                     .readData1(SrcA), .readData2(RD2));

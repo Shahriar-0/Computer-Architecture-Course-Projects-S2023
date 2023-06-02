@@ -26,9 +26,9 @@ module CPU_Datapath(clk, PCWrite, AdrSrc, MemWrite,
 
     ALU Alu(.opc(ALUControl), .a(SrcA), .b(SrcB), .zero(zero), .neg(neg), .w(ALUResult));
 
-    // InstrDataMemory DM(.memAdr(ALUResult), .writeData(WriteData), .clk(clk), .memWrite(MemWrite), .readData(ReadData));
+    InstrDataMemory DM(.memAdr(Adr), .writeData(WriteData), .clk(clk), .memWrite(MemWrite), .readData(ReadData));
 
-    RegisterFile RF(.clk(clk), .regWrite(RegWrite), .sRst(1'b0), .rst(1'b0),
+    RegisterFile RF(.clk(clk), .regWrite(RegWrite),
                     .readRegister1(Instr[19:15]), .readRegister2(Instr[[24:20]]),
                     .writeRegister(Instr[11:7]), .writeData(ALUResult),
                     .readData1(RD1), .readData2(RD2));

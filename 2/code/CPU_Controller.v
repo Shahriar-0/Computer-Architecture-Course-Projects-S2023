@@ -18,6 +18,4 @@ module CPU_Controller(op, func3, func7, zero, neg, PCSrc,
                                              .zero(zero), .w(branchRes));   
         ALU_Controller ALUDecoder(func3, ALUOp, ALUControl)  ;
         assign PCSrc =  (jalr) ? 2'b11 : (jal | branchRes) ? 2'b01: 2'b00;
-
-
 endmodule

@@ -32,9 +32,9 @@ module MainController(clk, op, func3, func7, zero, neg,
         input [6:0] func7;
         input zero ,neg;
 
-        output [1:0] ResultSrc, ALUSrcA, ALUSrcB;
-        output [2:0] ImmSrc, ALUOp;
-        output AdrSrc, RegWrite, ءemWrite, PCUpdate, branch, IRWrite;
+        output reg [1:0]  ResultSrc, ALUSrcA, ALUSrcB;
+        output reg [2:0] ImmSrc, ALUOp;
+        output reg AdrSrc, RegWrite, ءemWrite, PCUpdate, branch, IRWrite;
         reg [3:0] pstate;
         reg [3:0] nstate = `IF;
 
@@ -159,4 +159,8 @@ module MainController(clk, op, func3, func7, zero, neg,
                 `WB: nstate <= `IF;
             endcase
         end
+
+        always @(posedge clk) begin
+            pstate <= nstate;
+         end
 endmodule

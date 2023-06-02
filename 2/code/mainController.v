@@ -15,10 +15,10 @@ module MainController(op, func3, func7, zero, neg,
         input [6:0] func7;
         input zero ,neg;
 
-        output [1:0] resultSrc;
-        output [2:0] immSrc, ALUOp;
-        output regWrite, memWrite, ALUSrc, jal, jalr, branch;
-        always @(op, func3, func7) begin 
+        output reg [1:0] resultSrc;
+        output reg [2:0] immSrc, ALUOp;
+        output reg regWrite, memWrite, ALUSrc, jal, jalr, branch;
+        always @(op, func3) begin 
             {memWrite, regWrite, ALUSrc, jal, jalr, branch, immSrc, resultSrc} = 9'b0;
             case(op):
                 `R_T:begin
