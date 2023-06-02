@@ -21,8 +21,8 @@ module CPU_Datapath(clk, PCWrite, AdrSrc, MemWrite,
     Register ALUR(.in(ALUResult), .en(1'b1), .clk(clk), .out(ALUOut));
 
     mux2to1 AdrMux(.slc(AdrSrc), .a(PC), .b(Result), w(Adr));
-    mux4to1 AMux(.slc(ALUSrcA), .a(PC), .b(OldPC), .c(A), .d(32'b0), .w(SrcA));
-    mux4to1 BMux(.slc(ALUSrcB), .a(B), .b(ImmExt), .c(32'd4), .d(32'b0), .w(SrcB));
+    mux4to1 AMux(.slc(ALUSrcA), .a(PC), .b(OldPC), .c(A), .d(32'd0), .w(SrcA));
+    mux4to1 BMux(.slc(ALUSrcB), .a(B), .b(ImmExt), .c(32'd4), .d(32'd0), .w(SrcB));
     mux4to1 BMux(.slc(resultSrc), .a(ALUOut), .b(Data), .c(ALUResult), .d(ImmExt), .w(Result));
 
     ImmExtension Extend(.immSrc(immSrc), .data(PC[31:7]), .w(ImmExt));
@@ -33,7 +33,7 @@ module CPU_Datapath(clk, PCWrite, AdrSrc, MemWrite,
 
     RegisterFile RF(.clk(clk), .regWrite(RegWrite),
                     .readRegister1(Instr[19:15]), .readRegister2(Instr[[24:20]]),
-                    .writeRegister(Instr[11:7]), .writeData(ALUResult),
+                    .writeRegister(Instr[11:7]), .writeData(Result),
                     .readData1(RD1), .readData2(RD2));
 
 endmodule

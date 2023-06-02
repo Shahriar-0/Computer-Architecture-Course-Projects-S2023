@@ -1,7 +1,7 @@
 `define I_T 3'b000
 `define S_T 3'b001
-`define J_T 3'b010
-`define B_T 3'b011
+`define B_T 3'b010
+`define J_T 3'b011
 `define U_T 3'b100
 
 module ImmExtension(immSrc, data, w);
