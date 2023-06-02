@@ -53,15 +53,20 @@ module RISC_V_Datapath(clk, regWrite, ALUSrcB,
         .zero(zero), .neg(neg), .w(ALUResult)
     );
 
-    DataMemory DM(.memAdr(ALUResult), .writeData(RD2), .clk(clk), .memWrite(memWrite), .readData(ReadData));
+    DataMemory DM(
+        .memAdr(ALUResult), .writeData(RD2), .clk(clk), 
+        .memWrite(memWrite), .readData(ReadData)
+    );
 
     InstructionMemory IM(
         .pc(PC), .instruction(instr)
     );
 
-    RegisterFile RF(.clk(clk), .regWrite(regWrite),
-                    .readRegister1(instr[19:15]), .readRegister2(instr[[24:20]]),
-                    .writeRegister(instr[11:7]), .writeData(ALUResult),
-                    .readData1(SrcA), .readData2(RD2));
+    RegisterFile RF(
+        .clk(clk), .regWrite(regWrite),
+        .readRegister1(instr[19:15]), .readRegister2(instr[[24:20]]),
+        .writeRegister(instr[11:7]), .writeData(ALUResult),
+        .readData1(SrcA), .readData2(RD2)
+    );
 
 endmodule

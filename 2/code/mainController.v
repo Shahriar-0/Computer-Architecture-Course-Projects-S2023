@@ -10,18 +10,23 @@
 
 module MainController(op, func3, func7, zero,
                       resultSrc, memWrite, ALUOp
-                      ALUSrc,immSrc,regWrite, 
+                      ALUSrc, immSrc, regWrite, 
                       jal, jalr, neg, branch);
 
     input [6:0] op;
     input [2:0] func3;
     input [6:0] func7;
     input zero, neg;
-    output reg [1:0] resultSrcو ALUOp;
+
+    output reg [1:0] resultSrc, ALUOp;
     output reg [2:0] immSrc;
     output reg regWrite, memWrite, ALUSrc, jal, jalr, branch;
+    
     always @(op, func3) begin 
-        {memWrite, regWrite, ALUSrc, jal, jalr, branch, immSrc, resultSrc} = 9'b0;
+    
+        {memWrite, regWrite, ALUSrc, jal, 
+            jalr, branch, immSrc, resultSrc, ALUOp} = 13'b0;
+    
         case(op):
             `R_T:begin
                 ALUOp <= 2'b10;
