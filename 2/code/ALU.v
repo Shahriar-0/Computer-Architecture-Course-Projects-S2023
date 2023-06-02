@@ -9,8 +9,7 @@ module ALU(opc, a, b, zero, neg, w);
     parameter N = 32;
 
     input [2:0] opc;
-    input [N-1:0] a;
-    input [N-1:0] b;
+    input [N-1:0] a, b;
     
     output zero;
     output reg [N-1:0] w;
