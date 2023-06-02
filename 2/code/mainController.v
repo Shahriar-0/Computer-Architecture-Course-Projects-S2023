@@ -4,16 +4,19 @@
 `define B_T 7'd3
 `define U_T 7'd4
 `define J_T 7'd5
+
 `define LW 3'b110
 `define JALR 3'b111
 
-module MainController(op, func3, func7, zero, neg,
+module MainController(op, func3, func7, zero,
                       resultSrc, memWrite, ALUOp
-                      ALUSrc,immSrc,regWrite , jal, jalr, branch);
-        input [6:0] op;
-        input [2:0] func3;
-        input [6:0] func7;
-        input zero ,neg;
+                      ALUSrc,immSrc,regWrite, 
+                      jal, jalr, neg, branch);
+
+    input [6:0] op;
+    input [2:0] func3;
+    input [6:0] func7;
+    input zero, neg;
 
         output reg [1:0] resultSrc;
         output reg [2:0] immSrc, ALUOp;

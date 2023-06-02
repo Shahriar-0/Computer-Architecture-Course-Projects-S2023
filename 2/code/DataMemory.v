@@ -1,22 +1,22 @@
 module DataMemory (memAdr, writeData, memWrite, clk, readData);
     input [31:0] memAdr, writeData;
     input memWrite, clk;
-    output [31:0] readData;
-    reg [31:0] readData;
+    input [N-1:0] memAdr, writeData;
 
-    reg [7:0] dataMem [0:$pow(2, 12)-1];
+    output [N-1:0] readData;
+
+    reg [7:0] dataMem [0:$pow(2, 16)-1]; // 64KB
 
     wire [31:0] adr;
     assign adr = {memAdr[31:2], 2'b00};
-    
-    initial $readmemb("data.mem", dataMem, 1000);
+
+    initial $readmemb("data.mem", dataMem, 1000); // TODO: 1000 file
 
     always @(posedge clk) begin
-        if (memWrite)
+        if(memWrite)
             {dataMem[adr + 3], dataMem[adr + 2], dataMem[adr + 1], dataMem[adr]} <= writeData;
     end
 
-    
     assign readData = {dataMem[adr + 3], dataMem[adr + 2], dataMem[adr + 1], dataMem[adr]};
-    
+
 endmodule
