@@ -11,7 +11,7 @@ module InstructionMemory(pc, inst);
 
     initial $readmemb("instructions.mem", instructionMemory);
 
-    assign instruction = {instructionMemory[adr + 3], instructionMemory[adr + 2], 
-                            instructionMemory[adr + 1], instructionMemory[adr]};
+    assign instruction = {instructionMemory[adr], instructionMemory[adr + 1], 
+                            instructionMemory[adr + 2], instructionMemory[adr + 3]};
 
 endmodule
