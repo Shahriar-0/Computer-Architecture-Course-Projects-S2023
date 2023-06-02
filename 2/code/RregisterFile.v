@@ -4,7 +4,7 @@ module RegisterFile(clk, regWrite,
                     readRegister1, readRegister2,
                     writeRegister, writeData,
                     readData1, readData2);
-
+                    
     parameter WordLen = 32;
     parameter WordCount = $pow(2, 14);
 
