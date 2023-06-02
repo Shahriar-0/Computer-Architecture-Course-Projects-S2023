@@ -41,7 +41,7 @@ module MainController(op, func3, func7, zero,
                 ALUSrc    <= 1'b1;
                 jalr      <= (func3 == `JALR) ? 1'b1  : 1'b0;
                 resultSrc <= (func3 == `JALR) ? 2'b10 :
-                             (func3 == `Lw)   ? 2'b01 : 2'b00;
+                             (func3 == `LW)   ? 2'b01 : 2'b00;
                 end
 
             `S_T:begin
