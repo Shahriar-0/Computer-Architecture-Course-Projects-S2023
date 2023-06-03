@@ -8,8 +8,8 @@ module ALU(opc, a, b, zero, neg, w);
     parameter N = 32;
 
     input [2:0] opc;
-    input [N-1:0] a;
-    input [N-1:0] b;
+    input signed [N-1:0] a;
+    input signed [N-1:0] b;
     
     output zero;
     output [N-1:0] w;

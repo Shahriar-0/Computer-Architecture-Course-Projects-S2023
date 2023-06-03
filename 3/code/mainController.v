@@ -39,7 +39,7 @@ module MainController(clk, rst, op, func3, func7, zero, neg,
         reg [3:0] nstate = `IF;
 
         always @(pstate) begin
-            {resultSrc, ءemWrite, ALUOp, ALUSrc,immSrc, RegWrite , PCUpdate, branch} <= 13'b0;
+            {resultSrc, MemWrite, ALUOp, ALUSrc,immSrc, RegWrite , PCUpdate, branch} <= 13'b0;
             case(pstate)
                 `IF : begin
                     IRWrite <= 1'b1;

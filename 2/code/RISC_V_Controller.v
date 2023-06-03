@@ -31,6 +31,6 @@ module RISC_V_Controller(op, func3, func7, zero, PCSrc,
         .func3(func3), .ALUOp(ALUOp), .ALUControl(ALUControl)
     );
     
-    assign PCSrc =  (jalr) ? 2'b11 : (jal | branchRes) ? 2'b01: 2'b00;
+    assign PCSrc =  (jalr) ? 2'b10 : (jal | branchRes) ? 2'b01: 2'b00;
 
 endmodule

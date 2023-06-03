@@ -23,10 +23,8 @@ module MainController(op, func3, func7, zero,
     output reg regWrite, memWrite, ALUSrc, jal, jalr, branch;
     
     always @(op, func3) begin 
-    
         {memWrite, regWrite, ALUSrc, jal, 
-            jalr, branch, immSrc, resultSrc, ALUOp} = 13'b0;
-    
+            jalr, branch, immSrc, resultSrc, ALUOp} <= 13'b0;
         case(op)
 
             `R_T:begin

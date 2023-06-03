@@ -1,11 +1,11 @@
-module RISC_V_Datapath(clk, rst, regWrite, ALUSrcB,
+module RISC_V_Datapath(clk, rst, regWrite, ALUSrc,
                        resultSrc, PCSrc,
                        ALUControl, immSrc,
                        zero, neg, op,
                        func7, memWrite, func3);
 
 
-    input clk, rst, regWrite, ALUSrcB, memWrite; 
+    input clk, rst, regWrite, ALUSrc, memWrite; 
     input [1:0] resultSrc, PCSrc;
     input [2:0] immSrc, ALUControl;
 
@@ -28,7 +28,7 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrcB,
     );
 
     Mux2to1 branchMux(
-        .slc(ALUSrcB), .a(RD2), .b(immExt), .w(SrcB)
+        .slc(ALUSrc), .a(RD2), .b(immExt), .w(SrcB)
     );
     
     Mux4to1 ResultMux(
@@ -45,7 +45,7 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrcB,
     );
 
     ImmExtension immExtensionInstance(
-        .immSrc(immSrc), .data(PC[31:7]), .w(immExt)
+        .immSrc(immSrc), .data(instr[31:7]), .w(immExt)
     );
 
     ALU ALU_Instance(
@@ -72,5 +72,7 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrcB,
     );
 
     assign SrcA = RD1;
-
+    assign op = instr[6:0];
+    assign func3 = instr[14:12];
+    assign func7 = instr[31:25];
 endmodule
