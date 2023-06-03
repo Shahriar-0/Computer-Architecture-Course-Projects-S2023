@@ -9,7 +9,7 @@
 `define JALR 3'b111
 
 module MainController(op, func3, func7, zero,
-                      resultSrc, memWrite, ALUOp
+                      resultSrc, memWrite, ALUOp,
                       ALUSrc, immSrc, regWrite, 
                       jal, jalr, neg, branch);
 

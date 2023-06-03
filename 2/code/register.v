@@ -2,7 +2,7 @@ module Register(in, clk, rst, out);
     parameter N = 32;
 
     input [N-1:0] in;
-    input clk;
+    input clk, rst;
 
     output reg [N-1:0] out;
     
@@ -10,7 +10,7 @@ module Register(in, clk, rst, out);
         if(rst)
             out <= {N{1'b0}};
         else
-            out <= in
+            out <= in;
     end
 
 endmodule

@@ -1,4 +1,4 @@
-module DataMemory (memAdr, writeData, memWrite, clk, readData);
+module InstrDataMemory (memAdr, writeData, memWrite, clk, readData);
     input [31:0] memAdr, writeData;
     input memWrite, clk;
     output [31:0] readData;

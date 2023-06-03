@@ -7,7 +7,7 @@ module RISC_V_Controller(op, func3, func7, zero, PCSrc,
     input [6:0] func7;
     input zero, neg;
     
-    output [1:0] PCsrc, resultSrc;
+    output [1:0] PCSrc, resultSrc;
     output [2:0] ALUControl, immSrc;
     output regWrite, memWrite, ALUSrc;
     
@@ -17,8 +17,8 @@ module RISC_V_Controller(op, func3, func7, zero, PCSrc,
     MainController MainDecoder(
         .op(op), .func3(func3), .func7(func7), 
         .zero(zero), .neg(neg), .ALUOp(ALUOp),
-        resultSrc(resultSrc), .memWrite(memWrite),
-        ALUSrc(ALUSrc), .immSrc(immSrc), .regWrite(regWrite), 
+        .resultSrc(resultSrc), .memWrite(memWrite),
+        .ALUSrc(ALUSrc), .immSrc(immSrc), .regWrite(regWrite), 
         .jal(jal), .jalr(jalr), .branch(branch)
     );
     

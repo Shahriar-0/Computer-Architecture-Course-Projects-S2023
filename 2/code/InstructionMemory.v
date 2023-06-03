@@ -1,4 +1,4 @@
-module InstructionMemory(pc, inst);
+module InstructionMemory(pc, instruction);
 
     input [31:0] pc;
 
