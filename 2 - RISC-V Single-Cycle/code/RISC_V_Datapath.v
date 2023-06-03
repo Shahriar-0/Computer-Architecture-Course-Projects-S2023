@@ -75,4 +75,5 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrc,
     assign op = instr[6:0];
     assign func3 = instr[14:12];
     assign func7 = instr[31:25];
+    
 endmodule

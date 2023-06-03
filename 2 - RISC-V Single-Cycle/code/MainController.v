@@ -30,7 +30,7 @@ module MainController(op, func3, func7, zero,
             `R_T:begin
                 ALUOp     <= 2'b10;
                 regWrite  <= 1'b1;
-                end
+            end
 
             `I_T:begin
                 ALUOp     <= 2'b10;
@@ -40,14 +40,14 @@ module MainController(op, func3, func7, zero,
                 jalr      <= (func3 == `JALR) ? 1'b1  : 1'b0;
                 resultSrc <= (func3 == `JALR) ? 2'b10 :
                              (func3 == `LW)   ? 2'b01 : 2'b00;
-                end
+            end
 
             `S_T:begin
                 ALUOp     <= 2'b00;
                 memWrite  <= 1'b1;
                 immSrc    <= 3'b001;
                 ALUSrc    <= 1'b1;
-                end
+            end
             
             `J_T:begin
                 resultSrc <= 2'b10;

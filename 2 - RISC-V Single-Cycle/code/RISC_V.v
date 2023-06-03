@@ -7,7 +7,7 @@ module RISC_V(clk, rst);
     wire [1:0] resultSrc, PCSrc;
     wire [6:0] op, func7; 
 
-    RISC_V_Controller CPU(
+    RISC_V_Controller CU(
         .op(op), .func3(func3), .func7(func7), 
         .zero(zero), .PCSrc(PCSrc),
         .resultSrc(resultSrc), .memWrite(memWrite), 

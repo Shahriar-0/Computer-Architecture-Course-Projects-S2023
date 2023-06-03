@@ -10,7 +10,7 @@ module DataMemory(memAdr, writeData, memWrite, clk, readData);
     wire [31:0] adr;
     assign adr = {memAdr[31:2], 2'b00};
 
-    initial $readmemb("data.mem", dataMemory, 1000); // TODO: 1000 file
+    initial $readmemb("data.mem", dataMemory, 1000); 
 
     always @(posedge clk) begin
         if(memWrite)
