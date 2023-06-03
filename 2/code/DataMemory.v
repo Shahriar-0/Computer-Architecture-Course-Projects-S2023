@@ -1,8 +1,7 @@
 module DataMemory(memAdr, writeData, memWrite, clk, readData);
-    
+    parameter N = 32;
     input [31:0] memAdr, writeData;
     input memWrite, clk;
-    input [N-1:0] memAdr, writeData;
 
     output [N-1:0] readData;
 

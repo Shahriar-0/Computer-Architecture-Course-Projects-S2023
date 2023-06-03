@@ -19,16 +19,16 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrcB,
                 SrcA, SrcB, RD2, RD1;
 
     Register PC_Register(
-        .in(PCNext), .rst(rst) .clk(clk), .out(PC)
+        .in(PCNext), .rst(rst), .clk(clk), .out(PC)
     );
 
     Mux4to1 PC_Mux(
         .slc(PCSrc), .a(PCPlus4), .b(PCTarget),
-        .c(ALUResult), .d(32'b0), w(PCNext)
+        .c(ALUResult), .d(32'b0), .w(PCNext)
     );
 
     Mux2to1 branchMux(
-        .slc(ALUSrcB), .a(RD2), .b(immExt), w(SrcB)
+        .slc(ALUSrcB), .a(RD2), .b(immExt), .w(SrcB)
     );
     
     Mux4to1 ResultMux(
@@ -41,7 +41,7 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrcB,
     );
 
     Adder PCP4(
-        .a(PC), 32'd4, .w(PCPlus4)
+        .a(PC), .b(32'd4), .w(PCPlus4)
     );
 
     immExtension immExtensionInstance(
@@ -67,7 +67,7 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrcB,
         .readData1(RD1), .readData2(RD2),
         .writeData(result),
         .readRegister1(instr[19:15]), 
-        .readRegister2(instr[[24:20]]),
+        .readRegister2(instr[24:20]),
         .writeRegister(instr[11:7]) 
     );
 

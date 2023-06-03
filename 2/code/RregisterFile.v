@@ -13,7 +13,7 @@ module RegisterFile(clk, regWrite,
     input [WordLen-1:0] writeData;
     output [WordLen-1:0] readData1, readData2;
 
-    reg [WordLen-1:0] registerFile [0:WordCount-1]
+    reg [WordLen-1:0] registerFile [0:WordCount-1];
 
     initial 
         registerFile[0] = 32'd0;
@@ -23,7 +23,7 @@ module RegisterFile(clk, regWrite,
             registerFile[writeRegister] <= writeData;
     end
 
-    assign readData1 = registerFile[ReadRegister1];
-    assign readData2 = registerFile[ReadRegister2];
+    assign readData1 = registerFile[readRegister1];
+    assign readData2 = registerFile[readRegister2];
 
 endmodule
