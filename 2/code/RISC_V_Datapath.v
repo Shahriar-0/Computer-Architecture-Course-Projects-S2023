@@ -44,7 +44,7 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrcB,
         .a(PC), .b(32'd4), .w(PCPlus4)
     );
 
-    immExtension immExtensionInstance(
+    ImmExtension immExtensionInstance(
         .immSrc(immSrc), .data(PC[31:7]), .w(immExt)
     );
 
