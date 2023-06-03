@@ -6,8 +6,9 @@ module CPU_Datapath(clk, rst, PCWrite, AdrSrc, MemWrite,
     input clk, rst, PCWrite, AdrSrc, MemWrite, IRWrite, RegWrite;
     input [1:0] resultSrc, ALUSrcA, ALUSrcB;
     input [2:0] ALUControl, immSrc;
-    // op, func3, func7, zero, neg
-    // those are not defined
+    output [6:0] op;
+    output [2:0] func3;
+    output func7, zero, neg;
 
     wire [31:0] PC, Adr, ReadData, OldPC;
     wire [31:0] ImmExt, Instr, Data, ALUResult;
@@ -52,4 +53,7 @@ module CPU_Datapath(clk, rst, PCWrite, AdrSrc, MemWrite,
         .writeRegister(Instr[11:7]), 
     );
 
+    assign op = instr[6:0];
+    assign func3 = instr[14:12];
+    assign func7 = instr[30];
 endmodule

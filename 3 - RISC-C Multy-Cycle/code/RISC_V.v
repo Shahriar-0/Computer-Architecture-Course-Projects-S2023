@@ -3,12 +3,12 @@ module RISC_V(clk, rst);
     
     wire [2:0] func3, ALUControl, immSrc;
 
-    wire zero, neg, PCSrc, memWrite, 
+    wire zero, neg, PCSrc, memWrite, func7, 
          regWrite, ALUSrc, PCWrite, AdrSrc IRWrite;
 
     wire [1:0] resultSrc, ALUSrcA, ALUSrcB;
     
-    wire [6:0] op, func7; 
+    wire [6:0] op; 
 
     CPU_Controller CPU(
         .clk(clk), .rst(rst), .op(op), 
