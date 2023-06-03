@@ -19,7 +19,7 @@ module RISC_V(clk, rst);
         .clk(clk), .rst(rst), .regWrite(regWrite),
         .ALUSrcB(ALUSrcB), .resultSrc(resultSrc),
         .PCSrc(PCSrc), .ALUControl(ALUControl),
-        .immSrc(immSrc), .zero(), .neg(neg), .op(op),
+        .immSrc(immSrc), .zero(zero), .neg(neg), .op(op),
         .func7(func7), .memWrite(memWrite), .func3(func3)
     );
     
