@@ -1,15 +1,15 @@
 `define S_T   2'b00
 `define B_T   2'b01
 `define R_T   2'b10
-`define I-T   2'b11
+`define I_T   2'b11
 
 
 `define ADD  3'b000
 `define SUB  3'b001
 `define AND  3'b010
 `define OR   3'b011
-`define SLT  3'b100
-`define XOR  3'b101
+`define SLT  3'b101
+`define XOR  3'b100
 
 
 module ALU_Controller(func3, func7, ALUOp, ALUControl);
