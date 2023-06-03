@@ -11,13 +11,12 @@ module BranchController(func3, branch, neg, zero, w);
     output reg w;
     
     always @(func3, zero, neg, branch) begin
-        case(func3) begin
+        case(func3)
             `BEQ: w <= branch & zero;
             `BNE: w <= branch & ~zero;
             `BLT: w <= branch & neg;
             `BGE: w <= branch & (zero | ~neg);
             default: w <= 1'b0;
-        end
         endcase
     end
 

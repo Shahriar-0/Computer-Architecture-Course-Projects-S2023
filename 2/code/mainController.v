@@ -27,7 +27,7 @@ module MainController(op, func3, func7, zero,
         {memWrite, regWrite, ALUSrc, jal, 
             jalr, branch, immSrc, resultSrc, ALUOp} = 13'b0;
     
-        case(op):
+        case(op)
 
             `R_T:begin
                 ALUOp     <= 2'b10;

@@ -11,7 +11,7 @@ module ALU(opc, a, b, zero, neg, w);
     input [2:0] opc;
     input [N-1:0] a, b;
     
-    output zero;
+    output zero, neg;
     output reg [N-1:0] w;
     
     always @(a or b or opc) begin
