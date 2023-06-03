@@ -4,7 +4,7 @@ module RegisterFile(clk, regWrite,
                     readRegister1, readRegister2,
                     writeRegister, writeData,
                     readData1, readData2);
-
+                    
     parameter WordLen = 32;
     parameter WordCount = 32;
 
@@ -13,13 +13,13 @@ module RegisterFile(clk, regWrite,
     input [WordLen-1:0] writeData;
     output [WordLen-1:0] readData1, readData2;
 
-    reg [WordLen-1:0] registerFile [0:WordCount-1]
+    reg [WordLen-1:0] registerFile [0:WordCount-1];
 
     initial 
         registerFile[0] = 32'd0;
 
     always @(posedge clk) begin
-        else if (regWrite & writeRegister)
+        if (regWrite & writeRegister)
             registerFile[writeRegister] <= writeData;
     end
 
