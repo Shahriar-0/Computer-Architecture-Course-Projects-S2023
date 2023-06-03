@@ -9,8 +9,8 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrc,
     input [1:0] resultSrc, PCSrc;
     input [2:0] immSrc, ALUControl;
 
-    output zero, neg;
-    output [6:0] op, func7;
+    output zero, neg, func7;
+    output [6:0] op;
     output [2:0] func3;
 
     wire [31:0] PC, PCNext, PCPlus4, PCTarget, 
@@ -74,6 +74,6 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrc,
     assign SrcA = RD1;
     assign op = instr[6:0];
     assign func3 = instr[14:12];
-    assign func7 = instr[31:25];
+    assign func7 = instr[30];
     
 endmodule
