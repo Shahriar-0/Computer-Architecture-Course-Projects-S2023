@@ -1,5 +1,5 @@
 with open('../memory/instructions.hex', 'r') as input_file:
-    with open('../memory/instructions.mem', 'w') as output_file:
+    with open('/binary.mem', 'w') as output_file:
         for line in input_file:
             hex_num = line.strip()
             num = int(hex_num, 16)
@@ -14,6 +14,6 @@ with open('../memory/instructions.hex', 'r') as input_file:
             next_8_2_bin = format(next_8_2, '08b')
             lsb_bin = format(lsb, '08b')
 
-            result = f"{msb_bin}\n{next_8_bin}\n{next_8_2_bin}\n{lsb_bin}\n"
+            result = f"{msb_bin}{next_8_bin}{next_8_2_bin}{lsb_bin}"
             output_file.write(result)
 
