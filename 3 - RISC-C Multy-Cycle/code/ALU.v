@@ -2,8 +2,8 @@
 `define SUB 3'b001
 `define AND 3'b010
 `define OR  3'b011
-`define SLT 3'b100
-`define XOR 3'b101
+`define SLT 3'b101
+`define XOR 3'b100
 
 module ALU(opc, a, b, zero, neg, w);
     parameter N = 32;

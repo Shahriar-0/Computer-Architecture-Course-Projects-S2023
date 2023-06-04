@@ -4,7 +4,7 @@ module RISC_V(clk, rst);
     wire [2:0] func3, ALUControl, immSrc;
 
     wire zero, neg, PCSrc, memWrite, func7, 
-         regWrite, ALUSrc, PCWrite, AdrSrc IRWrite;
+         regWrite, ALUSrc, PCWrite, adrSrc, IRWrite;
 
     wire [1:0] resultSrc, ALUSrcA, ALUSrcB;
     
@@ -15,21 +15,21 @@ module RISC_V(clk, rst);
         .func3(func3), .immSrc(immSrc), 
         .func7(func7), .zero(zero), 
         .neg(neg), .PCWrite(PCWrite),
-        .AdrSrc(AdrSrc), .MemWrite(MemWrite), 
+        .adrSrc(adrSrc), .memWrite(memWrite), 
         .IRWrite(IRWrite), .resultSrc(resultSrc), 
         .ALUControl(ALUControl), .ALUSrcA(ALUSrcA),
-        .ALUSrcB(ALUSrcB), .RegWrite(RegWrite)
+        .ALUSrcB(ALUSrcB), .regWrite(regWrite)
     );
 
     CPU_Datapath DP(
         .clk(clk), .rst(rst), .neg(neg),
-        .PCWrite(PCWrite), .AdrSrc(AdrSrc),
-        .MemWrite(MemWrite), .IRWrite(IRWrite), 
+        .PCWrite(PCWrite), .adrSrc(adrSrc),
+        .memWrite(memWrite), .IRWrite(IRWrite), 
         .resultSrc(resultSrc), .immSrc(immSrc), 
         .ALUControl(ALUControl), .op(op),
         .ALUSrcA(ALUSrcA), .func3(func3),
         .ALUSrcB(ALUSrcB), .zero(zero),
-        .RegWrite(RegWrite), .func7(func7)
+        .regWrite(regWrite), .func7(func7)
     );
     
 endmodule

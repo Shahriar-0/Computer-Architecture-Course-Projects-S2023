@@ -19,9 +19,9 @@ module CpuDatapath (memData, PcWrite, branch, IorD, IRWrite, regDst, moveTo, dat
     wire zero;
 
     wire [11:0] pcRegOut, pcRegIn;
-    wire pcRegWrite;
-    assign pcRegWrite = (zero & branch) | PcWrite;
-    Register #(.N(12), .Init(0)) pcReg(.in(pcRegIn), .ld(pcRegWrite), .clk(clk), .rst(rst), .out(pcRegOut));
+    wire pcregWrite;
+    assign pcregWrite = (zero & branch) | PcWrite;
+    Register #(.N(12), .Init(0)) pcReg(.in(pcRegIn), .ld(pcregWrite), .clk(clk), .rst(rst), .out(pcRegOut));
 
     wire [11:0] leastInst12Bits;
     Mux2To1 #(12) memAdrMux(.a0(pcRegOut), .a1(leastInst12Bits), .sel(IorD), .out(memAdr));

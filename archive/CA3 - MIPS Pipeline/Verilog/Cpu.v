@@ -1,26 +1,26 @@
 `include "CpuDatapath.v"
 `include "CpuController.v"
 
-module Cpu (Inst, MemReadData, clk, rst, Pc, MemAdr, MemWriteData, MemoryRead, MemoryWrite);
-    input [31:0] Inst, MemReadData;
+module Cpu (Inst, memReadData, clk, rst, Pc, MemAdr, memWriteData, MemoryRead, MemoryWrite);
+    input [31:0] Inst, memReadData;
     input clk, rst;
-    output [31:0] Pc, MemAdr, MemWriteData;
+    output [31:0] Pc, MemAdr, memWriteData;
     output MemoryRead, MemoryWrite;
 
-    wire PcWrite, IFIDFlush, IDExFlush, IFIDLoad, ALUSrc, MemRead, MemWrite, RegWrite, equal,
-         IDExMemRead, ExMemRegWrite, MemWBRegWrite;
+    wire PcWrite, IFIDFlush, IDExFlush, IFIDLoad, ALUSrc, memRead, memWrite, regWrite, equal,
+         IDExmemRead, ExMemregWrite, MemWBregWrite;
     wire [1:0] PcSrc, RegDst, RegData, forwardA, forwardB;
     wire [2:0] ALUOpc;
     wire [5:0] opc, func;
     wire [4:0] IFIDRs, IFIDRt, ExMemRd, MemWBRd, IDExRs, IDExRt;
 
-    CpuDatapath dp(Inst, MemReadData, PcWrite, PcSrc, IFIDFlush, IDExFlush, IFIDLoad, ALUOpc, ALUSrc,
-                   RegDst, MemRead, MemWrite, RegData, RegWrite, forwardA, forwardB, clk, rst,
-                   Pc, equal, MemAdr, MemWriteData, MemoryRead, MemoryWrite, opc, func, IFIDRs, IFIDRt,
-                   IDExMemRead, ExMemRd, MemWBRd, ExMemRegWrite, MemWBRegWrite, IDExRs, IDExRt);
+    CpuDatapath dp(Inst, memReadData, PcWrite, PcSrc, IFIDFlush, IDExFlush, IFIDLoad, ALUOpc, ALUSrc,
+                   RegDst, memRead, memWrite, RegData, regWrite, forwardA, forwardB, clk, rst,
+                   Pc, equal, MemAdr, memWriteData, MemoryRead, MemoryWrite, opc, func, IFIDRs, IFIDRt,
+                   IDExmemRead, ExMemRd, MemWBRd, ExMemregWrite, MemWBregWrite, IDExRs, IDExRt);
 
-    CpuController cu(opc, func, equal, IFIDRs, IFIDRt, IDExMemRead, ExMemRd, MemWBRd,
-                     ExMemRegWrite, MemWBRegWrite, IDExRs, IDExRt, clk, rst,
-                     PcSrc, IFIDFlush, ALUSrc, RegDst, MemRead, MemWrite, RegData,
-                     RegWrite, ALUOpc, PcWrite, IFIDLoad, IDExFlush, forwardA, forwardB);
+    CpuController cu(opc, func, equal, IFIDRs, IFIDRt, IDExmemRead, ExMemRd, MemWBRd,
+                     ExMemregWrite, MemWBregWrite, IDExRs, IDExRt, clk, rst,
+                     PcSrc, IFIDFlush, ALUSrc, RegDst, memRead, memWrite, RegData,
+                     regWrite, ALUOpc, PcWrite, IFIDLoad, IDExFlush, forwardA, forwardB);
 endmodule

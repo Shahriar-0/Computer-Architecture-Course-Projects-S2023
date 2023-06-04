@@ -1,12 +1,12 @@
 module CPU_Controller(clk, rst, op, func3, func7, zero, neg,
-                    PCWrite, AdrSrc, MemWrite,
+                    PCWrite, adrSrc, memWrite,
                     IRWrite, resultSrc, ALUControl,
-                    ALUSrcA, ALUSrcB, immSrc, RegWrite);
+                    ALUSrcA, ALUSrcB, immSrc, regWrite);
     input [6:0] op;
     input [2:0] func3;
     input clk, rst, zero , neg, func7;
     
-    output PCWrite, AdrSrc, MemWrite, IRWrite, RegWrite;
+    output PCWrite, adrSrc, memWrite, IRWrite, regWrite;
     output [1:0] resultSrc, ALUSrcA, ALUSrcB;
     output [2:0] ALUControl, immSrc;
     
@@ -16,10 +16,10 @@ module CPU_Controller(clk, rst, op, func3, func7, zero, neg,
     MainController MainDecoder(
         .clk(clk), .rst(rst), .op(op),
         .zero(zero), .neg(neg), .PCUpdate(PCUpdate),
-        .AdrSrc(AdrSrc), .MemWrite(MemWrite),
+        .adrSrc(adrSrc), .memWrite(memWrite),
         .branch(branch), .resultSrc(resultSrc),
         .ALUSrcA(ALUSrcA), .ALUSrcB(ALUSrcB),
-        .immSrc(immSrc), .RegWrite(RegWrite),
+        .immSrc(immSrc), .regWrite(regWrite),
         .IRWrite(IRWrite), .ALUOp(ALUOp)
     );
     
