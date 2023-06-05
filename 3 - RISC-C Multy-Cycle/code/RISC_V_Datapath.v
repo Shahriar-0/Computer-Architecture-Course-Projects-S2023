@@ -30,7 +30,7 @@ module CPU_Datapath(clk, rst, PCWrite, adrSrc, memWrite,
     Mux4to1 ResultMux  (.slc(resultSrc), .a(ALUOut), .b(Data),   .c(ALUResult), .d(ImmExt), .w(Result));
 
     ImmExtension Extend(
-        .immSrc(immSrc), .data(PC[31:7]), .w(ImmExt)
+        .immSrc(immSrc), .data(instr[31:7]), .w(ImmExt)
     );
 
     ALU Alu(

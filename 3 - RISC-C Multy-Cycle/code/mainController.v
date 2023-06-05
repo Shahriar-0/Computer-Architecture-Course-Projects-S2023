@@ -146,7 +146,7 @@ module MainController(clk, rst, op, zero,
                 regWrite  <= 1'b1;
                 ALUSrcA   <= 2'b10;
                 ALUSrcB   <= 2'b01;
-                immSrc    <= 3'b100;
+                immSrc    <= 3'b011;
                 ALUOp     <= 2'b00;
             end
 
@@ -187,7 +187,7 @@ module MainController(clk, rst, op, zero,
         
             `MEM5: begin
                 resultSrc <= 2'b11;
-                immSrc    <= 3'b011;
+                immSrc    <= 3'b100;
                 regWrite  <= 1'b1;
             end
         
