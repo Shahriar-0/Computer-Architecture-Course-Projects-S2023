@@ -90,6 +90,7 @@ module MainController(clk, rst, op, zero,
                 ALUOp     <= 2'b00;
                 resultSrc <= 2'b10;
                 PCUpdate  <= 1'b1;
+                adrSrc = 1'b0;
             end
         
             `ID: begin
