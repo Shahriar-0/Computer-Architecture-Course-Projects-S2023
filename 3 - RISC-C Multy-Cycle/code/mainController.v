@@ -30,14 +30,14 @@
 module MainController(clk, rst, op, zero, 
                       PCUpdate, adrSrc, memWrite, branch,
                       IRWrite, resultSrc, ALUOp, neg,
-                      ALUSrcA, ALUSrcB, immSrc, RegWrite);
+                      ALUSrcA, ALUSrcB, immSrc, regWrite);
 
     input [6:0] op;
     input clk, rst, zero , neg;
 
     output reg [1:0]  resultSrc, ALUSrcA, ALUSrcB, ALUOp;
     output reg [2:0] immSrc;
-    output reg adrSrc, RegWrite, memWrite, PCUpdate, branch, IRWrite;
+    output reg adrSrc, regWrite, memWrite, PCUpdate, branch, IRWrite;
 
     reg [4:0] pstate;
     reg [4:0] nstate = `IF;
@@ -53,7 +53,7 @@ module MainController(clk, rst, op, zero,
                            (op == `B_T) ? `EX3 :
                            (op == `U_T) ? `MEM5 :
                            (op == `LW_T) ? `EX9 :
-                           (op == `JALR) ? `EX8: `IF;
+                           (op == `JALR_T) ? `EX8: `IF;
 
             `EX1: nstate <= `MEM2;
             `EX2 : nstate <= `MEM4;
@@ -79,7 +79,7 @@ module MainController(clk, rst, op, zero,
     always @(pstate) begin
 
         {resultSrc, memWrite, ALUOp, ALUSrcA, ALUSrcB, immSrc, 
-                RegWrite, PCUpdate, branch, IRWrite} <= 14'b0;
+                regWrite, PCUpdate, branch, IRWrite} <= 14'b0;
 
         case(pstate)
 
@@ -90,6 +90,7 @@ module MainController(clk, rst, op, zero,
                 ALUOp     <= 2'b00;
                 resultSrc <= 2'b10;
                 PCUpdate  <= 1'b1;
+                adrSrc = 1'b0;
             end
         
             `ID: begin
@@ -142,8 +143,8 @@ module MainController(clk, rst, op, zero,
             end
         
             `EX7: begin
-                RegWrite  <= 1'b1;
-                ALUSrcA   <= 2'10;
+                regWrite  <= 1'b1;
+                ALUSrcA   <= 2'b10;
                 ALUSrcB   <= 2'b01;
                 immSrc    <= 3'b100;
                 ALUOp     <= 2'b00;
@@ -170,7 +171,7 @@ module MainController(clk, rst, op, zero,
         
             `MEM2: begin
                 resultSrc <= 2'b00;
-                RegWrite  <= 1'b1;
+                regWrite  <= 1'b1;
             end
         
             `MEM3: begin
@@ -181,13 +182,13 @@ module MainController(clk, rst, op, zero,
         
             `MEM4: begin
                 resultSrc <= 2'b00;
-                RegWrite  <= 1'b1;
+                regWrite  <= 1'b1;
             end
         
             `MEM5: begin
                 resultSrc <= 2'b11;
                 immSrc    <= 3'b011;
-                RegWrite  <= 1'b1;
+                regWrite  <= 1'b1;
             end
         
             `MEM6: begin
@@ -197,7 +198,7 @@ module MainController(clk, rst, op, zero,
         
             `WB: begin
                 resultSrc <= 2'b01;
-                RegWrite  <= 1'b1;
+                regWrite  <= 1'b1;
                 end
         
         endcase
