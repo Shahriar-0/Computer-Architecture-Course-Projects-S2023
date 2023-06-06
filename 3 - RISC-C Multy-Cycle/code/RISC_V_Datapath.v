@@ -1,4 +1,4 @@
-module CPU_Datapath(clk, rst, PCWrite, adrSrc, memWrite,
+module RISC_V_Datapath(clk, rst, PCWrite, adrSrc, memWrite,
                     IRWrite, resultSrc, ALUControl,
                     ALUSrcA, ALUSrcB, immSrc, regWrite,
                     op, func3, func7, zero, neg);

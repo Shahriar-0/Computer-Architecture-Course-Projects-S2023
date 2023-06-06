@@ -6,7 +6,7 @@ module Register(in, clk, rst, out);
 
     output reg [N-1:0] out;
     
-    always @(posedge clk,posedge rst) begin
+    always @(posedge clk or posedge rst) begin
         if(rst)
             out <= {N{1'b0}};
         else
