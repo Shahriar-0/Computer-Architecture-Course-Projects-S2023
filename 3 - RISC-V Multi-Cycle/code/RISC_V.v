@@ -10,7 +10,7 @@ module RISC_V(clk, rst);
     
     wire [6:0] op; 
 
-    RISC_V_Controller CU(
+    CPU_Controller CPU(
         .clk(clk), .rst(rst), .op(op), 
         .func3(func3), .immSrc(immSrc), 
         .func7(func7), .zero(zero), 
@@ -21,7 +21,7 @@ module RISC_V(clk, rst);
         .ALUSrcB(ALUSrcB), .regWrite(regWrite)
     );
 
-    RISC_V_Datapath DP(
+    CPU_Datapath DP(
         .clk(clk), .rst(rst), .neg(neg),
         .PCWrite(PCWrite), .adrSrc(adrSrc),
         .memWrite(memWrite), .IRWrite(IRWrite), 
