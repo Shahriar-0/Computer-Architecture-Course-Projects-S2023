@@ -1,17 +1,17 @@
 module RegEX_MEM(clk, rst, regWriteE, resultSrcE, memWriteE,
-                 ALUResultE, WriteDataE, RdE, PCPlus4E,
+                 ALUResultE, WriteDataE, RdE, PCPlus4E, luiE,
                  regWriteM, resultSrcM, memWriteM, ALUResultM,
-                 WriteDataM, RdM, PCPlus4M);
+                 WriteDataM, RdM, PCPlus4M, luiM);
 
     input clk, rst;
     input [31:0] ALUResultE, WriteDataE, PCPlus4E;
     input [4:0] RdE;
-    input  memWriteE, regWriteE;
+    input  memWriteE, regWriteE, luiE;
     input [1:0] resultSrcE;
     
     output reg [31:0] ALUResultM, WriteDataM, PCPlus4M;
     output reg [4:0] RdM;
-    output reg  memWriteM, regWriteM;
+    output reg  memWriteM, regWriteM , luiM;
     output reg [1:0] resultSrcM;
 
     always @(posedge clk or posedge rst) begin
@@ -23,6 +23,7 @@ module RegEX_MEM(clk, rst, regWriteE, resultSrcE, memWriteE,
             memWriteM <= 1'b0;
             regWriteM <= 1'b0;
             resultSrcM <= 2'b0;
+            luiM <= 1'b0;
         end else begin
             ALUResultM <=  ALUResultE;
             WriteDataM <=  WriteDataE;
@@ -31,6 +32,7 @@ module RegEX_MEM(clk, rst, regWriteE, resultSrcE, memWriteE,
             memWriteM <= memWriteE;
             regWriteM <= regWriteE;
             resultSrcM <= resultSrcE;
+            luiM <= luiE;
         end
     end
 
