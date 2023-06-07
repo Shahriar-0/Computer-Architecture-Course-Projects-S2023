@@ -10,5 +10,4 @@ module RISC_V_Controller(clk, rst, op, func3, func7, zero, neg,
     output [1:0] resultSrc, ALUSrcA, ALUSrcB;
     output [2:0] ALUControl, immSrc;
     
-    
 endmodule
