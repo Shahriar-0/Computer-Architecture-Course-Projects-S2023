@@ -1,4 +1,4 @@
-module CPU_Controller(clk, rst, op, func3, func7, zero, neg,
+module RISC_V_Controller(clk, rst, op, func3, func7, zero, neg,
                     PCWrite, adrSrc, memWrite,
                     IRWrite, resultSrc, ALUControl,
                     ALUSrcA, ALUSrcB, immSrc, regWrite);

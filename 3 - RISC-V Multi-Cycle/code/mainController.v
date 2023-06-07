@@ -55,7 +55,7 @@ module MainController(clk, rst, op, zero,
                            (op == `LW_T) ? `EX9 :
                            (op == `JALR_T) ? `EX8: `IF;
 
-            `EX1: nstate <= `MEM2;
+            `EX1 : nstate <= `MEM2;
             `EX2 : nstate <= `MEM4;
             `EX3 : nstate <= `IF;
             `EX4 : nstate <= `EX7;
@@ -104,7 +104,7 @@ module MainController(clk, rst, op, zero,
                 ALUSrcA   <= 2'b10;
                 ALUSrcB   <= 2'b01;
                 immSrc    <= 3'b000;
-                ALUOp     <= 2'b11; //fix in diagram
+                ALUOp     <= 2'b11;
             end
 
             `EX2: begin
@@ -154,7 +154,7 @@ module MainController(clk, rst, op, zero,
                 ALUSrcA   <= 2'b10;
                 ALUSrcB   <= 2'b01;
                 immSrc    <= 3'b000;
-                ALUOp     <= 2'b00; //fix in diagramm
+                ALUOp     <= 2'b00;
             end
 
             `EX9: begin 
