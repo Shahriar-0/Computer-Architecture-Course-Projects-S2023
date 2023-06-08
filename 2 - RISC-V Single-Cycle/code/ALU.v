@@ -12,7 +12,7 @@ module ALU(opc, a, b, zero, neg, w);
     input signed [N-1:0] a, b;
     
     output zero, neg;
-    output reg [N-1:0] w;
+    output reg signed [N-1:0] w;
     
     always @(a or b or opc) begin
         case (opc)

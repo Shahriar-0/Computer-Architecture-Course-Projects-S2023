@@ -28,9 +28,9 @@ module RegEX_MEM(clk, rst, regWriteE, resultSrcE, memWriteE,
         end 
         
         else begin
-            ALUResultM <=  ALUResultE;
-            writeDataM <=  writeDataE;
-            PCPlus4M   <=  PCPlus4E;
+            ALUResultM <= ALUResultE;
+            writeDataM <= writeDataE;
+            PCPlus4M   <= PCPlus4E;
             RdM        <= RdE;
             memWriteM  <= memWriteE;
             regWriteM  <= regWriteE;

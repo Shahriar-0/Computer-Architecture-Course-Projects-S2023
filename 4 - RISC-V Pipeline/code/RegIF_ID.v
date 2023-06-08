@@ -18,7 +18,7 @@ module RegIF_ID(clk, rst, en, clr, instrF, PCF,
         else if(~en) begin
             instrD   <= instrF;
             PCD      <= PCF;
-            PCPlus4D <= PCPlus4F; // ?
+            PCPlus4D <= PCPlus4F;
         end
         
     end

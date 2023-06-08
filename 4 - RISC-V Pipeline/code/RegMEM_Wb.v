@@ -26,12 +26,12 @@ module RegMEM_WB(clk, rst, regWriteM, resultSrcM,
         end 
         
         else begin
-            regWriteW  <= regWriteM; // ?
-            ALUResultW <= ALUResultM;// ?
-            PCPlus4W   <= PCPlus4M;// ?
-            RDW        <= RDM;// ?
-            RdW        <= RdM;// ?
-            resultSrcW <= resultSrcM;// ?
+            regWriteW  <= regWriteM; 
+            ALUResultW <= ALUResultM;
+            PCPlus4W   <= PCPlus4M;
+            RDW        <= RDM;
+            RdW        <= RdM;
+            resultSrcW <= resultSrcM;
             extImmW    <= extImmM;
         end
         
