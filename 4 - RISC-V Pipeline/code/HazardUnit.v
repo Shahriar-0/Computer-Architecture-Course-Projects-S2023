@@ -3,12 +3,11 @@ module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
                  regWriteM, stallF, stallD, flushD,
                  flushE, forwardAE, forwardBE);
 
-    input [4:0] Rs1D,Rs2D, RdE, RdM, RdW, Rs1E, Rs2E;
-    input  resultSrc0 ;
+    input [4:0] Rs1D, Rs2D, RdE, RdM, RdW, Rs1E, Rs2E;
     input [1:0] PCSrcE;
-    input regWriteM, regWriteW;
-    output stallF, stallD, flushD; 
-    output flushE, forwardAE, forwardBE;
+    input regWriteM, regWriteW, resultSrc0;
+
+    output stallF, stallD, flushD, flushE, forwardAE, forwardBE;
 
     assign forwardAE = (((Rs1E == RdM) &&  regWriteM) & (Rs1E != 5'b0)) ? 2'b10:
                        (((Rs1E == RdM) &&  regWriteW) & (Rs1E != 5'b0)) ? 2'b01: 2'b00;

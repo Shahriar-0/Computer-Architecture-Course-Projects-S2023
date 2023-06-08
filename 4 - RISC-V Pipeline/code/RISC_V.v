@@ -10,26 +10,19 @@ module RISC_V(clk, rst);
     
     wire [6:0] op; 
 
-    RISC_V_Controller CU(
-        .clk(clk), .rst(rst), .op(op), 
-        .func3(func3), .immSrc(immSrc), 
-        .func7(func7), .zero(zero), 
-        .neg(neg), .PCWrite(PCWrite),
-        .adrSrc(adrSrc), .memWrite(memWrite), 
-        .IRWrite(IRWrite), .resultSrc(resultSrc), 
-        .ALUControl(ALUControl), .ALUSrcA(ALUSrcA),
-        .ALUSrcB(ALUSrcB), .regWrite(regWrite)
+    RISC_V_Controller CU(   // TODO: i connected parts that i know
+        .clk(clk), .rst(rst), .op(op), .func3(func3), 
+        .regWriteD(), .resultSrcD(), .memWriteD(),
+        .jumpD(), .branchD(), .ALUControlD(),
+        .ALUSrcD(), .immSrcD(), .func7(func7),
     );
 
-    RISC_V_Datapath DP(
-        .clk(clk), .rst(rst), .neg(neg),
-        .PCWrite(PCWrite), .adrSrc(adrSrc),
-        .memWrite(memWrite), .IRWrite(IRWrite), 
-        .resultSrc(resultSrc), .immSrc(immSrc), 
-        .ALUControl(ALUControl), .op(op),
-        .ALUSrcA(ALUSrcA), .func3(func3),
-        .ALUSrcB(ALUSrcB), .zero(zero),
-        .regWrite(regWrite), .func7(func7)
+    RISC_V_Datapath DP(     // TODO: i connected parts that i know
+        .clk(clk), .rst(rst), .regWriteD(), .func3(func3),
+        .memWriteD(), .jumpD(), .branchD(),
+        .ALUControlD(), .ALUSrcD(), .immSrcD(),
+        .luiD(), .op(op), .func7(func7), .resultSrcD()
     );
+    
     
 endmodule
