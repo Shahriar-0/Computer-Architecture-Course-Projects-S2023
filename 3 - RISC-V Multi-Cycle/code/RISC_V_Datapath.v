@@ -25,8 +25,8 @@ module RISC_V_Datapath(clk, rst, PCWrite, adrSrc, memWrite,
 
     Mux2to1 AdrMux(.slc(adrSrc),    .a(PC),     .b(Result), .w(Adr));
 
-    Mux4to1 AMux  (.slc(ALUSrcA),   .a(PC),     .b(OldPC),  .c(A),         .d(32'd0),  .w(SrcA));
-    Mux4to1 BMux  (.slc(ALUSrcB),   .a(B),      .b(ImmExt), .c(32'd4),     .d(32'd0),  .w(SrcB));
+    Mux4to1 AMux       (.slc(ALUSrcA),   .a(PC),     .b(OldPC),  .c(A),         .d(32'd0),  .w(SrcA));
+    Mux4to1 BMux       (.slc(ALUSrcB),   .a(B),      .b(ImmExt), .c(32'd4),     .d(32'd0),  .w(SrcB));
     Mux4to1 ResultMux  (.slc(resultSrc), .a(ALUOut), .b(Data),   .c(ALUResult), .d(ImmExt), .w(Result));
 
     ImmExtension Extend(
