@@ -12,7 +12,7 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD, memWriteD, jumpD
     wire zero, neg;
 
     wire stallF;
-    wire [1:0]  PCSrc;
+    wire [1:0]  PCSrcE;
     wire [31:0] PCPlus4F;
     wire [31:0]  PCFf, PCF, instrF;
 
@@ -35,17 +35,23 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD, memWriteD, jumpD
 
     wire  regWriteM, memWriteM, luiM;
     wire [1:0] resultSrcM;
-    wire [31:0] ALUResultM, writeDataM, PCPlus4M, ,extImmM;
+    wire [31:0] ALUResultM, writeDataM, PCPlus4M, ,extImmM, RDM;
     wire [4:0] RdM;
 
 
 
     wire [4:0] RdW;
     wire regWriteW;
-    wire [31:0] resultW;
+    wire [1:0] resultSrcW
+    wire [4:0] RdW;
+    wire [31:0] resultW, extImmW, ALUResultW, RDW, PCPlus4W;
+    
+    wire [31:0] idk; //fix me
 
     InstructionMemory IM(.pc(PCF), .instruction(instrF));
     
+    DataMemory DN(.memAdr(ALUResultM), .writeData(writeDataM), .memWrite(memWriteM), .clk(clk), .readData(RDM));
+
     RegisterFile RF(.clk(clk), .regWrite(regWriteW),
                     .readRegister1(instrD[19:15]), .readRegister2(instrD[24:20]),
                     .writeRegister(RdW), .writeData(resultW),
@@ -60,11 +66,14 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD, memWriteD, jumpD
 
     Mux4to1 PCmux(.slc(PCSrcE), .a(PCPlus4F), .b(PCTargetE), .c(ALUResultE), .d(32'b0), .w(PCFf));
 
-    Mux4to1 SrcAreg(.slc(forwardAE), .a(RD1E) , .b(resultW), .c(ALUResultM) , .d(32'b0), .w(SrcAE));
-    Mux4to1 BSrcBreg(.slc(forwardBE), .a(RD2E) , .b(resultW), .c(ALUResultM) , .d(32'b0), .w(writeDataE));
+    Mux4to1 SrcAreg(.slc(forwardAE), .a(RD1E) , .b(resultW), .c(idk) , .d(32'b0), .w(SrcAE));
+    Mux4to1 BSrcBreg(.slc(forwardBE), .a(RD2E) , .b(resultW), .c(idk) , .d(32'b0), .w(writeDataE));
     
+    Mux4to1 resMux(.slc(resultSrcW), .a(ALUResultW), .b(RDW), .c(PCPlus4W), d(extImmW), .w(resultW));
+
     Mux2to1 SrcBreg( .slc(ALUSrcE), .a(writeDataE), .b(extImmE), .w(SrcBE));
 
+    Mux2to1 muxMSrcA( .slc(luiM), .a(ALUResultM), .b(extImmM) , .w(idk));
 
     Register PCreg(.in(PCFf), .clk(clk), .en(~stallF), .rst(rst), .out(PCF));
      
@@ -86,5 +95,19 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD, memWriteD, jumpD
                  .regWriteM(regWriteM), .resultSrcM(resultSrcM), .memWriteM(memWriteM), .ALUResultM(ALUResultM),
                  .writeDataM(writeDataM), .RdM(RdM), .PCPlus4M(PCPlus4M), .luiM(luiM),.extImmM(extImmM));
 
+    RegMEM_WB regMEMWB(.clk(clk), .rst(rst), .regWriteM(regWriteM), .resultSrcM(resultSrcM),
+                 .ALUResultM(ALUResultM), .RDM(RDM), .RdM(RdM), .PCPlus4M(PCPlus4M),
+                .extImmM(extImmM), .extImmW(extImmW), .regWriteW(regWriteW), .resultSrcW(resultSrcW),
+                .ALUResultW(ALUResultW), .RDW(RDW), .RdW(RdW), .PCPlus4W(PCPlus4W)
+                );
     
+    HazardUnit hazard(.Rs1D(Rs1D), .Rs2D(Rs2D), .RdE(RdE), .RdM(RdM), .RdW(RdW), .Rs2E(Rs2E), .Rs1E(Rs1E),
+                 .PCSrcE(PCSrcE), .resultSrc0(resultSrcE[0]), .regWriteW(regWriteW),
+                 .regWriteM(regWriteM), .stallF(stallF), .stallD(stallD), .flushD(flushD),
+                 .flushE(flushE), .forwardAE(forwardAE), .forwardBE(forwardBE));
+
+    BranchController JBprosecc(.branchE(branchE), .jumpE(jumpE), .neg(neg), .zero(zero), .PCSrcE(PCSrcE));
+
+    
+
 endmodule

@@ -1,10 +1,11 @@
 module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
-                 PCSrc, resultSrc0, regWriteW,
+                 PCSrcE, resultSrc0, regWriteW,
                  regWriteM, stallF, stallD, flushD,
                  flushE, forwardAE, forwardBE);
 
     input [4:0] Rs1D,Rs2D, RdE, RdM, RdW, Rs1E, Rs2E;
-    input PCSrc, resultSrc0 ;
+    input  resultSrc0 ;
+    input [1:0] PCSrcE;
     input regWriteM, regWriteW;
     output stallF, stallD, flushD; 
     output flushE, forwardAE, forwardBE;
@@ -19,7 +20,7 @@ module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
     assign stallF = lwStall;
     assign stallD = lwStalll;
 
-    assign flushD = PCSrc;
-    assign flushE = lwStall || PCSrc;
+    assign flushD = (PCSrcE != 2'b00);
+    assign flushE = lwStall || (PCSrcE != 2'b00);
 
 endmodule

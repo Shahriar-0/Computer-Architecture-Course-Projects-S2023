@@ -1,7 +1,7 @@
 module RegMEM_WB(clk, rst, regWriteM, resultSrcM,
                  ALUResultM, RDM, RdM, PCPlus4M,
                 extImmM, extImmW, regWriteW, resultSrcW,
-                ALUResultW, RDW, RdW, PCPlus4W,
+                ALUResultW, RDW, RdW, PCPlus4W
                 );
     
     input clk, rst, regWriteM;
