@@ -9,7 +9,7 @@ module Register(in, clk, en, rst, out);
     always @(posedge clk or posedge rst) begin
         if(rst)
             out <= {N{1'b0}};
-        else if (en)
+        else if(en)
             out <= in;
     end
 

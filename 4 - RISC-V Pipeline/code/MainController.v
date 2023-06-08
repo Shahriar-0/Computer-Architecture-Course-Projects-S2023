@@ -95,11 +95,6 @@ module MainController(op, zero, resultSrc, memWrite,
             end
 
         endcase
-
-        if ((op == `B_T) || (op == `J_T) || (op ==JALR_T))
-            immSrc = 3'b010;
-        else
-            immSrc = 3'b001;
     end
 
 endmodule

@@ -11,7 +11,7 @@ module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD, jumpD,
     input [4:0] Rs1D, Rs2D,RdD;
     input [2:0] branchD;
     input [1:0] jumpD, resultSrcD;
-    output ALUSrcE ,luiE;
+    output ALUSrcE, luiE;
     output reg [31:0] RD1E, RD2E, PCE;
     output reg [31:0] PCPlus4E, extImmE;
     output reg [4:0] Rs1E, Rs2E,RdE;
@@ -19,7 +19,8 @@ module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD, jumpD,
     output reg [1:0] jumpE, resultSrcE;
     
     always @(posedge clk or posedge rst) begin
-        if (rst || clr) begin
+        
+        if(rst || clr) begin
             RD1E <= 32'b0;
             RD2E <= 32'b0;
             PCE <= 32'b0;
@@ -34,6 +35,7 @@ module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD, jumpD,
             resultSrcE 2'b00;
             luiE <= 1'b0;
         end
+
         else begin
             RD1E <= RD1D;
             RD2E <= RD2D;
@@ -49,6 +51,7 @@ module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD, jumpD,
             resultSrcE <= resultSrcD;
             luiE <= luiD;
         end
+        
     end
 
 endmodule
