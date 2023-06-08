@@ -5,7 +5,7 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
 
     input clk, rst, regWriteD, memWriteD, ALUSrcD, luiD;
     input  [1:0] resultSrcD, jumpD;
-    input  [2:0] ALUControlD, branchD, immSrcD; // ?
+    input  [2:0] ALUControlD, branchD, immSrcD;
 
     output [6:0] op;
     output [2:0] func3;
@@ -28,18 +28,40 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
                 PCF_Prime, PCF, instrF, PCPlus4F,
                 idk; // FIXME: idk
 
+    // F
+    Adder PCFAdder(
+        .a(PCF), .b(32'd4), .w(PCPlus4F)
+    );
+
+    Register PCreg(
+        .in(PCF_Prime), .clk(clk), .en(~stallF), 
+        .rst(rst), .out(PCF)
+    );
+
     InstructionMemory IM(
         .pc(PCF), .instruction(instrF)
     );
-    
-    DataMemory DN(
-        .memAdr(ALUResultM), .writeData(writeDataM), 
-        .memWrite(memWriteM), .clk(clk), .readData(RDM)
+
+    Mux4to1 PCmux(
+        .slc(PCSrcE), .a(PCPlus4F), .b(PCTargetE), 
+        .c(ALUResultE), .d(32'bz), .w(PCF_Prime)
     );
 
+    RegIF_ID regIFID(
+        .clk(clk), .rst(rst), 
+        .en(~stallD), .clr(flushD)
+
+        .PCF(PCF),                 .PCD(PCD),
+        .PCPlus4F(PCPlus4F),       .PCPlus4D(PCPlus4D),
+        .instrF(instrF),           .instrD(instrD)
+    );
+    // end F
+
+    // D
     RegisterFile RF(
         .clk(clk), .regWrite(regWriteW),
-        .writeRegister(RdW), .writeData(resultW),
+        .writeRegister(RdW), 
+        .writeData(resultW),
         .readData1(RD1D), .readData2(RD2D),
         .readRegister1(instrD[19:15]), 
         .readRegister2(instrD[24:20])
@@ -50,58 +72,102 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
         .data(instrD[31:7])
     );
 
-    ALU Alu(
+    ALU ALU_Instance(
         .opc(ALUControlE), .a(SrcAE), .b(SrcBE), 
         .zero(zero), .neg(neg), .w(ALUResultE)
     );
 
-    Register PCreg(
-        .in(PCF_Prime), .clk(clk), .en(~stallF), 
-        .rst(rst), .out(PCF)
-    );
-     
-    RegIF_ID regIFID(
-        .clk(clk), .rst(rst), .en(~stallD), 
-        .clr(flushD), .instrF(instrF), .PCF(PCF), 
-        .PCPlus4F(PCPlus4F), .PCPlus4D(PCPlus4D),
-        .instrD(instrD), .PCD(PCD)
-    );
+    assign op = instrD[6:0];
+    assign RdD = instrD[11:7];
+    assign func3 = instrD[14:12];
+    assign Rs1D =  instrD[19:15];
+    assign Rs2D = instrD[24:20];
+    assign func7 = instrD[30];
 
     RegID_EX regIDEX(
         .clk(clk), .rst(rst), .clr(flushE), 
-        .regWriteD(regWriteD), .resultSrcD(resultSrcD), 
-        .memWriteD(memWriteD), .jumpD(jumpD),
-        .branchD(branchD), .ALUControlD(ALUControlD), 
-        .ALUSrcD(ALUSrcD), .RD1D(RD1D), .RD2D(RD2D), 
-        .PCD(PCD),.Rs1D(Rs1D), .Rs2D(Rs2D), .RdD(RdD), 
-        .extImmD(extImmD),.PCPlus4D(PCPlus4D), .luiD(luiD),
-        .regWriteE(regWriteE), .ALUSrcE(ALUSrcE), 
-        .memWriteE(memWriteE), .jumpE(jumpE), .luiE(luiE),
-        .branchE(branchE), .ALUControlE(ALUControlE), 
-        .resultSrcE(resultSrcE), .RD1E(RD1E), .RD2E(RD2E), 
-        .PCE(PCE),.Rs1E(Rs1E), .Rs2E(Rs2E),.RdE(RdE), 
-        .extImmE(extImmE),.PCPlus4E(PCPlus4E)
+
+        .regWriteD(regWriteD), .regWriteE(regWriteE), 
+        .PCD(PCD),                 .PCE(PCE),
+        .Rs1D(Rs1D),               .Rs1E(Rs1E),
+        .Rs2D(Rs2D),               .Rs2E(Rs2E),
+        .RdD(RdD),                 .RdE(RdE),
+        .RD1D(RD1D),               .RD1E(RD1E),
+        .RD2D(RD2D),               .RD2E(RD2E), 
+        .resultSrcD(resultSrcD),   .resultSrcE(resultSrcE),
+        .memWriteD(memWriteD),     .memWriteE(memWriteE),
+        .jumpD(jumpD),             .jumpE(jumpE),
+        .branchD(branchD),         .branchE(branchE),
+        .ALUControlD(ALUControlD), .ALUControlE(ALUControlE), 
+        .ALUSrcD(ALUSrcD),         .ALUSrcE(ALUSrcE),    
+        .extImmD(extImmD),         .extImmE(extImmE),
+        .luiD(luiD),               .luiE(luiE),
+        .PCPlus4D(PCPlus4D),       .PCPlus4E(PCPlus4E) 
     );
+     
+    // end D
     
+    // E    
+    Mux4to1 SrcAreg (
+        .slc(forwardAE), .a(RD1E), .b(resultW), .c(idk), .d(32'bz), .w(SrcAE)
+    );
+
+    Mux4to1 BSrcBreg(
+        .slc(forwardBE), .a(RD2E), .b(resultW), .c(idk), .d(32'bz), .w(writeDataE)
+    );
+
+    Mux2to1 SrcBreg(
+        .slc(ALUSrcE), .a(writeDataE), .b(extImmE), .w(SrcBE)
+    );
+
+    Adder PCEAdder(
+        .a(PCE), .b(extImmE), .w(PCTargetE)
+    );
+
     RegEX_MEM regEXMEM(
-        .clk(clk), .rst(rst), .regWriteE(regWriteE), 
-        .resultSrcE(resultSrcE), .memWriteE(memWriteE),
-        .ALUResultE(ALUResultE), .writeDataE(writeDataE), 
-        .RdE(RdE), .PCPlus4E(PCPlus4E), .luiE(luiE), 
-        .extImmE(extImmE), .regWriteM(regWriteM), .RdM(RdM),
-        .resultSrcM(resultSrcM), .memWriteM(memWriteM), 
-        .ALUResultM(ALUResultM), .writeDataM(writeDataM),
-         .PCPlus4M(PCPlus4M), .luiM(luiM),.extImmM(extImmM)
+        .clk(clk), .rst(rst), 
+
+        .PCPlus4M(PCPlus4M),       .PCPlus4E(PCPlus4E),
+        .resultSrcE(resultSrcE),   .resultSrcM(resultSrcM),
+        .writeDataE(writeDataE),   .writeDataM(writeDataM),
+        .luiE(luiE),               .luiM(luiM),
+        .regWriteE(regWriteE),     .regWriteM(regWriteM), 
+        .RdE(RdE),                 .RdM(RdM),
+        .memWriteE(memWriteE),     .memWriteM(memWriteM),
+        .ALUResultE(ALUResultE),   .ALUResultM(ALUResultM),
+        .extImmE(extImmE),         .extImmM(extImmM)
+    );
+    // end E
+
+    // M
+    DataMemory DM(
+        .memAdr(ALUResultM), .writeData(writeDataM), 
+        .memWrite(memWriteM), .clk(clk), .readData(RDM)
+    );
+
+    Mux2to1 muxMSrcA(
+        .slc(luiM), .a(ALUResultM), .b(extImmM), .w(idk)
     );
 
     RegMEM_WB regMEMWB(
-        .clk(clk), .rst(rst), .regWriteM(regWriteM), 
-        .resultSrcM(resultSrcM), .RDM(RDM), .RdM(RdM),
-        .ALUResultM(ALUResultM), .PCPlus4M(PCPlus4M),
-        .extImmM(extImmM), .extImmW(extImmW), .RdW(RdW),
-        .regWriteW(regWriteW), .resultSrcW(resultSrcW),
-        .ALUResultW(ALUResultW), .RDW(RDW), .PCPlus4W(PCPlus4W)
+        .clk(clk), .rst(rst), 
+
+        .regWriteM(regWriteM),     .regWriteW(regWriteW),
+        .ALUResultM(ALUResultM),   .ALUResultW(ALUResultW),
+        .RDM(RDM),                 .RDW(RDW),
+        .RdM(RdM),                 .RdW(RdW),
+        .resultSrcM(resultSrcM),   .resultSrcW(resultSrcW),  
+        .PCPlus4M(PCPlus4M),       .PCPlus4W(PCPlus4W),
+        .extImmM(extImmM),         .extImmW(extImmW)
     );
+    // end M
+
+    // W
+    Mux4to1 resMux(
+        .slc(resultSrcW), .a(ALUResultW), .b(RDW), 
+        .c(PCPlus4W), .d(extImmW), .w(resultW)
+    );
+    // end W
     
     HazardUnit hazard(
         .Rs1D(Rs1D), .Rs2D(Rs2D), .RdE(RdE), .RdM(RdM), 
@@ -116,23 +182,5 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
         .branchE(branchE), .jumpE(jumpE), .neg(neg), 
         .zero(zero), .PCSrcE(PCSrcE)
     );
-
-    Adder PC4Adder  (.a(PCF), .b(32'd4),   .w(PCPlus4F));
-    Adder PCtarAdder(.a(PCE), .b(extImmE), .w(PCTargetE));
-
-    Mux4to1 SrcAreg (.slc(forwardAE),  .a(RD1E),       .b(resultW),   .c(idk),        .d(32'b0),   .w(SrcAE));
-    Mux4to1 BSrcBreg(.slc(forwardBE),  .a(RD2E),       .b(resultW),   .c(idk),        .d(32'b0),   .w(writeDataE));
-    Mux4to1 resMux  (.slc(resultSrcW), .a(ALUResultW), .b(RDW),       .c(PCPlus4W),   .d(extImmW), .w(resultW));
-    Mux4to1 PCmux   (.slc(PCSrcE),     .a(PCPlus4F),   .b(PCTargetE), .c(ALUResultE), .d(32'b0),   .w(PCF_Prime));
-
-    Mux2to1 SrcBreg (.slc(ALUSrcE), .a(writeDataE), .b(extImmE), .w(SrcBE));
-    Mux2to1 muxMSrcA(.slc(luiM),    .a(ALUResultM), .b(extImmM), .w(idk));
-
-    assign op = instr[6:0];
-    assign RdD = instrD[11:7];
-    assign func3 = instr[14:12];
-    assign Rs1D =  instrD[19:15];
-    assign Rs2D = instrD[24:20];
-    assign func7 = instr[30];
 
 endmodule
