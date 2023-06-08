@@ -7,7 +7,7 @@
 
 `define NOJ 2'b00
 `define JAL 2'b01
-`define JALR 2'b11
+`define JALR 2'b10
 module BranchController(branchE, jumpE, neg, zero, PCSrcE);
 
     input zero, neg;
