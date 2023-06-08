@@ -1,26 +1,40 @@
-module RegEX_MEM(clk, rst, ALUResult, memData, memDataOut,
-                 RD, RDOut, memToReg, memToRegOut);
+module RegEX_MEM(clk, rst, regWriteE, resultSrcE, memWriteE,
+                 ALUResultE, writeDataE, RdE, PCPlus4E, luiE, extImmE,
+                 regWriteM, resultSrcM, memWriteM, ALUResultM,
+                 writeDataM, RdM, PCPlus4M, luiM,extImmM);
 
     input clk, rst;
-    input [31:0] ALUResult, memData;
-    input [4:0] RD;
-    input [2:0] memToReg;
+    input [31:0] ALUResultE, writeDataE, PCPlus4E, extImmE;
+    input [4:0] RdE;
+    input  memWriteE, regWriteE, luiE;
+    input [1:0] resultSrcE;
     
-    output reg [31:0] AlUResultOut, memDataOut;
-    output reg [4:0] RDOut;
-    output reg [2:0] memToRegOut;
+    output reg [31:0] ALUResultM, writeDataM, PCPlus4M, extImmM;
+    output reg [4:0] RdM;
+    output reg  memWriteM, regWriteM , luiM;
+    output reg [1:0] resultSrcM;
 
     always @(posedge clk or posedge rst) begin
         if (rst) begin
-            ALUResultOut <= 32'b0;
-            memDataOut <= 32'b0;
-            RDOut <= 5'b0;
-            memToRegOut <= 3'b0;
+            ALUResultM <= 32'b0;
+            writeDataM <= 32'b0;
+            PCPlus4M   <= 32'b0;
+            extImmM <= 32'b0;
+            RdM <= 5'b0;
+            memWriteM <= 1'b0;
+            regWriteM <= 1'b0;
+            resultSrcM <= 2'b0;
+            luiM <= 1'b0;
         end else begin
-            ALUResultOut <= ALUResult;
-            memDataOut <= memData;
-            RDOut <= RD;
-            memToRegOut <= memToReg;
+            ALUResultM <=  ALUResultE;
+            writeDataM <=  writeDataE;
+            PCPlus4M   <=  PCPlus4E;
+            RdM <= RdE;
+            memWriteM <= memWriteE;
+            regWriteM <= regWriteE;
+            resultSrcM <= resultSrcE;
+            luiM <= luiE;
+            extImmM <= extImmE;
         end
     end
 

@@ -1,25 +1,36 @@
-module RegMEM_WB(clk, rst, ALUResult, memData, RD, memToReg, ALUResultOut, memDataOut, RDOut, memWriteOut);
+module RegMEM_WB(clk, rst, regWriteM, resultSrcM,
+                 ALUResultM, RDM, RdM, PCPlus4M,
+                extImmM, extImmW, regWriteW, resultSrcW,
+                ALUResultW, RDW, RdW, PCPlus4W
+                );
     
-    input clk, rst;
-    input [31:0] ALUResult, memData;
-    input [4:0] RD;
-    input [2:0] memToReg;
+    input clk, rst, regWriteM;
+    input [31:0] ALUResultM, RDM, PCPlus4M, extImmM;
+    input [4:0] RdM;
+    input [1:0] resultSrcM;
 
-    output reg [31:0] ALUResultOut, memDataOut;
-    output reg [4:0] RDOut,
-    output reg [2:0] memToRegOut
+    output reg clk, rst, regWriteW;
+    output reg [31:0] ALUResultW, RDW, PCPlus4W, extImmW;
+    output reg [4:0] RdW;
+    output reg [1:0] resultSrcW;
 
     always @(posedge clk or posedge rst) begin
         if (rst) begin
-            ALUResultOut <= 32'b0;
-            memDataOut <= 32'b0;
-            RDOut <= 5'b0;
-            memToRegOut <= 3'b0;
+            regWriteW <= 32'b0;
+            ALUResultW <= 32'b0;
+            PCPlus4W <= 32'b0;
+            RDW <= 32'b0;
+            RdW <= 5'b0;
+            resultSrcW <= 2'b0;
+            extImmW <= 32'b0;
         end else begin
-            ALUResultOut <= ALUResult;
-            memDataOut <= memData;
-            RDOut <= RD;
-            memToRegOut <= memToReg;
+            regWriteW <= regWriteW;
+            ALUResultW <= ALUResultW;
+            PCPlus4W <= PCPlus4W;
+            RDW <= RDW;
+            RdW <= RdW;
+            resultSrcW <= resultSrcW;
+            extImmW <= extImmM;
         end
     end
 
