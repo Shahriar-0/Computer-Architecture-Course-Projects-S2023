@@ -4,14 +4,14 @@ module RegMEM_WB(clk, rst, regWriteM, resultSrcM,
                 ALUResultW, RDW, RdW, PCPlus4W);
     
     input clk, rst, regWriteM;
-    input [31:0] ALUResultM, RDM, PCPlus4M, extImmM;
-    input [4:0] RdM;
     input [1:0] resultSrcM;
+    input [4:0] RdM;
+    input [31:0] ALUResultM, RDM, PCPlus4M, extImmM;
 
     output reg clk, rst, regWriteW;
-    output reg [31:0] ALUResultW, RDW, PCPlus4W, extImmW;
-    output reg [4:0] RdW;
     output reg [1:0] resultSrcW;
+    output reg [4:0] RdW;
+    output reg [31:0] ALUResultW, RDW, PCPlus4W, extImmW;
 
     always @(posedge clk or posedge rst) begin
         
@@ -26,12 +26,12 @@ module RegMEM_WB(clk, rst, regWriteM, resultSrcM,
         end 
         
         else begin
-            regWriteW  <= regWriteW;
-            ALUResultW <= ALUResultW;
-            PCPlus4W   <= PCPlus4W;
-            RDW        <= RDW;
-            RdW        <= RdW;
-            resultSrcW <= resultSrcW;
+            regWriteW  <= regWriteM;
+            ALUResultW <= ALUResultM;
+            PCPlus4W   <= PCPlus4M;
+            RDW        <= RDM;
+            RdW        <= RdM;
+            resultSrcW <= resultSrcM;
             extImmW    <= extImmM;
         end
         
