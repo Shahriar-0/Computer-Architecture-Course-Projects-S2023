@@ -5,14 +5,14 @@
 `include "Mux.v"
 
 module CpuDatapath (memData, PcWrite, branch, IorD, IRWrite, regDst, moveTo, dataFromMem,
-                    noOp, regWrite, ALUSrcA, ALUSrcB, ALUopc, PcSrc, clk, rst, memAdr, memWriteData, opcode, func);
+                    noOp, regWrite, ALUSrcA, ALUSrcB, ALUopc, PcSrc, clk, rst, memAdr, memwriteData, opcode, func);
     input [15:0] memData;
     input PcWrite, branch, IorD, IRWrite, regDst, moveTo, dataFromMem, noOp, regWrite, ALUSrcA;
     input [1:0] ALUSrcB, PcSrc;
     input [2:0] ALUopc;
     input clk, rst;
     output [11:0] memAdr;
-    output [15:0] memWriteData;
+    output [15:0] memwriteData;
     output [3:0] opcode;
     output [8:0] func;
 
@@ -33,12 +33,12 @@ module CpuDatapath (memData, PcWrite, branch, IorD, IRWrite, regDst, moveTo, dat
     assign leastInst12Bits = inst[11:0];
 
     wire [2:0] regFileWriteAdr;
-    wire [15:0] regFileWriteData, aluRegOut;
+    wire [15:0] regFilewriteData, aluRegOut;
     Mux2To1 #(3)  regFileWriteAdrMux(.a0(3'd0), .a1(inst[11:9]), .sel(regDst | moveTo), .out(regFileWriteAdr));
-    Mux2To1 #(16) regFileWriteDataMux(.a0(aluRegOut), .a1(data), .sel(dataFromMem), .out(regFileWriteData));
+    Mux2To1 #(16) regFilewriteDataMux(.a0(aluRegOut), .a1(data), .sel(dataFromMem), .out(regFilewriteData));
 
     wire [15:0] ARegIn, ARegOut, BRegIn, BRegOut;
-    RegisterFile regFile(.readAdr(inst[11:9]), .writeAdr(regFileWriteAdr), .writeData(regFileWriteData),
+    RegisterFile regFile(.readAdr(inst[11:9]), .writeAdr(regFileWriteAdr), .writeData(regFilewriteData),
                          .regWrite(regWrite & ~noOp), .clk(clk), .rst(rst), .readData0(ARegIn), .readData1(BRegIn));
 
     Register #(.N(16)) AReg(.in(ARegIn), .ld(1'b1), .clk(clk), .rst(rst), .out(ARegOut));
@@ -55,7 +55,7 @@ module CpuDatapath (memData, PcWrite, branch, IorD, IRWrite, regDst, moveTo, dat
 
     Mux4To1 #(12) pcMux(.a00(aluRegIn[11:0]), .a01({pcRegOut[11:9], inst[8:0]}), .a10(inst[11:0]), .sel(PcSrc), .out(pcRegIn));
 
-    assign memWriteData = ARegOut;
+    assign memwriteData = ARegOut;
     assign opcode = inst[15:12];
     assign func = inst[8:0];
 endmodule

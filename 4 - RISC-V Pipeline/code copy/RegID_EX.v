@@ -1,19 +1,19 @@
 module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD, jumpD,
                 branchD, ALUControlD, ALUSrcD, RD1D, RD2D, PCD,Rs1D,
-                Rs2D,RdD, ExtimmD,PCPlus4D, luiD,
+                Rs2D,RdD, extImmD,PCPlus4D, luiD,
                 regWriteE, ALUSrcE, memWriteE, jumpE, luiE,
-                BranchE, ALUControlE, resultSrcE, RD1E, RD2E, PCE,Rs1E,
-                Rs2E,RdE, ExtimmE,PCPlus4E);
+                branchE, ALUControlE, resultSrcE, RD1E, RD2E, PCE,Rs1E,
+                Rs2E,RdE, extImmE,PCPlus4E);
 
     input clk, rst, clr, ALUSrcD, luiD;
     input [31:0] RD1D, RD2D, PCD;
-    input [31:0] PCPlus4D, ExtimmD;
+    input [31:0] PCPlus4D, extImmD;
     input [4:0] Rs1D, Rs2D,RdD;
     input [2:0] branchD;
     input [1:0] jumpD, resultSrcD;
     output ALUSrcE ,luiE;
     output reg [31:0] RD1E, RD2E, PCE;
-    output reg [31:0] PCPlus4E, ExtimmE;
+    output reg [31:0] PCPlus4E, extImmE;
     output reg [4:0] Rs1E, Rs2E,RdE;
     output reg [2:0] branchE;
     output reg [1:0] jumpE, resultSrcE;
@@ -24,7 +24,7 @@ module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD, jumpD,
             RD2E <= 32'b0;
             PCE <= 32'b0;
             PCPlus4E <= 32'b0;
-            ExtimmE <= 32'b0;
+            extImmE <= 32'b0;
             Rs1E <= 5'b0;
             Rs2E <= 5'b0;
             RdE <= 5'b0;
@@ -39,7 +39,7 @@ module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD, jumpD,
             RD2E <= RD2D;
             PCE <= PCD;
             PCPlus4E <= PCPlus4D;
-            ExtimmE <= ExtimmD;
+            extImmE <= extImmD;
             Rs1E <= Rs1D;
             Rs2E <= Rs2D;
             RdE <= RdD;

@@ -1,4 +1,4 @@
-module RegIF_ID(clk, rst, en, clr instrF, PCF, 
+module RegIF_ID(clk, rst, en, clr, instrF, PCF, 
                 PCPlus4F, PCPlus4D,
                 instrD, PCD);
     

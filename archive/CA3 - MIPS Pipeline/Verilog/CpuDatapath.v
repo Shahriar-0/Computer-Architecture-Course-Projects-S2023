@@ -7,7 +7,7 @@
 
 module CpuDatapath (Inst, memReadData, PcWrite, PcSrc, IFIDFlush, IDExFlush, IFIDLoad, ALUOpc, ALUSrc,
                     RegDst, memRead, memWrite, RegData, regWrite, forwardA, forwardB, clk, rst,
-                    Pc, equal, MemAdr, memWriteData, MemoryRead, MemoryWrite, opc, func, IFIDRs, IFIDRt,
+                    Pc, equal, MemAdr, memwriteData, MemoryRead, MemoryWrite, opc, func, IFIDRs, IFIDRt,
                     IDExmemRead, ExMemRd, MemWBRd, ExMemregWrite, MemWBregWrite, IDExRs, IDExRt);
     input clk, rst;
     input PcWrite, IFIDFlush, IDExFlush, IFIDLoad, ALUSrc, memRead, memWrite, regWrite;
@@ -16,7 +16,7 @@ module CpuDatapath (Inst, memReadData, PcWrite, PcSrc, IFIDFlush, IDExFlush, IFI
     input [2:0] ALUOpc;
     input [5:0] opc, func;
     output [4:0] IFIDRs, IFIDRt, ExMemRd, MemWBRd, IDExRs, IDExRt;
-    output [31:0] Pc, MemAdr, memWriteData;
+    output [31:0] Pc, MemAdr, memwriteData;
     output equal, MemoryRead, MemoryWrite, IDExmemRead, ExMemregWrite, MemWBregWrite;
 
     // IF Wires
@@ -38,13 +38,13 @@ module CpuDatapath (Inst, memReadData, PcWrite, PcSrc, IFIDFlush, IDExFlush, IFI
     // WB Wires
     wire WB_regWrite;
     wire [1:0] WB_RegData;
-    wire [31:0] WB_memReadData, WB_ALURes, WB_Pc, regWriteData;
+    wire [31:0] WB_memReadData, WB_ALURes, WB_Pc, regwriteData;
     wire [4:0] WB_Rd;
 
     assign opc = ID_Inst[31:26];
     assign func = ID_Inst[5:0];
     assign MemAdr = Mem_ALURes;
-    assign memWriteData = Mem_ReadData2;
+    assign memwriteData = Mem_ReadData2;
     assign MemoryRead = Mem_memRead;
     assign MemoryWrite = Mem_memWrite;
     assign IFIDRs = Rs;
@@ -77,7 +77,7 @@ module CpuDatapath (Inst, memReadData, PcWrite, PcSrc, IFIDFlush, IDExFlush, IFI
     assign equal = (ReadData1 == ReadData2);
     Adder #(32) beqAdder(.a(ID_Pc), .b(ShLeft2), .res(beqPc));
     RegisterFile regFile(.readRegister1(Rs), .readRegister2(Rt), .writeRegister(WB_Rd),
-                         .writeData(regWriteData), .regWrite(WB_regWrite), .sclr(1'b0), .clk(clk), .rst(rst),
+                         .writeData(regwriteData), .regWrite(WB_regWrite), .sclr(1'b0), .clk(clk), .rst(rst),
                          .readData1(ReadData1), .readData2(ReadData2));
 
     // ID/Ex
@@ -86,8 +86,8 @@ module CpuDatapath (Inst, memReadData, PcWrite, PcSrc, IFIDFlush, IDExFlush, IFI
                    Ex_RegData, Ex_regWrite, Ex_ReadData1, Ex_ReadData2, Ex_SExtended, Ex_Rs, Ex_Rt, Ex_Rd, Ex_Pc);
 
     // Ex
-    Mux4To1 #(32) aMux(.a00(Ex_ReadData1), .a01(Mem_ALURes), .a10(regWriteData), .sel(forwardA), .out(ALUIn1));
-    Mux4To1 #(32) bMux(.a00(Ex_ReadData2), .a01(Mem_ALURes), .a10(regWriteData), .sel(forwardB), .out(ALUSrcIn0));
+    Mux4To1 #(32) aMux(.a00(Ex_ReadData1), .a01(Mem_ALURes), .a10(regwriteData), .sel(forwardA), .out(ALUIn1));
+    Mux4To1 #(32) bMux(.a00(Ex_ReadData2), .a01(Mem_ALURes), .a10(regwriteData), .sel(forwardB), .out(ALUSrcIn0));
     Mux2To1 #(32) ALUSrcMux(.a0(ALUSrcIn0), .a1(Ex_SExtended), .sel(Ex_ALUSrc), .out(ALUIn2));
     ALU alu(.a(ALUIn1), .b(ALUIn2), .opc(Ex_ALUOpc), .res(ALURes));
     Mux4To1 #(5) RegDestinationMux(.a00(Ex_Rt), .a01(Ex_Rd), .a10(5'd31), .sel(Ex_RegDst), .out(RegDestination));
@@ -104,5 +104,5 @@ module CpuDatapath (Inst, memReadData, PcWrite, PcSrc, IFIDFlush, IDExFlush, IFI
                      WB_RegData, WB_regWrite, WB_memReadData, WB_ALURes, WB_Rd, WB_Pc);
 
     // WB
-    Mux4To1 #(32) RegDataMux(.a00(WB_ALURes), .a01(WB_memReadData), .a10(WB_Pc), .sel(WB_RegData), .out(regWriteData));
+    Mux4To1 #(32) RegDataMux(.a00(WB_ALURes), .a01(WB_memReadData), .a10(WB_Pc), .sel(WB_RegData), .out(regwriteData));
 endmodule

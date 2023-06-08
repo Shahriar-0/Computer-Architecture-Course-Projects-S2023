@@ -6,13 +6,13 @@
 
 module CpuDatapath (inst, memReadData, pcOrMemAlu, regDst, link, regWrite,
                     aluSrc, pcSrc, jumpReg, jump, memToReg, aluOp, clk, rst,
-                    zero, pc, memAdr, memWriteData);
+                    zero, pc, memAdr, memwriteData);
     input [31:0] inst, memReadData;
     input pcOrMemAlu, regDst, link, regWrite, aluSrc, pcSrc, jumpReg, jump, memToReg;
     input [2:0] aluOp;
     input clk, rst;
     output zero;
-    output [31:0] pc, memAdr, memWriteData;
+    output [31:0] pc, memAdr, memwriteData;
 
     wire [31:0] pcValue, pcIncremented, newPc, beqPc, signExtendedInstLsbs, shiftedInstLsbs, beqOrIncrementedPc,
                 jumpAdr, jOrJrAdr, regReadData1, regReadData2;
@@ -29,7 +29,7 @@ module CpuDatapath (inst, memReadData, pcOrMemAlu, regDst, link, regWrite,
     Mux2To1  #(32) finalPcMux(.a0(beqOrIncrementedPc), .a1(jOrJrAdr), .sel(jump), .out(newPc));
 
     wire [4:0] readReg1, readReg2, writeReg, regDstMuxOut;
-    wire [31:0] regWriteData, memOrALUOut, aluOut;
+    wire [31:0] regwriteData, memOrALUOut, aluOut;
 
     assign readReg1 = inst[25:21];
     assign readReg2 = inst[20:16];
@@ -37,10 +37,10 @@ module CpuDatapath (inst, memReadData, pcOrMemAlu, regDst, link, regWrite,
     Mux2To1 #(5)  linkMux(.a0(regDstMuxOut), .a1(5'd31), .sel(link), .out(writeReg));
     Mux2To1 #(5)  regDstMux(.a0(inst[20:16]), .a1(inst[15:11]), .sel(regDst), .out(regDstMuxOut));
     Mux2To1 #(32) memOrALUOutMux(.a0(aluOut), .a1(memReadData), .sel(memToReg), .out(memOrALUOut));
-    Mux2To1 #(32) regWriteDataMux(.a0(pcIncremented), .a1(memOrALUOut), .sel(pcOrMemAlu), .out(regWriteData));
+    Mux2To1 #(32) regwriteDataMux(.a0(pcIncremented), .a1(memOrALUOut), .sel(pcOrMemAlu), .out(regwriteData));
 
     RegisterFile #(.WordCount(32), .WordLen(32)) regFile(.readRegister1(readReg1), .readRegister2(readReg2),
-                                                         .writeRegister(writeReg), .writeData(regWriteData),
+                                                         .writeRegister(writeReg), .writeData(regwriteData),
                                                          .regWrite(regWrite), .sclr(1'b0), .clk(clk), .rst(rst),
                                                          .readData1(regReadData1), .readData2(regReadData2));
 
@@ -50,6 +50,6 @@ module CpuDatapath (inst, memReadData, pcOrMemAlu, regDst, link, regWrite,
     ALU     #(32) alu(.a(regReadData1), .b(aluSecondInput), .opc(aluOp), .res(aluOut), .zero(zero));
 
     assign pc = pcValue;
-    assign memWriteData = regReadData2;
+    assign memwriteData = regReadData2;
     assign memAdr = aluOut;
 endmodule

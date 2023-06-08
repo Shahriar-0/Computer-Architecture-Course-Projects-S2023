@@ -1,10 +1,10 @@
 `include "CpuDatapath.v"
 `include "CpuController.v"
 
-module Cpu (inst, memReadData, clk, rst, pc, memAdr, memWriteData, memRead, memWrite);
+module Cpu (inst, memReadData, clk, rst, pc, memAdr, memwriteData, memRead, memWrite);
     input [31:0] inst, memReadData;
     input clk, rst;
-    output [31:0] pc, memAdr, memWriteData;
+    output [31:0] pc, memAdr, memwriteData;
     output memRead, memWrite;
 
     wire zero, pcOrMemAlu, regDst, link, regWrite, aluSrc, pcSrc, jumpReg, jump, memToReg;
@@ -13,7 +13,7 @@ module Cpu (inst, memReadData, clk, rst, pc, memAdr, memWriteData, memRead, memW
 
     CpuDatapath dp(inst, memReadData, pcOrMemAlu, regDst, link,
                    regWrite, aluSrc, pcSrc, jumpReg, jump, memToReg,
-                   aluOp, clk, rst, zero, pc, memAdr, memWriteData);
+                   aluOp, clk, rst, zero, pc, memAdr, memwriteData);
 
     CpuController cu(inst[31:26], inst[5:0], zero, memRead, memWrite,
                      pcOrMemAlu, regDst, link, regWrite, aluSrc,
