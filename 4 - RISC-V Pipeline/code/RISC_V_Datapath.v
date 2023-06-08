@@ -20,14 +20,13 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
     wire [2:0] branchE, ALUControlE;
     wire [4:0] RdW, RdM, Rs1E, Rs2E, RdE, Rs1D, Rs2D, RdD;
 
-    wire [31:0] ALUResultM, writeDataM, PCPlus4M, 
-                extImmM, RDM, resultW, extImmW, 
-                RD1E, RD2E, PCE, SrcAE, SrcBE,
-                writeDataE, PCTargetE, extImmE,
-                PCPlus4E, ALUResultE, RDW, extImmD,
-                PCPlus4D, instrD, PCD, RD1D, RD2D,
-                PCFf, PCF, instrF, PCPlus4F, PCSrcE,
-                ALUResultW, PCPlus4W, idk; // FIXME: idk
+    wire [31:0] ALUResultM, writeDataM, PCPlus4M, extImmM, RDM,
+                resultW, extImmW, ALUResultW, PCPlus4W, RDW,
+                RD1E, RD2E, PCE, SrcAE, SrcBE, writeDataE,        // E wires
+                PCTargetE, extImmE, PCPlus4E, ALUResultE, PCSrcE, // E wires
+                PCPlus4D, instrD, PCD, RD1D, RD2D, extImmD,
+                PCF_Prime, PCF, instrF, PCPlus4F,
+                idk; // FIXME: idk
 
     InstructionMemory IM(
         .pc(PCF), .instruction(instrF)
@@ -57,7 +56,7 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
     );
 
     Register PCreg(
-        .in(PCFf), .clk(clk), .en(~stallF), 
+        .in(PCF_Prime), .clk(clk), .en(~stallF), 
         .rst(rst), .out(PCF)
     );
      
@@ -124,7 +123,7 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
     Mux4to1 SrcAreg (.slc(forwardAE),  .a(RD1E),       .b(resultW),   .c(idk),        .d(32'b0),   .w(SrcAE));
     Mux4to1 BSrcBreg(.slc(forwardBE),  .a(RD2E),       .b(resultW),   .c(idk),        .d(32'b0),   .w(writeDataE));
     Mux4to1 resMux  (.slc(resultSrcW), .a(ALUResultW), .b(RDW),       .c(PCPlus4W),   .d(extImmW), .w(resultW));
-    Mux4to1 PCmux   (.slc(PCSrcE),     .a(PCPlus4F),   .b(PCTargetE), .c(ALUResultE), .d(32'b0),   .w(PCFf));
+    Mux4to1 PCmux   (.slc(PCSrcE),     .a(PCPlus4F),   .b(PCTargetE), .c(ALUResultE), .d(32'b0),   .w(PCF_Prime));
 
     Mux2to1 SrcBreg (.slc(ALUSrcE), .a(writeDataE), .b(extImmE), .w(SrcBE));
     Mux2to1 muxMSrcA(.slc(luiM),    .a(ALUResultM), .b(extImmM), .w(idk));

@@ -1,27 +1,26 @@
 module RISC_V(clk, rst);
     input clk, rst;
-    
-    wire [2:0] func3, ALUControl, immSrc;
 
-    wire zero, neg, PCSrc, memWrite, func7, 
-         regWrite, ALUSrc, PCWrite, adrSrc, IRWrite;
+    wire ALUSrcD, jumpD, branchD, 
+         memWriteD, regWriteD, luiD;    
+    wire [1:0] immSrcD, resultSrcD;
+    wire [2:0] func3, ALUControlD;
+    wire [6:0] op, func7; 
 
-    wire [1:0] resultSrc, ALUSrcA, ALUSrcB;
-    
-    wire [6:0] op; 
-
-    RISC_V_Controller CU(   // TODO: i connected parts that i know
+    RISC_V_Controller CU(
         .clk(clk), .rst(rst), .op(op), .func3(func3), 
-        .regWriteD(), .resultSrcD(), .memWriteD(),
-        .jumpD(), .branchD(), .ALUControlD(),
-        .ALUSrcD(), .immSrcD(), .func7(func7),
+        .regWriteD(regWriteD), .resultSrcD(resultSrcD), 
+        .memWriteD(memWriteD), .ALUControlD(ALUControlD),
+        .jumpD(jumpD), .branchD(branchD), .func7(func7),
+        .ALUSrcD(ALUSrcD), .immSrcD(immSrcD),
     );
 
-    RISC_V_Datapath DP(     // TODO: i connected parts that i know
-        .clk(clk), .rst(rst), .regWriteD(), .func3(func3),
-        .memWriteD(), .jumpD(), .branchD(),
-        .ALUControlD(), .ALUSrcD(), .immSrcD(),
-        .luiD(), .op(op), .func7(func7), .resultSrcD()
+    RISC_V_Datapath DP(  
+        .clk(clk), .rst(rst), .regWriteD(regWriteD), 
+        .memWriteD(memWriteD), .jumpD(jumpD), .func3(func3),
+        .branchD(branchD), .immSrcD(immSrcD), .luiD(luiD),
+        .ALUControlD(ALUControlD), .ALUSrcD(ALUSrcD),
+        .func7(func7), .resultSrcD(resultSrcD), .op(op),
     );
     
     
