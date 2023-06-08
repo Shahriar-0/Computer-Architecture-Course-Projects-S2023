@@ -3,7 +3,6 @@
 `define R_T   2'b10
 `define I_T   2'b11
 
-
 `define ADD  3'b000
 `define SUB  3'b001
 `define AND  3'b010
