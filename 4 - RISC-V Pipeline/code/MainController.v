@@ -13,19 +13,17 @@
 `define BGE 3'b011
 
 module MainController(op, func3, regWriteD, ALUOp,
-                     resultSrcD, memWriteD, jumpD,
-                     branchD, ALUSrcD, immSrcD);
+                      resultSrcD, memWriteD, jumpD,
+                      branchD, ALUSrcD, immSrcD);
 
     input [6:0] op;
     
-    output [1:0] resultSrcD;
-    output [2:0] branchD;
-    output [1:0] jumpD, ALUOp;
     output memWriteD, regWriteD, ALUSrcD;
-    output [2:0] immSrcD;
+    output [1:0] resultSrcD, jumpD, ALUOp;
+    output [2:0] branchD, immSrcD;
 
 
-    always @(op) begin
+    always @(op, func3) begin
         case (op)
             `R_T: begin
                 ALUOp      <= 2'b10;
@@ -50,7 +48,7 @@ module MainController(op, func3, regWriteD, ALUOp,
             `B_T: begin
                 ALUOp      <= 2'b01;
                 immSrcD    <= 3'b010;
-                case (func3)
+                case(func3)
                     `BEQ   : branchD <= 3'b001;
                     `BNE   : branchD <= 3'b010;
                     `BLT   : branchD <= 3'b011;
@@ -90,7 +88,7 @@ module MainController(op, func3, regWriteD, ALUOp,
             end
         
             default: begin
-                regWriteD <= 0;
+                regWriteD <= 1'b0;
                 ALUSrcD   <= 2'b00;
                 ALUOp     <= 3'b000;
             end

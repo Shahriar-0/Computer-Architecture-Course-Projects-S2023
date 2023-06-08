@@ -87,7 +87,7 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
     RegID_EX regIDEX(
         .clk(clk), .rst(rst), .clr(flushE), 
 
-        .regWriteD(regWriteD), .regWriteE(regWriteE), 
+        .regWriteD(regWriteD),     .regWriteE(regWriteE), 
         .PCD(PCD),                 .PCE(PCE),
         .Rs1D(Rs1D),               .Rs1E(Rs1E),
         .Rs2D(Rs2D),               .Rs2E(Rs2E),
