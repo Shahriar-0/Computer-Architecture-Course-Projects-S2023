@@ -51,11 +51,11 @@ module MainController(op, func3, regWriteD, ALUOp,
                 ALUOp      <= 2'b01;
                 immSrcD    <= 3'b010;
                 case (func3)
-                     `BEQ   : branchD <= 3'b001;
-                     `BNE   : branchD <= 3'b010;
-                     `BLT   : branchD <= 3'b011;
-                     `BGE   : branchD <= 3'b100;
-                     default: branchD <= 3'b000;
+                    `BEQ   : branchD <= 3'b001;
+                    `BNE   : branchD <= 3'b010;
+                    `BLT   : branchD <= 3'b011;
+                    `BGE   : branchD <= 3'b100;
+                    default: branchD <= 3'b000;
                 endcase
             end
         
