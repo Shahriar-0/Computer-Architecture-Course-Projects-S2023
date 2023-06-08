@@ -23,7 +23,9 @@ module RegisterFile(clk, regWrite,
             registerFile[writeRegister] <= writeData;
     end
 
-    assign readData1 = registerFile[readRegister1];
-    assign readData2 = registerFile[readRegister2];
+    always @(negedge clk) begin
+        readData1 <= registerFile[readRegister1];
+        readData2 <= registerFile[readRegister2];
+    end
 
 endmodule
