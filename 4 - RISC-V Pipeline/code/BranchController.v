@@ -18,12 +18,13 @@ module BranchController(branchE, jumpE, neg, zero, PCSrcE);
     
     always @(jumpE, zero, neg, branchE) begin
         case(branchE)
-            `NOB : PCSrcE <= (jumpE == `JAL) ? 2'b01 :
-                            (jumpE == `JALR) ? 2'b10 : 2'b00;
-            `BEQ : PCSrcE <= (zero) ? 2'b01 : 2'b00;
-            `BNE : PCSrcE <= (~zero) ? 2'b01 : 2'b00;
-            `BLT : PCSrcE <= (neg) ? 2'b01 : 2'b00;
-            `BGE : PCSrcE <= (zero | ~neg) ? 2'b01 : 2'b00;
+            `NOB : PCSrcE <= (jumpE == `JAL)  ? 2'b01 :
+                             (jumpE == `JALR) ? 2'b10 : 2'b00;
+
+            `BEQ : PCSrcE <= (zero)           ? 2'b01 : 2'b00;
+            `BNE : PCSrcE <= (~zero)          ? 2'b01 : 2'b00;
+            `BLT : PCSrcE <= (neg)            ? 2'b01 : 2'b00;
+            `BGE : PCSrcE <= (zero | ~neg)    ? 2'b01 : 2'b00;
         endcase
     end
 
