@@ -1,25 +1,27 @@
-module HazardUnit(ID_EX_MemRead, ID_EX_rs1, ID_EX_rs2, IF_ID_rs1, 
-                  IF_ID_rs2, IF_ID_MemRead, IF_ID_opcode, stall);
+module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
+                 PCSrcE, resultSrc0, regWriteW,
+                 regWriteM, stallF, stallD, flushD,
+                 flushE, forwardAE, forwardBE);
 
-    input ID_EX_MemRead;
-    input [4:0] ID_EX_rs1, ID_EX_rs2, IF_ID_rs1, IF_ID_rs2;
-    input IF_ID_MemRead;
-    input [6:0] IF_ID_opcode;
+    input [4:0] Rs1D,Rs2D, RdE, RdM, RdW, Rs1E, Rs2E;
+    input  resultSrc0 ;
+    input [1:0] PCSrcE;
+    input regWriteM, regWriteW;
+    output stallF, stallD, flushD; 
+    output flushE, forwardAE, forwardBE;
 
-    output stall;
+    assign forwardAE = (((Rs1E == RdM) &&  regWriteM) & (Rs1E != 5'b0)) ? 2'b10:
+                       (((Rs1E == RdM) &&  regWriteW) & (Rs1E != 5'b0)) ? 2'b01: 2'b00;
 
-    wire rs1_hazard, rs2_hazard, mem_hazard;
+    assign forwardBE = (((Rs2E == RdM) &&  regWriteM) & (Rs2E != 5'b0)) ? 2'b10:
+                       (((Rs2E == RdM) &&  regWriteW) & (Rs2E != 5'b0)) ? 2'b01: 2'b00;
 
-    assign rs1_hazard = ((ID_EX_MemRead && (ID_EX_rs1 != 0) && 
-                        ((ID_EX_rs1 == IF_ID_rs1) || (_EX_rs1 == IF_ID_rs2))) ||
-                        (IF_ID_MemRead && ((IF_ID_rs1 == IF_ID_rs2) && (IF_ID_rs1 != 0)))) ? 1'b1 : 1'b0;
+    reg lwStall = (((Rs1D == RdE) || (Rs2D == RdE)) && resultSrc0);
 
-    assign rs2_hazard = ((ID_EX_MemRead && (ID_EX_rs2 != 0) && 
-                        ((ID_EX_rs2 == IF_ID_rs1) || (ID_EX_rs2 == IF_ID_rs2))) ||
-                        (IF_ID_MemRead && ((IF_ID_rs1 == IF_ID_rs2) && (IF_ID_rs2 != 0)))) ? 1'b1 : 1'b0;
+    assign stallF = lwStall;
+    assign stallD = lwStall; // ?
 
-    assign mem_hazard = (IF_ID_MemRead && ((IF_ID_rs1 == IF_ID_rs2) && (IF_ID_rs1 != 0))) ? 1'b1 : 1'b0;
-
-    assign stall = (mem_hazard || ((rs1_hazard || rs2_hazard) && (IF_ID_opcode != `B_T))) ? 1'b1 : 1'b0;
+    assign flushD = (PCSrcE != 2'b00);
+    assign flushE = lwStall || (PCSrcE != 2'b00);
 
 endmodule

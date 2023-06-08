@@ -1,55 +1,57 @@
-module RegID_EX(clk, rst, instruction, InstructionOut, PC, PCOut,
-                OPCode, OPCodeOut, func3, func3Out, func7, func7Out,
-                RS1, Rs1Out, RS2, Rs2Out, RD, RDOut, imm, ImmOut,
-                ALUOp, ALUOpcOut, regWrite, regWriteOut, memRead, 
-                memWrite, memWriteOut, memToReg, memToRegOut, memReadOut);
+module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD, jumpD,
+                branchD, ALUControlD, ALUSrcD, RD1D, RD2D, PCD,Rs1D,
+                Rs2D,RdD, extImmD,PCPlus4D, luiD,
+                regWriteE, ALUSrcE, memWriteE, jumpE, luiE,
+                branchE, ALUControlE, resultSrcE, RD1E, RD2E, PCE,Rs1E,
+                Rs2E,RdE, extImmE,PCPlus4E);
 
-    input clk, rst;
-    input [31:0] instruction, PC, imm;
-    input [2:0] OPCode, func3;
-    input [6:0] func7;
-    input [4:0] RS1, RS2, RD;
-    input [1:0] ALUOp, regWrite, memRead, memWrite, memToReg;
-
-    output reg [31:0] instructionOut, PCOut, immOut;
-    output reg [2:0] OPCodeOut, func3Out;
-    output reg [6:0] func7Out;
-    output reg [4:0] RS1Out, RS2Out, RDOut;
-    output reg [1:0] ALUOpOut, regWriteOut, memReadOut, memWriteOut, memToRegOut;
-
+    input clk, rst, clr, ALUSrcD, luiD;
+    input [31:0] RD1D, RD2D, PCD;
+    input [31:0] PCPlus4D, extImmD;
+    input [4:0] Rs1D, Rs2D,RdD;
+    input [2:0] branchD;
+    input [1:0] jumpD, resultSrcD;
+    output ALUSrcE, luiE;
+    output reg [31:0] RD1E, RD2E, PCE;
+    output reg [31:0] PCPlus4E, extImmE;
+    output reg [4:0] Rs1E, Rs2E,RdE;
+    output reg [2:0] branchE;
+    output reg [1:0] jumpE, resultSrcE;
+    
     always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            InstructionOut <= 32'b0;
-            PCOut <= 32'b0;
-            OPCodeOut <= 3'b0;
-            func7Out <= 7'b0;
-            Funct3Out <= 3'b0;
-            Rs1Out <= 5'b0;
-            Rs2Out <= 5'b0;
-            RdOut <= 5'b0;
-            ImmOut <= 32'b0;
-            ALUOpOut <= 2'b0;
-            regWriteOut <= 2'b0;
-            memReadOut <= 2'b0;
-            memWriteOut <= 2'b0;
-            memToRegOut <= 2'b0;
+        
+        if(rst || clr) begin
+            RD1E <= 32'b0;
+            RD2E <= 32'b0;
+            PCE <= 32'b0;
+            PCPlus4E <= 32'b0;
+            extImmE <= 32'b0;
+            Rs1E <= 5'b0;
+            Rs2E <= 5'b0;
+            RdE <= 5'b0;
+            branchE <= 3'b0;
+            jumpE <= 2'b0;
+            ALUSrcE <= 1'b0;
+            resultSrcE 2'b00;
+            luiE <= 1'b0;
         end
+
         else begin
-            InstructionOut <= instruction;
-            PCOut <= PC;
-            OPCodeOut <= OPCode;
-            func7Out <= func7;
-            func3Out <= func3;
-            Rs1Out <= RS1;
-            Rs2Out <= RS2;
-            RdOut <= RD;
-            ImmOut <= imm;
-            ALUOpOut <= ALUOp;
-            regWriteOut <= regWrite;
-            memReadOut <= memRead;
-            memWriteOut <= memWrite;
-            memToRegOut <= memToReg;
+            RD1E <= RD1D;
+            RD2E <= RD2D;
+            PCE <= PCD;
+            PCPlus4E <= PCPlus4D;
+            extImmE <= extImmD;
+            Rs1E <= Rs1D;
+            Rs2E <= Rs2D;
+            RdE <= RdD;
+            branchE <= branchD;
+            jumpE <= jumpD;
+            ALUSrcE <= ALUSrcD;
+            resultSrcE <= resultSrcD;
+            luiE <= luiD;
         end
+        
     end
 
 endmodule
