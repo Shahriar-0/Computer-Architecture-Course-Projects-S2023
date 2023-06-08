@@ -15,27 +15,31 @@ module RegEX_MEM(clk, rst, regWriteE, resultSrcE, memWriteE,
     output reg [1:0] resultSrcM;
 
     always @(posedge clk or posedge rst) begin
-        if (rst) begin
+
+        if (rst || clr) begin
             ALUResultM <= 32'b0;
             writeDataM <= 32'b0;
             PCPlus4M   <= 32'b0;
-            extImmM <= 32'b0;
-            RdM <= 5'b0;
-            memWriteM <= 1'b0;
-            regWriteM <= 1'b0;
+            extImmM    <= 32'b0;
+            RdM        <= 5'b0;
+            memWriteM  <= 1'b0;
+            regWriteM  <= 1'b0;
             resultSrcM <= 2'b0;
-            luiM <= 1'b0;
-        end else begin
+            luiM       <= 1'b0;
+        end 
+        
+        else begin
             ALUResultM <=  ALUResultE;
             writeDataM <=  writeDataE;
             PCPlus4M   <=  PCPlus4E;
-            RdM <= RdE;
-            memWriteM <= memWriteE;
-            regWriteM <= regWriteE;
+            RdM        <= RdE;
+            memWriteM  <= memWriteE;
+            regWriteM  <= regWriteE;
             resultSrcM <= resultSrcE;
-            luiM <= luiE;
-            extImmM <= extImmE;
+            luiM       <= luiE;
+            extImmM    <= extImmE;
         end
+
     end
 
 endmodule

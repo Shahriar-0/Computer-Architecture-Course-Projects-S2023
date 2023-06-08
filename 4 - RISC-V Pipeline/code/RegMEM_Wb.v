@@ -16,23 +16,23 @@ module RegMEM_WB(clk, rst, regWriteM, resultSrcM,
     always @(posedge clk or posedge rst) begin
         
         if (rst || clr) begin
-            regWriteW <= 32'b0;
+            regWriteW  <= 32'b0;
             ALUResultW <= 32'b0;
-            PCPlus4W <= 32'b0;
-            RDW <= 32'b0;
-            RdW <= 5'b0;
+            PCPlus4W   <= 32'b0;
+            RDW        <= 32'b0;
+            RdW        <= 5'b0;
             resultSrcW <= 2'b0;
-            extImmW <= 32'b0;
+            extImmW    <= 32'b0;
         end 
         
         else begin
-            regWriteW <= regWriteW;
+            regWriteW  <= regWriteW;
             ALUResultW <= ALUResultW;
-            PCPlus4W <= PCPlus4W;
-            RDW <= RDW;
-            RdW <= RdW;
+            PCPlus4W   <= PCPlus4W;
+            RDW        <= RDW;
+            RdW        <= RdW;
             resultSrcW <= resultSrcW;
-            extImmW <= extImmM;
+            extImmW    <= extImmM;
         end
         
     end

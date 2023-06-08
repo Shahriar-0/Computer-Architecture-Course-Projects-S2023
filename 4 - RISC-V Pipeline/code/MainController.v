@@ -7,91 +7,92 @@
 `define LW_T    7'b0000011
 `define JALR_T  7'b1100111
 
-module MainController(op, zero, resultSrc, memWrite,
-                      ALUOp, ALUSrc, immSrc,Write, 
-                      jal, jalr, neg, branch);
+`define BEQ 3'b000
+`define BNE 3'b001
+`define BLT 3'b010
+`define BGE 3'b011
+
+module MainController(op, func3, regWriteD, ALUOp,
+                     resultSrcD, memWriteD, jumpD,
+                     branchD, ALUSrcD, immSrcD);
 
     input [6:0] op;
-    input zero, neg;
     
-    output [1:0] resultSrc;
-    output memWrite, regWrite, jal, jalr, branch;
-    output [2:0] ALUOp, ALUSrc, immSrc;
+    output [1:0] resultSrcD;
+    output [2:0] branchD;
+    output [1:0] jumpD, ALUOp;
+    output memWriteD, regWriteD, ALUSrcD;
+    output [2:0] immSrcD;
 
-    assign resultSrc = 2'b00;
-    assign memWrite = 0;
-    assign jal = 0;
-    assign jalr = 0;
-    assign neg = 0;
-    assign branch = 0;
-    assign ALUOp = 3'b000;
-    assign ALUSrc = 2'b00;
-    assign immSrc 3'b000;
 
-    always @(*) begin
+    always @(op) begin
         case (op)
-
             `R_T: begin
-                    regWrite = 1;
-                    ALUSrc = 2'b00;
-                    ALUOp = 3'b010;
-                    resultSrc = 2'b10;
+                ALUOp      <= 2'b10;
+                regWriteD  <= 1'b1;
             end
         
             `I_T: begin
-                    regWrite = 1;
-                    ALUSrc = 2'b01;
-                    ALUOp = 3'b010;
-                    resultSrc = 2'b10;
+                ALUOp      <= 2'b11;
+                regWriteD  <= 1'b1;
+                immSrcD    <= 3'b000;
+                ALUSrcD    <= 1'b1;
+                resultSrcD <= 2'b00;
             end
         
             `S_T: begin
-                    memWrite = 1;
-                    ALUSrc = 2'b01;
-                    ALUOp = 3'b000;
+                ALUOp      <= 2'b00;
+                memWriteD  <= 1'b1;
+                immSrcD    <= 3'b001;
+                ALUSrcD    <= 1'b1;
             end
         
             `B_T: begin
-                    branch = 1;
-                    ALUSrc = 2'b01;
-                    ALUOp = 3'b001;
+                ALUOp      <= 2'b01;
+                immSrcD    <= 3'b010;
+                case (func3)
+                     `BEQ   : branchD <= 3'b001;
+                     `BNE   : branchD <= 3'b010;
+                     `BLT   : branchD <= 3'b011;
+                     `BGE   : branchD <= 3'b100;
+                     default: branchD <= 3'b000;
+                endcase
             end
         
             `U_T: begin
-                    regWrite = 1;
-                    ALUSrc = 2'b10;
-                    ALUOp = 3'b010;
-                    resultSrc = 2'b10;
+                resultSrcD <= 2'b11;
+                immSrcD    <= 3'b100;
+                regWriteD  <= 1'b1;
             end
         
             `J_T: begin
-                    jal = 1;
-                    regWrite = 1;
-                    ALUSrc = 2'b10;
-                    ALUOp = 3'b011;
-                    resultSrc = 2'b11;
+                resultSrcD <= 2'b10;
+                immSrcD    <= 3'b011;
+                jumpD      <= 2'b01;
+                regWriteD  <= 1'b1;
             end
         
             `LW_T: begin
-                    regWrite = 1;
-                    memWrite = 1;
-                    ALUSrc = 2'b01;
-                    ALUOp = 3'b010;
-                    resultSrc = 2'b01;
+                ALUOp      <= 2'b00;
+                regWriteD  <= 1'b1;
+                immSrcD    <= 3'b000;
+                ALUSrcD    <= 1'b1;
+                resultSrcD <= 2'b01;
             end
         
             `JALR_T: begin
-                    jalr = 1;
-                    regWrite = 1;
-                    ALUSrc = 2'b01;
-                    ALUOp = 3'b011;
-                    resultSrc = 2'b11;
+                ALUOp      <= 2'b00;
+                regWriteD  <= 1'b1;
+                immSrcD    <= 3'b000;
+                ALUSrcD    <= 1'b1;
+                jumpD      <= 2'b10;
+                resultSrcD <= 2'b10;
             end
         
             default: begin
-                    regWrite = 0;
-                    ALUSrc = 2'b00;
-                    ALUOp = 3'b000;
+                regWriteD <= 0;
+                ALUSrcD   <= 2'b00;
+                ALUOp     <= 3'b000;
             end
 
         endcase

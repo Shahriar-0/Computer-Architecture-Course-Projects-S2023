@@ -5,9 +5,10 @@
 `define BLT 3'b011
 `define BGE 3'b100
 
-`define NOJ 2'b00
-`define JAL 2'b01
-`define JALR 2'b11
+`define NOJ  2'b00
+`define JAL  2'b01
+`define JALR 2'b10
+
 module BranchController(branchE, jumpE, neg, zero, PCSrcE);
 
     input zero, neg;

@@ -6,7 +6,7 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
     input clk, rst, regWriteD, memWriteD, ALUSrcD, luiD;
     input  [1:0] resultSrcD, jumpD;
     input  [2:0] ALUControlD, branchD, immSrcD; // ?
-    
+
     output [6:0] op;
     output [2:0] func3;
     output func7;
@@ -28,10 +28,6 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
                 PCPlus4D, instrD, PCD, RD1D, RD2D,
                 PCFf, PCF, instrF, PCPlus4F, PCSrcE,
                 ALUResultW, PCPlus4W, idk; // FIXME: idk
-
-    assign Rs1D =  instrD[19:15];
-    assign Rs2D = instrD[24:20];
-    assign RdD = instrD[11:7];
 
     InstructionMemory IM(
         .pc(PCF), .instruction(instrF)
@@ -132,5 +128,12 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
 
     Mux2to1 SrcBreg (.slc(ALUSrcE), .a(writeDataE), .b(extImmE), .w(SrcBE));
     Mux2to1 muxMSrcA(.slc(luiM),    .a(ALUResultM), .b(extImmM), .w(idk));
+
+    assign op = instr[6:0];
+    assign RdD = instrD[11:7];
+    assign func3 = instr[14:12];
+    assign Rs1D =  instrD[19:15];
+    assign Rs2D = instrD[24:20];
+    assign func7 = instr[30];
 
 endmodule
