@@ -16,7 +16,7 @@ module RISC_V_Controller(clk, rst, op, func3, func7,
         .op(op), .func3(func3), .regWriteD(regWriteD), 
         .resultSrcD(resultSrcD), .memWriteD(memWriteD),
         .jumpD(jumpD), .branchD(branchD), .ALUOp(ALUOp), 
-        .ALUSrcD(ALUSrcD), .immSrcD(immSrcD, .luiD(luiD)
+        .ALUSrcD(ALUSrcD), .immSrcD(immSrcD), .luiD(luiD)
     );
     
     ALU_Controller ALUdecoder(
