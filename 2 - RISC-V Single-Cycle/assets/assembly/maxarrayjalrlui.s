@@ -1,7 +1,9 @@
 .global _boot
 .text
 
-_boot:                   
+_boot:  
+    add x8, x0, x0                 
+    addi x8, x8, 1
     addi x8, x8, 1
     addi x8, x8, 1
     addi x8, x8, 1
