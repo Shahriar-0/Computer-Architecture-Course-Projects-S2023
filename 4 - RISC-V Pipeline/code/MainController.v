@@ -18,9 +18,10 @@ module MainController(op, func3, regWriteD, ALUOp,
 
     input [6:0] op;
     
+    input [1:0] func3;
     output reg memWriteD, regWriteD, ALUSrcD;
     output reg [1:0] resultSrcD, jumpD, ALUOp;
-    output reg [2:0] branchD, immSrcD, func3;
+    output reg [2:0] branchD, immSrcD;
 
 
     always @(op, func3) begin
