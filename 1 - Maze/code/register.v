@@ -1,12 +1,12 @@
-module register(prl, CLK, RST, ld, init, W);
+module register(prl, clk, rst, ld, init, W);
     parameter N = 4;
 
     input [N - 1:0] prl;
-    input CLK, RST, ld, init; 
+    input clk, rst, ld, init; 
     output reg [N - 1:0] W;
 
-    always @(posedge CLK or posedge RST) begin 
-        if (RST || init) 
+    always @(posedge clk or posedge rst) begin 
+        if (rst || init) 
             W <= {N{1'b0}};
 
         else if (ld) 
