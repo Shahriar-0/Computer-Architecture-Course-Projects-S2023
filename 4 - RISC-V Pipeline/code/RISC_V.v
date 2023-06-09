@@ -1,11 +1,11 @@
 module RISC_V(clk, rst);
     input clk, rst;
 
-    wire ALUSrcD, jumpD, branchD, 
-         memWriteD, regWriteD, luiD;    
-    wire [1:0] immSrcD, resultSrcD;
+    wire ALUSrcD, memWriteD, regWriteD, luiD, func7;    
+    wire [1:0] resultSrcD, jumpD;
+    wire [2:0] immSrcD, branchD;
     wire [2:0] func3, ALUControlD;
-    wire [6:0] op, func7; 
+    wire [6:0] op; 
 
     RISC_V_Controller CU(
         .clk(clk), .rst(rst), .op(op), .func3(func3), 
