@@ -5,6 +5,19 @@ from sys import argv
 import os
 import io
 
+def twos_complement(x: str):
+    if x[0] != '-':
+        return x
+    index = x.rindex('1')
+    x = list(x)
+    x[0] = '0'
+    for i in range(index):
+        if x[i] == '1':
+            x[i] = '0'
+        else:
+            x[i] = '1'
+    x = ''.join(x)
+    return x
 
 class Type:
     def __init__(self) -> None:
@@ -115,8 +128,8 @@ class B_Type(Type):
 
     def _assemble(self) -> str:
         opcode, func3 = self.map[self.command]
-        rs2 = str(bin(int(self.args[0][1:]))[2:].zfill(5))
-        rs1 = str(bin(int(self.args[1][1:]))[2:].zfill(5))
+        rs1 = str(bin(int(self.args[0][1:]))[2:].zfill(5))
+        rs2 = str(bin(int(self.args[1][1:]))[2:].zfill(5))
         imm = str(bin(int(self.args[2]))[2:].zfill(13))[::-1]
         return imm[12] + imm[5:11][::-1] + rs2 + rs1 + func3 + imm[1:5][::-1] + imm[11] + opcode
 
@@ -187,11 +200,11 @@ class Assembler:
 
         return assembly_lines
 
-    def __find_line_of_label(self, lines: list[str], label: str) -> int:
+    def __find_line_of_label(self, lines: list[str], label: str, calling_line: int) -> int:
         minus = 0
         for i, line in enumerate(lines):
             if label + ":" in line:
-                return i - minus
+                return i - minus - calling_line
             if ":" in line:
                 minus += 1
 
@@ -207,7 +220,7 @@ class Assembler:
                 if command in self.types:
                     if command in self.labeled:
                         label = assembly_line.rstrip().rsplit(" ", 1)[1].rstrip()
-                        label_line = self.__find_line_of_label(assembly_lines, label)
+                        label_line = self.__find_line_of_label(assembly_lines, label, len(machine_code_lines))
                         if label_line is None:
                             raise Exception("label doesn't exist")
                         assembly_line = assembly_line.replace(label, str(label_line << 2))
