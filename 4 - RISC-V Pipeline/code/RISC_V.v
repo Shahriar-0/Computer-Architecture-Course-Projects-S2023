@@ -12,7 +12,7 @@ module RISC_V(clk, rst);
         .regWriteD(regWriteD), .resultSrcD(resultSrcD), 
         .memWriteD(memWriteD), .ALUControlD(ALUControlD),
         .jumpD(jumpD), .branchD(branchD), .func7(func7),
-        .ALUSrcD(ALUSrcD), .immSrcD(immSrcD),
+        .ALUSrcD(ALUSrcD), .immSrcD(immSrcD)
     );
 
     RISC_V_Datapath DP(  
@@ -20,7 +20,7 @@ module RISC_V(clk, rst);
         .memWriteD(memWriteD), .jumpD(jumpD), .func3(func3),
         .branchD(branchD), .immSrcD(immSrcD), .luiD(luiD),
         .ALUControlD(ALUControlD), .ALUSrcD(ALUSrcD),
-        .func7(func7), .resultSrcD(resultSrcD), .op(op),
+        .func7(func7), .resultSrcD(resultSrcD), .op(op)
     );
     
     

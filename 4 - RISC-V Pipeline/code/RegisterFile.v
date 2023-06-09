@@ -11,7 +11,8 @@ module RegisterFile(clk, regWrite,
     input regWrite, clk;
     input [`BITS(WordCount)-1:0] readRegister1, readRegister2, writeRegister;
     input [WordLen-1:0] writeData;
-    output [WordLen-1:0] readData1, readData2;
+    
+    output reg [WordLen-1:0] readData1, readData2;
 
     reg [WordLen-1:0] registerFile [0:WordCount-1];
 
@@ -29,3 +30,4 @@ module RegisterFile(clk, regWrite,
     end
 
 endmodule
+

@@ -1,9 +1,10 @@
-module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD,
-                branchD, ALUControlD, ALUSrcD, RD1D, RD2D, PCD,
-                Rs2D,RdD, extImmD,PCPlus4D, luiD, Rs1E, jumpD,
-                regWriteE, ALUSrcE, memWriteE, jumpE, luiE,
-                branchE, ALUControlE, resultSrcE, RD1E, Rs1D,
-                Rs2E, RdE, extImmE, PCPlus4E, RD2E, PCE);
+module RegID_EX(clk, rst, clr, ALUSrcD, luiD,
+                jumpD, resultSrcD, branchD, 
+                Rs1D, Rs2D, RdD, RD1D, RD2D,
+                PCD, PCPlus4D, extImmD, ALUSrcE,
+                luiE, jumpE, resultSrcE, branchE,
+                Rs1E, Rs2E, RdE, RD1E, RD2E, PCE,
+                PCPlus4E, extImmE);
 
     input clk, rst, clr, ALUSrcD, luiD;
     input [1:0] jumpD, resultSrcD;
@@ -11,7 +12,7 @@ module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD,
     input [4:0] Rs1D, Rs2D, RdD;
     input [31:0] RD1D, RD2D, PCD, PCPlus4D, extImmD;
 
-    output ALUSrcE, luiE;
+    output reg ALUSrcE, luiE;
     output reg [1:0] jumpE, resultSrcE;
     output reg [2:0] branchE;
     output reg [4:0] Rs1E, Rs2E, RdE;
@@ -54,3 +55,4 @@ module RegID_EX(clk, rst, clr, regWriteD, resultSrcD, memWriteD,
     end
 
 endmodule
+

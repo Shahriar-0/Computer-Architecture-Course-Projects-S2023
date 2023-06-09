@@ -15,7 +15,7 @@ module RegEX_MEM(clk, rst, regWriteE, resultSrcE, memWriteE,
 
     always @(posedge clk or posedge rst) begin
 
-        if (rst || clr) begin
+        if (rst) begin
             ALUResultM <= 32'b0;
             writeDataM <= 32'b0;
             PCPlus4M   <= 32'b0;
