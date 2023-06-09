@@ -7,7 +7,7 @@ module TB();
         clk = 1'b0;
         #2 rst = 1'b1;
         #6 rst = 1'b0;
-        #2000 $stop;
+        #4000 $stop;
     end
     
 endmodule

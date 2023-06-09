@@ -47,3 +47,4 @@ module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
     assign flushE = lwStall || (PCSrcE != 2'b00);
 
 endmodule
+
