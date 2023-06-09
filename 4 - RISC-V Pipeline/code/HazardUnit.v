@@ -7,13 +7,35 @@ module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
     input [1:0] PCSrcE;
     input regWriteM, regWriteW, resultSrc0;
 
-    output stallF, stallD, flushD, flushE, forwardAE, forwardBE;
+    output reg stallF, stallD, flushD, flushE, forwardAE, forwardBE;
 
-    assign forwardAE = ((Rs1E == RdM) && regWriteM && (Rs1E != 5'b0)) ? 2'b10:
-                       ((Rs1E == RdW) && regWriteW && (Rs1E != 5'b0)) ? 2'b01: 2'b00;
+    // assign forwardAE = ((Rs1E == RdM) && regWriteM && (Rs1E != 5'b0)) ? 2'b10:
+                    //    ((Rs1E == RdW) && regWriteW && (Rs1E != 5'b0)) ? 2'b01: 2'b00;
 
-    assign forwardBE = ((Rs2E == RdM) && regWriteM && (Rs2E != 5'b0)) ? 2'b10:
-                       ((Rs2E == RdW) && regWriteW && (Rs2E != 5'b0)) ? 2'b01: 2'b00;
+    always @(Rs1E or RdM or regWriteM or Rs1E) begin
+        if(Rs1E == 5'b0)
+            forwardAE <= 2'b00;
+        else if((Rs1E == RdM) && regWriteM)
+            forwardAE <= 2'b10;
+        else if((Rs1E == RdW) && regWriteW)
+            forwardAE <= 2'b01;
+        else 
+            forwardAE <= 2'b00;
+    end    
+
+    // assign forwardBE = ((Rs2E == RdM) && regWriteM && (Rs2E != 5'b0)) ? 2'b10:
+    //                    ((Rs2E == RdW) && regWriteW && (Rs2E != 5'b0)) ? 2'b01: 2'b00;
+
+    always @(Rs1E or RdM or regWriteM or Rs1E) begin
+        if(Rs2E == 5'b0)
+            forwardBE <= 2'b00;
+        else if((Rs2E == RdM) && regWriteM)
+            forwardBE <= 2'b10;
+        else if((Rs2E == RdW) && regWriteW)
+            forwardBE <= 2'b01;
+        else 
+            forwardBE <= 2'b00;
+    end 
                                 
     reg lwStall;
     assign lwStall = ((((Rs1D == RdE) || (Rs2D == RdE)) && resultSrc0)) ? 1'b1 : 1'b0;
