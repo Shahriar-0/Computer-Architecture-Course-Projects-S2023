@@ -49,7 +49,7 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
 
     RegIF_ID regIFID(
         .clk(clk), .rst(rst), 
-        .en(~stallD), .clr(flushD)
+        .en(~stallD), .clr(flushD),
 
         .PCF(PCF),                 .PCD(PCD),
         .PCPlus4F(PCPlus4F),       .PCPlus4D(PCPlus4D),

@@ -15,7 +15,8 @@ module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
     assign forwardBE = ((Rs2E == RdM) && regWriteM && (Rs2E != 5'b0)) ? 2'b10:
                        ((Rs2E == RdW) && regWriteW && (Rs2E != 5'b0)) ? 2'b01: 2'b00;
                                 
-    reg lwStall = ((((Rs1D == RdE) || (Rs2D == RdE)) && resultSrc0)) ? 1'b1 : 1'b0;
+    reg lwStall;
+    assign lwStall = ((((Rs1D == RdE) || (Rs2D == RdE)) && resultSrc0)) ? 1'b1 : 1'b0;
 
     assign stallF = lwStall;
     assign stallD = lwStall;

@@ -12,7 +12,7 @@
 module BranchController(branchE, jumpE, neg, zero, PCSrcE);
 
     input zero, neg;
-    inout [2:0] branch;
+    inout [2:0] branchE;
     input [1:0] jumpE;
 
     output reg [1:0] PCSrcE;

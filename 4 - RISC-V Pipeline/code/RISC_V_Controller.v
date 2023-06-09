@@ -7,8 +7,10 @@ module RISC_V_Controller(clk, rst, op, func3, func7,
     input clk, rst, func7;
     
     output ALUSrcD, memWriteD, regWriteD;
-    output [1:0] resultSrcD, jumpD, ALUOp;
+    output [1:0] resultSrcD, jumpD;
     output [2:0] ALUControlD, immSrcD,branchD;
+
+    wire [1:0] ALUOp;
 
     MainController maindecoder(
         .op(op), .func3(func3), .regWriteD(regWriteD), 
