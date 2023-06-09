@@ -181,7 +181,7 @@ class Assembler:
             try:
                 command, *args = line.split()
                 if command in self.types or ":" in line:
-                    assembly_lines.append(line)
+                    assembly_lines.append(line.split("#", 1)[0])
             except Exception as e:
                 pass
 
@@ -203,7 +203,7 @@ class Assembler:
                 command, *args = assembly_line.split()
                 if command in self.types:
                     if command in self.labeled:
-                        label = assembly_line.rsplit(" ", 1)[1].rstrip()
+                        label = assembly_line.rstrip().rsplit(" ", 1)[1].rstrip()
                         label_line = self.__find_line_of_label(assembly_lines, label)
                         if label_line is None:
                             raise Exception("label doesn't exist")
