@@ -2,7 +2,7 @@
 
 .text
 _boot:
-    jal FindMax
+    jal x0,FindMax
 
     FindMax:
         lw   x8, 1000(x0)           # maxElement = mem[1000]
@@ -16,11 +16,11 @@ _boot:
             slt  x6, x8, x18        # check if element is greater than maxElement
             beq  x6, x0, Loop       # if element is not greater than maxElement, jump to Loop
             add  x8, x18, x0        # maxElement = element
-            jal  Loop               # jump to Loop
+            jal  x0,Loop               # jump to Loop
 
         EndLoop:
             sw x8, 2000(x0)         # mem[2000] = maxElement
-            jal End                 # return
+            jal x0,End                 # return
 
     End:
         
