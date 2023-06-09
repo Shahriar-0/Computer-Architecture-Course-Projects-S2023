@@ -1,5 +1,5 @@
-with open('../memory/instructions.hex', 'r') as input_file:
-    with open('./binary.mem', 'w') as output_file:
+with open('../memory/instrjalr.hex', 'r') as input_file:
+    with open('../memory/instrjalr.mem', 'w') as output_file:
         for line in input_file:
             hex_num = line.strip()
             num = int(hex_num, 16)
