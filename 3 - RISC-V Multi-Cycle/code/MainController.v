@@ -161,7 +161,7 @@ module MainController(clk, rst, op, zero,
                 ALUSrcA   <= 2'b10;
                 ALUSrcB   <= 2'b01;
                 immSrc    <= 3'b000;
-                ALUOp     <= 2'b00; // fix in diagram
+                ALUOp     <= 2'b00;
             end
 
             `MEM1: begin
