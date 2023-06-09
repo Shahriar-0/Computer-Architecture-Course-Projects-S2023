@@ -1,4 +1,4 @@
-`define idle                5'b00000             
+`define idle	            5'b00000             
 `define init                5'b00001             
 `define init_search         5'b00010                    
 `define add_to_stack        5'b00011                     
@@ -19,12 +19,12 @@
 `define show                5'b10010             
 
 
-module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
+module controller(clk, rst, start, Run, Co, found, empty_stack, Done,
 				  complete_read, D_out, init_x, init_y, init_count, Fail,
 				  en_count, ldc, ldx, ldy, WR, RD, D_in,init_stack, stack_pop,
 				  stack_push, r_update, list_push, en_read, init_list, invalid);
 
-	input CLK, RST, start, Run, Co, found,
+	input clk, rst, start, Run, Co, found,
 		  empty_stack, complete_read, D_out, invalid;
 
 	output reg init_x, init_y, init_count, en_count,
@@ -65,32 +65,29 @@ module controller(CLK, RST, start, Run, Co, found, empty_stack, Done,
 		WR, RD, D_in, stack_pop, list_push, en_read, init_list,
 		r_update , stack_push, Done, Fail} = 19'b0;
 		case (pstate)
-			`idle: ;             
-			`init: begin init_x = 1'b1; init_y = 1'b1; init_list = 1'b1;
-				    init_stack = 1'b1; init_count= 1'b1;
-				  end           
-			`init_search: init_count = 1'b1;      
-			`make_wall: begin WR = 1'b1; D_in = 1'b1; end      
- 			`add_to_stack: stack_push = 1'b1;      
-			`update_xy:  begin ldx = 1'b1; ldy = 1'b1; end      
-			`check_goal:  RD = 1'b1 ;       
-			`check_wall:;       
-			`check_empty_stack: ;
-			`pop_stack: stack_pop = 1'b1;        
-			`reload_counter: ldc = 1'b1;   
-			`update_reverse: begin ldx = 1'b1; ldy = 1'b1; r_update = 1'b1; end
-			`free_loc_check_bt: WR = 1'b1;
-			`change_dir: en_count = 1'b1;       
-			`fail: Fail = 1'b1;             
-			`stack_read: stack_pop = 1'b1;      
-			`update_list: list_push = 1'b1;      
-			`done: Done = 1'b1;        
-			`show:begin en_read = 1'b1; Done = 1'b1; end             
+			`init             : begin init_x = 1'b1; init_y = 1'b1; 
+							    init_list = 1'b1; init_stack = 1'b1; 
+								init_count= 1'b1; end           
+			`init_search	  : begin init_count = 1'b1; end
+			`make_wall		  : begin WR = 1'b1; D_in = 1'b1; end
+ 			`add_to_stack	  : begin stack_push = 1'b1; end
+			`update_xy		  :  begin ldx = 1'b1; ldy = 1'b1; end
+			`check_goal		  :  begin RD = 1'b1 ; end 
+			`pop_stack		  : begin stack_pop = 1'b1; end  
+			`reload_counter	  : begin ldc = 1'b1; end   
+			`update_reverse	  : begin ldx = 1'b1; ldy = 1'b1; r_update = 1'b1; end
+			`free_loc_check_bt: begin WR = 1'b1; end
+			`change_dir       : begin en_count = 1'b1; end 
+			`fail			  : begin Fail = 1'b1; end 
+			`stack_read		  : begin stack_pop = 1'b1 end;
+			`update_list	  : begin list_push = 1'b1; end
+			`done			  : begin Done = 1'b1; end 
+			`show			  : begin en_read = 1'b1; Done = 1'b1; end 
 		endcase
 	end
 
-	always @(posedge CLK or posedge RST) begin
-		if (RST)
+	always @(posedge clk or posedge rst) begin
+		if (rst)
 			pstate <= `idle;
 		else 
 			pstate <= nstate;

@@ -1,12 +1,12 @@
-module counter2bit(RST, CLK, init, ld, en, prl, out, Co);
+module counter2bit(rst, clk, init, ld, en, prl, out, Co);
    
-    input init, ld, en, RST, CLK;
+    input init, ld, en, rst, clk;
     input [1:0] prl;
     output reg [1:0] out;
     output Co;
 
-    always @(posedge CLK or posedge RST) begin
-        if (RST || init) 
+    always @(posedge clk or posedge rst) begin
+        if (rst || init) 
             out <= 2'b0;
         else if (ld) 
             out <= prl;

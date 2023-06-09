@@ -1,11 +1,11 @@
 `define BITS(x) $rtoi($ceil($clog2(x)))
 
-module stack(CLK, RST, init, pop, push, empty, d_in, d_out);
+module stack(clk, rst, init, pop, push, empty, d_in, d_out);
 
     parameter WIDTH = 2;
     parameter DEPTH = 256;
 
-    input CLK, RST, pop, push, init;
+    input clk, rst, pop, push, init;
     input [WIDTH - 1:0] d_in;
 
     output [WIDTH - 1:0] d_out;
@@ -19,9 +19,9 @@ module stack(CLK, RST, init, pop, push, empty, d_in, d_out);
     assign empty = !(|index);
 
 
-    always @(posedge CLK or posedge RST) begin
+    always @(posedge clk or posedge rst) begin
 
-        if(RST || init) begin
+        if(rst || init) begin
             next_d_out  = 8'd0;
             next_index = 1'b0;
         end

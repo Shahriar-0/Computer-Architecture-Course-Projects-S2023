@@ -1,12 +1,12 @@
 
-module intelligent_rat(CLK, RST, Run, Start,
+module intelligent_rat(clk, rst, Run, Start,
                        Fail, Done, Move, X, Y, 
                        D_in, D_out, RD, WR);
 
     parameter DIRECTION_SIZE = 2;
     parameter N = 4;
 
-    input CLK, RST, Run, Start, D_out;
+    input clk, rst, Run, Start, D_out;
 
     output D_in, Fail, Done, RD, WR;
     output [DIRECTION_SIZE - 1:0] Move;
@@ -21,7 +21,7 @@ module intelligent_rat(CLK, RST, Run, Start,
 
 
     datapath dp(
-        .CLK(CLK), .RST(RST), .init_x(init_x), .init_y(init_y), .ldx(ldx), .ldy(ldy),
+        .clk(clk), .rst(rst), .init_x(init_x), .init_y(init_y), .ldx(ldx), .ldy(ldy),
         .ld_count(ld_count), .init_count(init_count), .en_count(en_count), 
         .en_read(en_read), .init_list(init_list), .init_stack(init_stack), .X(X),                         
         .stack_dir_push(stack_dir_push), .stack_dir_pop(stack_dir_pop),  .Y(Y), 
@@ -30,7 +30,7 @@ module intelligent_rat(CLK, RST, Run, Start,
     );
 
     controller cu(
-        .CLK(CLK), .RST(RST), .start(Start), .Run(Run), .Co(Co), .found(found), .WR(WR),
+        .clk(clk), .rst(rst), .start(Start), .Run(Run), .Co(Co), .found(found), .WR(WR),
         .complete_read(complete_read), .D_out(D_out), .init_x(init_x), .init_y(init_y),
         .D_in(D_in), .init_stack(init_stack), .init_count(init_count), .en_count(en_count), 
         .stack_pop(stack_dir_pop), .stack_push(stack_dir_push), .r_update(r_update),
