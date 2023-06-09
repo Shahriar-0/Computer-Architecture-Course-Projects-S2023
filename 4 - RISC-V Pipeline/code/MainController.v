@@ -14,19 +14,19 @@
 
 module MainController(op, func3, regWriteD, ALUOp,
                       resultSrcD, memWriteD, jumpD,
-                      branchD, ALUSrcD, immSrcD);
+                      branchD, ALUSrcD, immSrcD, luiD);
 
     input [6:0] op;
     input [1:0] func3;
 
-    output reg memWriteD, regWriteD, ALUSrcD;
+    output reg memWriteD, regWriteD, ALUSrcD luiD;
     output reg [1:0] resultSrcD, jumpD, ALUOp;
     output reg [2:0] branchD, immSrcD;
 
 
     always @(op, func3) begin
         {ALUOp, regWriteD, immSrcD, ALUSrcD, memWriteD, 
-             resultSrcD, jumpD, ALUOp, branchD, immSrcD} <= 15'b0;
+             resultSrcD, jumpD, ALUOp, branchD, immSrcD, luiD} <= 16'b0;
         case (op)
             `R_T: begin
                 ALUOp      <= 2'b10;
@@ -64,6 +64,7 @@ module MainController(op, func3, regWriteD, ALUOp,
                 resultSrcD <= 2'b11;
                 immSrcD    <= 3'b100;
                 regWriteD  <= 1'b1;
+                luiD <= 1'b1;
             end
         
             `J_T: begin
