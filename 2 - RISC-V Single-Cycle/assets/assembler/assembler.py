@@ -188,14 +188,17 @@ class Assembler:
         return assembly_lines
 
     def __find_line_of_label(self, lines: list[str], label: str) -> int:
+        minus = 0
         for i, line in enumerate(lines):
             if label + ":" in line:
-                return i
+                return i - minus
+            if ":" in line:
+                minus += 1
 
         return None
 
     def assemble(self):
-        assembly_lines = self.__find_assembly_lines()[1:]
+        assembly_lines = self.__find_assembly_lines()
         machine_code_lines = []
 
         for assembly_line in assembly_lines:
