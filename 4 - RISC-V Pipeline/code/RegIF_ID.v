@@ -15,7 +15,7 @@ module RegIF_ID(clk, rst, en, clr, instrF, PCF,
             PCPlus4D <= 3'b0;
         end 
 
-        else if(~en) begin // ? just en maybe? since you passed ~stallD
+        else if(en) begin
             instrD   <= instrF;
             PCD      <= PCF;
             PCPlus4D <= PCPlus4F;
