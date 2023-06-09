@@ -17,9 +17,8 @@ module MainController(op, func3, regWriteD, ALUOp,
                       branchD, ALUSrcD, immSrcD, luiD);
 
     input [6:0] op;
-    input [1:0] func3;
-
-    output reg memWriteD, regWriteD, ALUSrcD luiD;
+    input [2:0] func3;
+    output reg memWriteD, regWriteD, ALUSrcD, luiD;
     output reg [1:0] resultSrcD, jumpD, ALUOp;
     output reg [2:0] branchD, immSrcD;
 

@@ -6,8 +6,8 @@ module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
     input [4:0] Rs1D, Rs2D, RdE, RdM, RdW, Rs1E, Rs2E;
     input [1:0] PCSrcE;
     input regWriteM, regWriteW, resultSrc0;
-
-    output reg stallF, stallD, flushD, flushE, forwardAE, forwardBE;
+    output reg [1:0] forwardAE, forwardBE;
+    output reg stallF, stallD, flushD, flushE;
 
     // assign forwardAE = ((Rs1E == RdM) && regWriteM && (Rs1E != 5'b0)) ? 2'b10:
                     //    ((Rs1E == RdW) && regWriteW && (Rs1E != 5'b0)) ? 2'b01: 2'b00;
