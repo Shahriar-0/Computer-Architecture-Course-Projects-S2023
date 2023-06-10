@@ -2,7 +2,7 @@
 
 .text
 _boot:
-    jal x0,FindMax
+    jal x0, FindMax
 
     FindMax:
         lw   x8, 1000(x0)           # maxElement = mem[1000]
