@@ -35,7 +35,7 @@ registers = [
     "t3",
     "t4",
     "t5",
-    "t6"
+    "t6",
 ]
 
 with open(input_file, "r") as f_in, open(output_file, "w") as f_out:
