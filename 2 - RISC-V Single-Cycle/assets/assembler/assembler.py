@@ -5,19 +5,15 @@ from sys import argv
 import os
 import io
 
-def twos_complement(x: str):
-    if x[0] != '-':
-        return x
-    index = x.rindex('1')
-    x = list(x)
-    x[0] = '0'
-    for i in range(index):
-        if x[i] == '1':
-            x[i] = '0'
-        else:
-            x[i] = '1'
-    x = ''.join(x)
-    return x
+
+def twos_complement(decimal_number: int, n: int) -> str:
+    if decimal_number >= 0:
+        binary_number = bin(decimal_number)[2:]
+        return binary_number.zfill(n)
+    else:
+        binary_number = bin(2**n + decimal_number)[2:]
+        return binary_number
+
 
 class Type:
     def __init__(self) -> None:
@@ -81,10 +77,12 @@ class I_Type(Type):
         rd = str(bin(int(self.args[0][1:]))[2:].zfill(5))
         if self.command == "lw":
             rs1 = str(bin(int(self.args[2][1:]))[2:].zfill(5))
-            imm = str(bin(int(self.args[1]))[2:].zfill(12))
+            # imm = str(bin(int(self.args[1]))[2:].zfill(12))
+            imm = twos_complement(int(self.args[1]), 12)
         else:
             rs1 = str(bin(int(self.args[1][1:]))[2:].zfill(5))
-            imm = str(bin(int(self.args[2]))[2:].zfill(12))
+            # imm = str(bin(int(self.args[2]))[2:].zfill(12))
+            imm = twos_complement(int(self.args[2]), 12)
         return imm + rs1 + func3 + rd + opcode
 
 
@@ -98,7 +96,8 @@ class S_Type(Type):
         opcode, func3 = self.map[self.command]
         rs2 = str(bin(int(self.args[0][1:]))[2:].zfill(5))
         rs1 = str(bin(int(self.args[2][1:]))[2:].zfill(5))
-        imm = str(bin(int(self.args[1]))[2:].zfill(12))[::-1]
+        # imm = str(bin(int(self.args[1]))[2:].zfill(12))[::-1]
+        imm = twos_complement(int(self.args[1]), 12)[::-1]
         return imm[5:][::-1] + rs2 + rs1 + func3 + imm[:5][::-1] + opcode
 
 
@@ -111,7 +110,8 @@ class J_Type(Type):
     def _assemble(self) -> str:
         opcode = self.map[self.command]
         rd = str(bin(int(self.args[0][1:]))[2:].zfill(5))
-        imm = str(bin(int(self.args[1]))[2:].zfill(21))[::-1]
+        # imm = str(bin(int(self.args[1]))[2:].zfill(21))[::-1]
+        imm = twos_complement(int(self.args[1]), 21)[::-1]
         return imm[20] + imm[1:11][::-1] + imm[11] + imm[12:20][::-1] + rd + opcode
 
 
@@ -130,8 +130,18 @@ class B_Type(Type):
         opcode, func3 = self.map[self.command]
         rs1 = str(bin(int(self.args[0][1:]))[2:].zfill(5))
         rs2 = str(bin(int(self.args[1][1:]))[2:].zfill(5))
-        imm = str(bin(int(self.args[2]))[2:].zfill(13))[::-1]
-        return imm[12] + imm[5:11][::-1] + rs2 + rs1 + func3 + imm[1:5][::-1] + imm[11] + opcode
+        # imm = str(bin(int(self.args[2]))[2:].zfill(13))[::-1]
+        imm = twos_complement(int(self.args[2]), 13)[::-1]
+        return (
+            imm[12]
+            + imm[5:11][::-1]
+            + rs2
+            + rs1
+            + func3
+            + imm[1:5][::-1]
+            + imm[11]
+            + opcode
+        )
 
 
 class U_Type(Type):
@@ -143,7 +153,8 @@ class U_Type(Type):
     def _assemble(self) -> str:
         opcode = self.map[self.command]
         rd = str(bin(int(self.args[0][1:]))[2:].zfill(5))
-        imm = str(bin(int(self.args[1]))[2:].zfill(21))
+        # imm = str(bin(int(self.args[1]))[2:].zfill(21))
+        imm = twos_complement(int(self.args[1]), 21)
         return imm + rd + opcode
 
 
@@ -200,7 +211,9 @@ class Assembler:
 
         return assembly_lines
 
-    def __find_line_of_label(self, lines: list[str], label: str, calling_line: int) -> int:
+    def __find_line_of_label(
+        self, lines: list[str], label: str, calling_line: int
+    ) -> int:
         minus = 0
         for i, line in enumerate(lines):
             if label + ":" in line:
@@ -220,10 +233,14 @@ class Assembler:
                 if command in self.types:
                     if command in self.labeled:
                         label = assembly_line.rstrip().rsplit(" ", 1)[1].rstrip()
-                        label_line = self.__find_line_of_label(assembly_lines, label, len(machine_code_lines))
+                        label_line = self.__find_line_of_label(
+                            assembly_lines, label, len(machine_code_lines)
+                        )
                         if label_line is None:
                             raise Exception("label doesn't exist")
-                        assembly_line = assembly_line.replace(label, str(label_line << 2))
+                        assembly_line = assembly_line.replace(
+                            label, str(label_line << 2)
+                        )
                     machine_code_line = self.types[command](assembly_line)
                     machine_code_lines.append(machine_code_line)
             except Exception as e:
@@ -231,7 +248,7 @@ class Assembler:
 
         with open(self.filename_destination, "w") as f:  # type: io.TextIOWrapper
             for line in machine_code_lines:
-                bytes = [line[i:i+8] for i in range(0, len(line), 8)]
+                bytes = [line[i : i + 8] for i in range(0, len(line), 8)]
                 for byte in bytes:
                     f.write(byte + "\n")
 
