@@ -1,7 +1,7 @@
 # Computer Architecture Course Projects
 Projects for the computer architecture course at Tehran university.
 
-- [Computer Architecture Course Projects](# Computer Architecture Course Projects)
+- [Computer Architecture Course Projects](#Computer-Architecture-Course-Projects)
   - [Intro](#intro)
   - [CA 1: Maze](#ca-1-maze)
     - [Intro](#maze-intro)
