@@ -95,8 +95,11 @@ class Assembler:
             waiting_chars = ['|', '/', '-', '\\']
             for i, line in enumerate(machine_code_lines):
                 bytes = [line[i : i + 8] for i in range(0, len(line), 8)]
-                for byte in bytes:
+                start_address = 0
+                f.write(f"@{start_address:03X}\n".lower())
+                for byte in reversed(bytes):
                     f.write(byte + "\n")
+                start_address += 4
                 if i % 10 == 0:
                     tqdm.write(f"\rWriting to file {waiting_chars[i % len(waiting_chars)]}", end='')
         tqdm.write("\nDone writing to file.")
