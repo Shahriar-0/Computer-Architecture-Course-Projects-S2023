@@ -3,22 +3,14 @@ Projects for the computer architecture course at Tehran university.
 
 - [Computer Architecture Course Projects](# Computer Architecture Course Projects)
   - [Intro](#intro)
-  - [CA 1: Maze](#CA-1-Maze)
-    - [Intro](#Maze-Intro)
-    - [Assets](#Maze-Assets)
-    - [code](#Maze-code)
-  - [CA 2: RISC-V Single-Cycle](#CA-2-RISC-V-Single-Cycle)
-    - [Intro](#RISC-V-Single-Cycle-Intro)
-    - [Assets](#RISC-V-Single-Cycle-Assets)
-    - [code](#RISC-V-Single-Cycle-code)
-  - [CA 3: RISC-V Multi-Cycle](#CA-3-RISC-V-Multi-Cycle)
-    - [Intro](#RISC-V-Multi-Cycle-Intro)
-    - [Assets](#RISC-V-Multi-Cycle-Assets)
-    - [code](#RISC-V-Multi-Cycle-code)
-  - [CA 4: RISC-V Pipeline](#CA-4-RISC-V-Pipeline)
-    - [Intro](#RISC-V-Pipeline-Intro)
-    - [Assets](#RISC-V-Pipeline-Assets)
-    - [code](#RISC-V-Pipeline-code)
+  - [CA 1: Maze](#ca-1-maze)
+    - [Intro](#maze-intro)
+    - [Assets](#maze-assets)
+    - [code](#maze-code)
+  - [CA 2-4: RISC-V Single-Cycle](#ca-2-4-risc-v)
+    - [Intro](#risc-v-intro)
+    - [Assets](#risc-v-assets)
+    - [code](#risc-v-code)
 
 ## Intro
 
@@ -26,45 +18,52 @@ Projects for the computer architecture course at Tehran university. Some parts w
 
 ## CA 1: Maze
 
-### Maze-Intro
+### Maze Intro
+In this project we read maze data from a file and then try to find a way from our mouse to the cheese. the priority for moving is up, right, left, down so the route we find is unique.
 
-In this project we were supposed to 
+### Maze Asset
 
-```text
-Group 1:
-- Saman Eslami Nazari : 810199375
-- Pasha Barahimi      : 810199385
-- Misagh Mohaghegh    : 810199484
-```
+- `judge`  : Some useful python code for checking accuracy of project and visualizing the path
+- `maps` : List of maps, in each file if you convert the 4 digit hex string to binary format, each **1** represent wall and each **0** shows empty cells that we can move between those. There is 16 lines each 4 digit hex, so the map is 16 * 16.
+    - `maps with solution` : in this folder we have maps that there exists a way to get the cheese. `.dat` file are original map, `.txt` file contains binary converted map, and $result_{i}.txt$ are python code's results, and the $code result_{i}.txt$ file contains Verilog simulation results. result means the way we move in maze. you can understand it with this map.
 
-### Maze-Asset
+        ```text
+        00 up
+        01 right
+        10 left
+        11 down
+        ```
 
-The following keyboard shortcuts are added to the console:
+    - `maps without solution` : in this folder we have maps that doesn't exist a way to get the cheese.
+- `photos`    : contains datapath and controller designs
 
-- `Ctrl+N` : Removes all the digits from the console
-- `Ctrl+R` : Reverses the current line
-- `Tab`    : Substitutes the current line with a command from the history (if exists)
+### Maze code
 
-Also, the following features are added to the console though they were not required in the task:
+Verilog files that you can use to simulate the project using ModelSim. When simulating make sure that a `.dat` file is in the project of ModelSim.
 
-- `Arrow Up`   : Shows the previous command in the history
-- `Arrow Down` : Shows the next command in the history
+---
 
-### Maze-code
+***The next three projects are different implementation of RISC-V***
+## CA 2-4: RISC-V
+### RISC-V  Intro
+In these projects we designed a RISC-V processor using Verilog but with different approaches. The first approach is to use a simple Single-Cycle model which is not very good when it comes to hardware-utilization. The second approach is to use a shorter cycle but multiple cycles (i.e. Multi-Cycles) so each command use as many cycles as it needs and we have better performance. The last is the Pipeline approach which combines some instructions and gave us the best performance.
 
-A `prime_numbers` program is added to the system.  
-This program finds the prime numbers in the range $[a, b]$.  
-The program is called as follows:
+### RISC-V Assets
 
-```text
-prime_numbers a b
-```
+- `assembly`  : Assembly code of RISC-V
+- `controller` and `datapath` : General design of RISC-V 
+- `memory` : `data.mem` which shows the data storage and `instructions.mem` which have the instructions that our processor will execute. Note that for Multi-Cycles as shown in it's datapath, data memory and instruction memory are not apart so they are in `data.mem`
+- `utils`: Some utility functions
+    - `assembler` : In this folder you can find a link to an online assembler and also an assembler that we designed for our processor, if you are familiar with python just run this
+        ```
+        python main.py
+        ```
+        if not just the `.bat` files, you can run each like this
+        ```
+        ./bat_filename.bat
+        ```
+    - `data generator` : Here you can generate data memory based on numbers you provided in `ArrayData.txt `in memory folder.
 
-The result is then printed in the `prime_numbers.txt` file.
+### RISC-V code
 
-## CA 2 RISC-V Single-Cycle
-
-## CA 3 RISC-V Multi-Cycle
-
-## CA 4 RISC-V Pipeline
-
+Verilog files that you can use to simulate the project using ModelSim. When simulating make sure that a `.mem` files are in the project of ModelSim.
