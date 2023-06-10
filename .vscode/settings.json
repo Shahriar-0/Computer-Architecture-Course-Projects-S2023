@@ -1,5 +1,10 @@
 {
-    "files.associations": {
-        "iostream": "cpp"
-    }
+  "files.associations": {
+    "iostream": "cpp"
+  },
+  "files.exclude": {
+    ".gitignore": true,
+    ".gitmodules": true,
+    ".vscode": true
+  }
 }
