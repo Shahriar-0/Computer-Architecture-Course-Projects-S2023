@@ -48,6 +48,15 @@ Verilog files that you can use to simulate the project using ModelSim. When simu
 ### RISC-V  Intro
 In these projects we designed a RISC-V processor using Verilog but with different approaches. The first approach is to use a simple Single-Cycle model which is not very good when it comes to hardware-utilization. The second approach is to use a shorter cycle but multiple cycles (i.e. Multi-Cycles) so each command use as many cycles as it needs and we have better performance. The last is the Pipeline approach which combines some instructions and gave us the best performance.
 
+Supported commands are(for now):
+
+- R-Type: add, sub, and, or, slt
+- I-Type: lw, addi, xori, slti, jalr
+- S-Type: sw
+- J-Type: jal
+- B-Type: beq, bneq, blt, beg
+- U-Type: lui
+
 ### RISC-V Assets
 
 - `assembly`  : Assembly code of RISC-V
