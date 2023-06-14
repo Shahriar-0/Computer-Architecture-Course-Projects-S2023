@@ -9,9 +9,6 @@ module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
     output reg [1:0] forwardAE, forwardBE;
     output reg stallF, stallD, flushD, flushE;
 
-    // assign forwardAE = ((Rs1E == RdM) && regWriteM && (Rs1E != 5'b0)) ? 2'b10:
-                    //    ((Rs1E == RdW) && regWriteW && (Rs1E != 5'b0)) ? 2'b01: 2'b00;
-
     always @(Rs1E or RdM or RdW or regWriteM or regWriteW) begin
         if(Rs1E == 5'b0)
             forwardAE <= 2'b00;
@@ -22,9 +19,6 @@ module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
         else 
             forwardAE <= 2'b00;
     end    
-
-    // assign forwardBE = ((Rs2E == RdM) && regWriteM && (Rs2E != 5'b0)) ? 2'b10:
-    //                    ((Rs2E == RdW) && regWriteW && (Rs2E != 5'b0)) ? 2'b01: 2'b00;
 
     always @(Rs2E or RdM or RdW or regWriteM or regWriteW) begin
         if(Rs2E == 5'b0)

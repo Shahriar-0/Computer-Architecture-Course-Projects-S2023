@@ -1,0 +1,99 @@
+{C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/ALU_Controller.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/ALU_Controller.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ALU_Controller
+
+Top level modules:
+	ALU_Controller
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/RISC_V.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/RISC_V.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module RISC_V
+
+Top level modules:
+	RISC_V
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/Mux2to1.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/Mux2to1.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Mux2to1
+
+Top level modules:
+	Mux2to1
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/MainController.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/MainController.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module MainController
+
+Top level modules:
+	MainController
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/ALU.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/ALU.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ALU
+
+Top level modules:
+	ALU
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/Mux4to1.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/Mux4to1.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Mux4to1
+
+Top level modules:
+	Mux4to1
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/InstrDataMemory.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/InstrDataMemory.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module InstrDataMemory
+
+Top level modules:
+	InstrDataMemory
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/Register.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/Register.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Register
+
+Top level modules:
+	Register
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/Registerfile.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/Registerfile.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module RegisterFile
+
+Top level modules:
+	RegisterFile
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/ImmediateExtend.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/ImmediateExtend.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ImmExtension
+
+Top level modules:
+	ImmExtension
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/TestBench.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/TestBench.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module TB
+
+Top level modules:
+	TB
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/RISC_V_Controller.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/RISC_V_Controller.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module RISC_V_Controller
+
+Top level modules:
+	RISC_V_Controller
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/BranchController.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/BranchController.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module BranchController
+
+Top level modules:
+	BranchController
+
+} {} {}} {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/RISC_V_Datapath.v} {1 {vlog -work work -stats=none {C:/Users/Asus/source/Computer-Architecture-Course-Projects-S2023/3 - RISC-V Multi-Cycle/code/RISC_V_Datapath.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module RISC_V_Datapath
+
+Top level modules:
+	RISC_V_Datapath
+
+} {} {}}
