@@ -5,17 +5,17 @@
 `define SLT 3'b101
 `define XOR 3'b100
 
-module ALU(opc, a, b, zero, neg, w);
+module ALU(ALUControl, a, b, zero, neg, w);
     parameter N = 32;
 
-    input [2:0] opc;
+    input [2:0] ALUControl;
     input signed [N-1:0] a, b;
     
     output zero, neg;
     output reg signed [N-1:0] w; // check if it shoudl be signed
     
-    always @(a or b or opc) begin
-        case (opc)
+    always @(a or b or ALUControl) begin
+        case (ALUControl)
             `ADD   :  w = a + b;
             `SUB   :  w = a - b;
             `AND   :  w = a & b;

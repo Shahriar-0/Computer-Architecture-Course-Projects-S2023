@@ -1,16 +1,16 @@
 # Computer Architecture Course Projects
 Projects for the computer architecture course at Tehran university.
 
-- [Computer Architecture Course Projects](#Computer-Architecture-Course-Projects)
+- [Computer Architecture Course Projects](#computer-architecture-course-projects)
   - [Intro](#intro)
   - [CA 1: Maze](#ca-1-maze)
-    - [Intro](#maze-intro)
-    - [Assets](#maze-assets)
-    - [code](#maze-code)
-  - [CA 2-4: RISC-V Single-Cycle](#ca-2-4-risc-v)
-    - [Intro](#risc-v-intro)
-    - [Assets](#risc-v-assets)
-    - [code](#risc-v-code)
+    - [Maze Intro](#maze-intro)
+    - [Maze Asset](#maze-asset)
+    - [Maze code](#maze-code)
+  - [CA 2-4: RISC-V](#ca-2-4-risc-v)
+    - [RISC-V  Intro](#risc-v--intro)
+    - [RISC-V Assets](#risc-v-assets)
+    - [RISC-V code](#risc-v-code)
 
 ## Intro
 
@@ -64,13 +64,17 @@ Supported commands are(for now):
 - `memory` : `data.mem` which shows the data storage and `instructions.mem` which have the instructions that our processor will execute. Note that for Multi-Cycles as shown in it's datapath, data memory and instruction memory are not apart so they are in `data.mem`
 - `utils`: Some utility functions
     - `assembler` : In this folder you can find a link to an online assembler and also an assembler that we designed for our processor, if you are familiar with python just run this
+  
         ```
         python main.py
         ```
+  
         if not just the `.bat` files, you can run each like this
+
         ```
         ./bat_filename.bat
         ```
+        
     - `data generator` : Here you can generate data memory based on numbers you provided in `ArrayData.txt `in memory folder.
 
 ### RISC-V code

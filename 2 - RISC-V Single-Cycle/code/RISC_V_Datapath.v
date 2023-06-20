@@ -22,13 +22,13 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrc,
         .in(PCNext), .rst(rst), .clk(clk), .out(PC)
     );
 
+    Mux2to1 branchMux(
+        .slc(ALUSrc), .a(RD2), .b(immExt), .w(SrcB)
+    );
+
     Mux4to1 PC_Mux(
         .slc(PCSrc), .a(PCPlus4), .b(PCTarget),
         .c(ALUResult), .d(32'b0), .w(PCNext)
-    );
-
-    Mux2to1 branchMux(
-        .slc(ALUSrc), .a(RD2), .b(immExt), .w(SrcB)
     );
     
     Mux4to1 ResultMux(
@@ -49,7 +49,7 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrc,
     );
 
     ALU ALU_Instance(
-        .opc(ALUControl), .a(SrcA), .b(SrcB), 
+        .ALUControl(ALUControl), .a(SrcA), .b(SrcB), 
         .zero(zero), .neg(neg), .w(ALUResult)
     );
 
@@ -63,9 +63,9 @@ module RISC_V_Datapath(clk, rst, regWrite, ALUSrc,
     );
 
     RegisterFile RF(
-        .clk(clk), .regWrite(regWrite),
+        .clk(clk),
+        .writeData(result), .regWrite(regWrite),
         .readData1(RD1), .readData2(RD2),
-        .writeData(result),
         .readRegister1(instr[19:15]), 
         .readRegister2(instr[24:20]),
         .writeRegister(instr[11:7]) 

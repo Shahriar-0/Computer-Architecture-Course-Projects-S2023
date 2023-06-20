@@ -73,7 +73,7 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
     );
 
     ALU ALU_Instance(
-        .opc(ALUControlE), .a(SrcAE), .b(SrcBE), 
+        .ALUControl(ALUControlE), .a(SrcAE), .b(SrcBE), 
         .zero(zero), .neg(neg), .w(ALUResultE)
     );
 

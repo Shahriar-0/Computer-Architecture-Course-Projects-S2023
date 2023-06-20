@@ -13,7 +13,7 @@ module RISC_V_Controller(clk, rst, op, func3, func7, zero, neg,
     wire PCUpdate, branch, branchRes;
     wire[1:0] ALUOp;
 
-    MainController MainDecoder(
+    MainController mainController(
         .clk(clk), .rst(rst), .op(op),
         .zero(zero), .neg(neg), .PCUpdate(PCUpdate),
         .adrSrc(adrSrc), .memWrite(memWrite),
@@ -23,11 +23,11 @@ module RISC_V_Controller(clk, rst, op, func3, func7, zero, neg,
         .IRWrite(IRWrite), .ALUOp(ALUOp)
     );
     
-    ALU_Controller ALUDecoder(
+    ALU_Controller ALUController(
         .func3(func3), .func7(func7), .ALUOp(ALUOp), .ALUControl(ALUControl)
     );    
     
-    BranchController BranchDecoder(
+    BranchController branchController(
         .func3(func3), .branch(branch), 
         .neg(neg), .zero(zero), .w(branchRes)
     ); 

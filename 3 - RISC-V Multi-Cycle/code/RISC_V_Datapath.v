@@ -34,7 +34,7 @@ module RISC_V_Datapath(clk, rst, PCWrite, adrSrc, memWrite,
     );
 
     ALU ALU_Instance(
-        .opc(ALUControl), .a(SrcA), .b(SrcB), 
+        .ALUControl(ALUControl), .a(SrcA), .b(SrcB), 
         .zero(zero), .neg(neg), .w(ALUResult)
     );
 

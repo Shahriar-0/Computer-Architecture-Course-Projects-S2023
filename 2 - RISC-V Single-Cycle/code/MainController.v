@@ -35,6 +35,7 @@ module MainController(op, zero, resultSrc, memWrite,
                 jalr      <= 1'b0;
                 resultSrc <= 2'b00;
             end
+            
             `LW_T:begin
                 ALUOp     <= 2'b00;
                 regWrite  <= 1'b1;

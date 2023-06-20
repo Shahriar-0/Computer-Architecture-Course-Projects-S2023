@@ -13,19 +13,19 @@ module RISC_V_Controller(op, func3, func7, zero, PCSrc,
     wire jal, jalr, branch, branchRes;
     wire [1:0] ALUOp;
     
-    MainController MainDecoder(
+    MainController mainController(
         .op(op), .zero(zero), .neg(neg), .ALUOp(ALUOp),
         .resultSrc(resultSrc), .memWrite(memWrite),
         .ALUSrc(ALUSrc), .immSrc(immSrc), .regWrite(regWrite), 
         .jal(jal), .jalr(jalr), .branch(branch)
     );
     
-    BranchController BranchDecoder(
+    BranchController branchController(
         .func3(func3), .branch(branch), .neg(neg),
         .zero(zero), .w(branchRes)
     );   
     
-    ALU_Controller ALUDecoder(
+    ALU_Controller ALUController(
         .func3(func3), .func7(func7), .ALUOp(ALUOp), .ALUControl(ALUControl)
     );
     
