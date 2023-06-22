@@ -15,7 +15,6 @@ module InstrDataMemory (memAdr, writeData, memWrite, clk, readData);
         if (memWrite)
             {dataMem[adr + 3], dataMem[adr + 2], dataMem[adr + 1], dataMem[adr]} <= writeData;
     end
-
     
     assign readData = {dataMem[adr + 3], dataMem[adr + 2], dataMem[adr + 1], dataMem[adr]};
     

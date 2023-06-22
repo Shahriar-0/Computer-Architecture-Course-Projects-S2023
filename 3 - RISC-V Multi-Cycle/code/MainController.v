@@ -42,7 +42,7 @@ module MainController(clk, rst, op, zero,
     reg [4:0] nstate = `IF;
 
     always @(pstate or op) begin
-        case(pstate)
+        case (pstate)
             `IF  : nstate <= `ID;
 
             `ID  : nstate <= (op == `I_T)    ? `EX_I     :
@@ -86,7 +86,7 @@ module MainController(clk, rst, op, zero,
         {resultSrc, memWrite, ALUOp, ALUSrcA, ALUSrcB, immSrc, 
                 regWrite, PCUpdate, branch, IRWrite} <= 14'b0;
 
-        case(pstate)
+        case (pstate)
             // instruction fetch
             `IF : begin
                 IRWrite   <= 1'b1;
@@ -210,7 +210,7 @@ module MainController(clk, rst, op, zero,
     end
 
     always @(posedge clk or posedge rst) begin
-        if(rst)
+        if (rst)
             pstate <= `IF;
         else
             pstate <= nstate;

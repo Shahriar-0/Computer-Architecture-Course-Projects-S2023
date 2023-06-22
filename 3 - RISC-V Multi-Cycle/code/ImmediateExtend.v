@@ -12,7 +12,7 @@ module ImmExtension(immSrc, data, w);
     output reg [31:0] w;
 
     always @(immSrc, data) begin
-        case(immSrc)
+        case (immSrc)
             `I_T   : w <= {{20{data[24]}}, data[24:13]};
             `S_T   : w <= {{20{data[24]}}, data[24:18], data[4:0]};
             `J_T   : w <= {{12{data[24]}}, data[12:5], data[13], data[23:14], 1'b0};

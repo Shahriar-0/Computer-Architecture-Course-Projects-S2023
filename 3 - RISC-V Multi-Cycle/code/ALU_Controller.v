@@ -26,7 +26,7 @@ module ALU_Controller(func3, func7, ALUOp, ALUControl);
             `B_T   : ALUControl <= `SUB;
             `R_T   : ALUControl <= 
                         (func3 == 3'b000 & ~func7) ? `ADD:
-                        (func3 == 3'b000 & func7) ? `SUB:
+                        (func3 == 3'b000 & func7)  ? `SUB:
                         (func3 == 3'b111) ? `AND:
                         (func3 == 3'b110) ? `OR:
                         (func3 == 3'b010) ? `SLT : 3'bzzz;
