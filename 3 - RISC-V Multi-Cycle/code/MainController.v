@@ -175,6 +175,7 @@ module MainController(clk, rst, op, zero,
             end
         
             `MEM_J: begin
+                resultSrc <= 2'b00;
                 regWrite  <= 1'b1;
                 ALUSrcA   <= 2'b01;
                 ALUSrcB   <= 2'b01;
