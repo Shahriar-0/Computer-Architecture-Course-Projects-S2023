@@ -16,14 +16,15 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
          ALUSrcE, memWriteE, flushE, zero, neg, 
          stallF, stallD, flushD;
 
-    wire [1:0] resultSrcW, resultSrcM, jumpE, PCSrcE, resultSrcE, forwardAE, forwardBE;
+    wire [1:0] resultSrcW, resultSrcM, jumpE, 
+               PCSrcE, resultSrcE, forwardAE, forwardBE;
     wire [2:0] branchE, ALUControlE;
     wire [4:0] RdW, RdM, Rs1E, Rs2E, RdE, Rs1D, Rs2D, RdD;
 
     wire [31:0] ALUResultM, writeDataM, PCPlus4M, extImmM, RDM,
                 resultW, extImmW, ALUResultW, PCPlus4W, RDW,
                 RD1E, RD2E, PCE, SrcAE, SrcBE, writeDataE,        // E wires
-                PCTargetE, extImmE, PCPlus4E, ALUResultE, // E wires
+                PCTargetE, extImmE, PCPlus4E, ALUResultE,         // E wires
                 PCPlus4D, instrD, PCD, RD1D, RD2D, extImmD,
                 PCF_Prime, PCF, instrF, PCPlus4F,
                 idk; // FIXME: idk
