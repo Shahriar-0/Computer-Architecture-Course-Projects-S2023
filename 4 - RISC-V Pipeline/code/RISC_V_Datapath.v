@@ -77,11 +77,11 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
         .zero(zero), .neg(neg), .w(ALUResultE)
     );
 
-    assign op = instrD[6:0];
-    assign RdD = instrD[11:7];
+    assign op    = instrD[6:0];
+    assign RdD   = instrD[11:7];
     assign func3 = instrD[14:12];
-    assign Rs1D =  instrD[19:15];
-    assign Rs2D = instrD[24:20];
+    assign Rs1D  = instrD[19:15];
+    assign Rs2D  = instrD[24:20];
     assign func7 = instrD[30];
 
     RegID_EX regIDEX(

@@ -8,7 +8,6 @@ cd assembler\customized_assembler
 cd ..\data_generator
 .\data_generator.bat
 
-copy instructions.mem + data.mem combined.txt
+copy instructions.mem + data.mem instrdata.mem
 
 pause
-

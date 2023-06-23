@@ -14,6 +14,6 @@ with open('../memory/instructions.hex', 'r') as input_file:
             next_8_2_bin = format(next_8_2, '08b')
             lsb_bin = format(lsb, '08b')
 
-            result = f"{msb_bin}\n{next_8_bin}\n{next_8_2_bin}\n{lsb_bin}\n"
+            result = f"{lsb_bin}\n{next_8_2_bin}\n{next_8_bin}\n{msb_bin}\n"
             output_file.write(result)
 
