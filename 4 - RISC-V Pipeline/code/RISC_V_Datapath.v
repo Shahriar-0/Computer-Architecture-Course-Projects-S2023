@@ -4,8 +4,8 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
                        luiD, op, func3, func7);
 
     input clk, rst, regWriteD, memWriteD, ALUSrcD, luiD;
-    input  [1:0] resultSrcD, jumpD;
-    input  [2:0] ALUControlD, branchD, immSrcD;
+    input [1:0] resultSrcD, jumpD;
+    input [2:0] ALUControlD, branchD, immSrcD;
 
     output [6:0] op;
     output [2:0] func3;
@@ -23,11 +23,10 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
 
     wire [31:0] ALUResultM, writeDataM, PCPlus4M, extImmM, RDM,
                 resultW, extImmW, ALUResultW, PCPlus4W, RDW,
-                RD1E, RD2E, PCE, SrcAE, SrcBE, writeDataE,        // E wires
-                PCTargetE, extImmE, PCPlus4E, ALUResultE,         // E wires
+                RD1E, RD2E, PCE, SrcAE, SrcBE, writeDataE,        
+                PCTargetE, extImmE, PCPlus4E, ALUResultE,         
                 PCPlus4D, instrD, PCD, RD1D, RD2D, extImmD,
-                PCF_Prime, PCF, instrF, PCPlus4F,
-                idk; // FIXME: idk
+                PCF_Prime, PCF, instrF, PCPlus4F;
 
     // F
     Adder PCFAdder(
@@ -110,11 +109,11 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
     
     // E    
     Mux4to1 SrcAreg (
-        .slc(forwardAE), .a(RD1E), .b(resultW), .c(idk), .d(32'bz), .w(SrcAE)
+        .slc(forwardAE), .a(RD1E), .b(resultW), .c(ALUResultM), .d(luiM), .w(SrcAE)
     );
 
     Mux4to1 BSrcBreg(
-        .slc(forwardBE), .a(RD2E), .b(resultW), .c(idk), .d(32'bz), .w(writeDataE)
+        .slc(forwardBE), .a(RD2E), .b(resultW), .c(ALUResultM), .d(luiM), .w(writeDataE)
     );
 
     Mux2to1 SrcBreg(
@@ -146,10 +145,6 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
         .memWrite(memWriteM), .clk(clk), .readData(RDM)
     );
 
-    Mux2to1 muxMSrcA(
-        .slc(luiM), .a(ALUResultM), .b(extImmM), .w(idk)
-    );
-
     RegMEM_WB regMEMWB(
         .clk(clk), .rst(rst), 
 
@@ -171,11 +166,13 @@ module RISC_V_Datapath(clk, rst, regWriteD, resultSrcD,
     // end W
     
     HazardUnit hazard(
-        .Rs1D(Rs1D), .Rs2D(Rs2D), .RdE(RdE), .RdM(RdM), 
-        .RdW(RdW), .Rs2E(Rs2E), .Rs1E(Rs1E), .stallF(stallF),
+        .Rs1D(Rs1D), .Rs2D(Rs2D), 
+        .Rs1E(Rs1E), .Rs2E(Rs2E),
+        .RdE(RdE), .RdM(RdM), .RdW(RdW), .luiM(luiM)
         .PCSrcE(PCSrcE), .resultSrc0(resultSrcE[0]), 
-        .regWriteW(regWriteW),.regWriteM(regWriteM), 
-        .stallD(stallD), .flushD(flushD), .flushE(flushE), 
+        .regWriteW(regWriteW), .regWriteM(regWriteM), 
+        .stallD(stallD), .stallF(stallF),
+        .flushD(flushD), .flushE(flushE), 
         .forwardAE(forwardAE), .forwardBE(forwardBE)
     );
 
