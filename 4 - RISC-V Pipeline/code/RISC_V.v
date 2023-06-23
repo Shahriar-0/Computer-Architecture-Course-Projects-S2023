@@ -23,5 +23,4 @@ module RISC_V(clk, rst);
         .func7(func7), .resultSrcD(resultSrcD), .op(op)
     );
     
-    
 endmodule

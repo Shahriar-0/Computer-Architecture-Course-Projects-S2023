@@ -32,12 +32,12 @@ module HazardUnit(Rs1D, Rs2D, RdE, RdM, RdW, Rs2E, Rs1E,
     end 
                                 
     reg lwStall;
-    assign lwStall = ((((Rs1D == RdE) || (Rs2D == RdE)) && resultSrc0)) ? 1'b1 : 1'b0;
+    assign lwStall = ((((Rs1D == RdE) || (Rs2D == RdE)) && resultSrc0));
 
     assign stallF = lwStall;
     assign stallD = lwStall;
 
-    assign flushD = (PCSrcE != 2'b00) ? 1'b1 : 1'b0 ;
+    assign flushD = (PCSrcE != 2'b00);
     assign flushE = lwStall || (PCSrcE != 2'b00);
 
 endmodule
