@@ -24,7 +24,7 @@
 `define EX_LW    5'b01010
 `define MEM_LW   5'b01011
 `define WB_LW    5'b10001
-`define EX_U     5'b01111
+`define MEM_U    5'b01111
 
 module MainController(clk, rst, op, zero, 
                       PCUpdate, adrSrc, memWrite, branch,
@@ -49,7 +49,7 @@ module MainController(clk, rst, op, zero,
                              (op == `R_T)    ? `EX_R     :
                              (op == `B_T)    ? `EX_B     :
                              (op == `J_T)    ? `EX_J     :
-                             (op == `U_T)    ? `EX_U     :   
+                             (op == `U_T)    ? `MEM_U    :   
                              (op == `S_T)    ? `EX_S     :
                              (op == `JALR_T) ? `EX_JALR  :
                              (op == `LW_T)   ? `EX_LW    : `IF; // undefined instruction
@@ -63,20 +63,20 @@ module MainController(clk, rst, op, zero,
             `EX_B : nstate <= `IF;
 
             `EX_J : nstate <= `MEM_J;
-            `MEM_J : nstate <= `WB_J;
-            `WB_J: nstate <= `IF;
+            `MEM_J: nstate <= `WB_J;
+            `WB_J : nstate <= `IF;
 
             `EX_S : nstate <= `MEM_S;
             `MEM_S: nstate <= `IF;
             
             `EX_JALR : nstate <= `MEM_JALR;
-            `MEM_JALR : nstate <= `MEM_I;
+            `MEM_JALR: nstate <= `MEM_I;
 
             `EX_LW : nstate <= `MEM_LW;
             `MEM_LW: nstate <= `WB_LW;
-            `WB_LW  : nstate <= `IF;
+            `WB_LW : nstate <= `IF;
 
-            `EX_U: nstate <= `IF;
+            `MEM_U: nstate <= `IF;
         endcase
     end
 
@@ -201,7 +201,7 @@ module MainController(clk, rst, op, zero,
                 memWrite  <= 1'b1;
             end
             // U-type
-            `EX_U: begin
+            `MEM_U: begin
                 resultSrc <= 2'b11;
                 immSrc    <= 3'b100;
                 regWrite  <= 1'b1;
