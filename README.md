@@ -23,7 +23,7 @@ In this project we read maze data from a file and then try to find a way from ou
 
 ### Maze Asset
 
-- `judge`  : Some useful python code for checking accuracy of project and visualizing the path
+- `utils`: Some useful python code for generating map and also checking accuracy of project and visualizing the path
 - `maps` : List of maps, in each file if you convert the 4 digit hex string to binary format, each **1** represent wall and each **0** shows empty cells that we can move between those. There is 16 lines each 4 digit hex, so the map is 16 * 16.
     - `maps with solution` : in this folder we have maps that there exists a way to get the cheese. `.dat` file are original map, `.txt` file contains binary converted map, and $result_{i}.txt$ are python code's results, and the $code result_{i}.txt$ file contains Verilog simulation results. result means the way we move in maze. you can understand it with this map.
 
@@ -68,13 +68,11 @@ Supported commands are(for now):
         ```
         python main.py
         ```
-  
         if not just the `.bat` files, you can run each like this
 
         ```
         ./bat_filename.bat
         ```
-        
     - `data generator` : Here you can generate data memory based on numbers you provided in `ArrayData.txt `in memory folder.
 
 ### RISC-V code
