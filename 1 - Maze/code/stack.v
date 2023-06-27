@@ -1,6 +1,6 @@
 `define BITS(x) $rtoi($ceil($clog2(x)))
 
-module stack(clk, rst, init, pop, push, empty, d_in, d_out);
+module Stack(clk, rst, init, pop, push, empty, d_in, d_out);
 
     parameter WIDTH = 2;
     parameter DEPTH = 256;

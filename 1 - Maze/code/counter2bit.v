@@ -1,4 +1,4 @@
-module counter2bit(rst, clk, init, ld, en, prl, out, Co);
+module Counter2bit(rst, clk, init, ld, en, prl, out, Co);
    
     input init, ld, en, rst, clk;
     input [1:0] prl;

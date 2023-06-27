@@ -19,10 +19,13 @@
 `define show                5'b10010             
 
 
-module controller(clk, rst, start, Run, Co, found, empty_stack, Done,
-				  complete_read, D_out, init_x, init_y, init_count, Fail,
-				  en_count, ldc, ldx, ldy, WR, RD, D_in,init_stack, stack_pop,
-				  stack_push, r_update, list_push, en_read, init_list, invalid);
+module Controller(clk, rst, start, Run, Co, invalid,
+				  found, empty_stack, Done, en_read,
+				  complete_read, D_out, r_update, 
+				  init_x, init_y, init_count, Fail,
+				  en_count, ldc, ldx, ldy, 
+				  WR, RD, D_in,init_stack, stack_pop,
+				  stack_push, list_push, init_list);
 
 	input clk, rst, start, Run, Co, found,
 		  empty_stack, complete_read, D_out, invalid;
@@ -38,25 +41,25 @@ module controller(clk, rst, start, Run, Co, found, empty_stack, Done,
 
 	always @(Run or start or Co or pstate or D_out or complete_read or empty_stack or found or invalid) begin
 		case (pstate)
-			`idle:                nstate <= ~start? `idle : `init;                        
-			`init:                nstate <= ~start? `init_search : `init;                        
-			`init_search:         nstate <= `make_wall;                        
-			`make_wall:           nstate <= ~invalid? `add_to_stack : `free_loc_check_bt;                        
-			`add_to_stack:        nstate <= `update_xy;                       
-			`update_xy:           nstate <= `check_goal;                        
-			`check_goal:          nstate <= found ? `stack_read : `check_wall;                       
-			`check_wall:          nstate <= D_out ? `check_empty_stack : `init_search;                        
-			`check_empty_stack:   nstate <= empty_stack ? `fail : `pop_stack;                        
-			`pop_stack:           nstate <= `reload_counter;                         
-			`reload_counter:      nstate <= `update_reverse;                        
-			`update_reverse:      nstate <= `free_loc_check_bt;                       
-			`free_loc_check_bt:   nstate <= Co ? `check_empty_stack : `change_dir;                       
-			`change_dir:          nstate <= `make_wall;                        
-			`fail:                nstate <= `fail;                        
-			`stack_read:          nstate <= `update_list;                       
-			`update_list:         nstate <= ~empty_stack ? `stack_read : `done;                        
-			`done:                nstate <= Run ? `show : `done;                        
-			`show:                nstate <= complete_read ? `done : `show;            
+			`idle             : nstate <= ~start? `idle : `init;                        
+			`init             : nstate <= ~start? `init_search : `init;                        
+			`init_search      : nstate <= `make_wall;                        
+			`make_wall        : nstate <= ~invalid? `add_to_stack : `free_loc_check_bt;                        
+			`add_to_stack     : nstate <= `update_xy;                       
+			`update_xy        : nstate <= `check_goal;                        
+			`check_goal       : nstate <= found ? `stack_read : `check_wall;                       
+			`check_wall       : nstate <= D_out ? `check_empty_stack : `init_search;                        
+			`check_empty_stack: nstate <= empty_stack ? `fail : `pop_stack;                        
+			`pop_stack        : nstate <= `reload_counter;                         
+			`reload_counter   : nstate <= `update_reverse;                        
+			`update_reverse   : nstate <= `free_loc_check_bt;                       
+			`free_loc_check_bt: nstate <= Co ? `check_empty_stack : `change_dir;                       
+			`change_dir       : nstate <= `make_wall;                        
+			`fail             : nstate <= `fail;                        
+			`stack_read       : nstate <= `update_list;                       
+			`update_list      : nstate <= ~empty_stack ? `stack_read : `done;                        
+			`done             : nstate <= Run ? `show : `done;                        
+			`show             : nstate <= complete_read ? `done : `show;            
 		endcase
 	end
 
@@ -71,15 +74,15 @@ module controller(clk, rst, start, Run, Co, found, empty_stack, Done,
 			`init_search	  : begin init_count = 1'b1; end
 			`make_wall		  : begin WR = 1'b1; D_in = 1'b1; end
  			`add_to_stack	  : begin stack_push = 1'b1; end
-			`update_xy		  :  begin ldx = 1'b1; ldy = 1'b1; end
-			`check_goal		  :  begin RD = 1'b1 ; end 
+			`update_xy		  : begin ldx = 1'b1; ldy = 1'b1; end
+			`check_goal		  : begin RD = 1'b1 ; end 
 			`pop_stack		  : begin stack_pop = 1'b1; end  
 			`reload_counter	  : begin ldc = 1'b1; end   
 			`update_reverse	  : begin ldx = 1'b1; ldy = 1'b1; r_update = 1'b1; end
 			`free_loc_check_bt: begin WR = 1'b1; end
 			`change_dir       : begin en_count = 1'b1; end 
 			`fail			  : begin Fail = 1'b1; end 
-			`stack_read		  : begin stack_pop = 1'b1 end;
+			`stack_read		  : begin stack_pop = 1'b1; end
 			`update_list	  : begin list_push = 1'b1; end
 			`done			  : begin Done = 1'b1; end 
 			`show			  : begin en_read = 1'b1; Done = 1'b1; end 

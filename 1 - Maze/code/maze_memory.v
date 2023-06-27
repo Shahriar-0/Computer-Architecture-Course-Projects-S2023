@@ -1,4 +1,4 @@
-module maze_memory(clk, X, Y, D_in, RD, WR, D_out);
+module MazeMemory(clk, X, Y, D_in, RD, WR, D_out);
     parameter N = 4;
     parameter FILENAME = "maze.dat";
     localparam WIDTH = 16;

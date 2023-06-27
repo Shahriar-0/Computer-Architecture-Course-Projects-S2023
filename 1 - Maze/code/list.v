@@ -1,7 +1,7 @@
 `define BITS(x) $rtoi($ceil($clog2(x)))
 
 
-module list (clk, rst, push, init, en_read, data_in, complete_read, data_out);
+module List (clk, rst, push, init, en_read, data_in, complete_read, data_out);
 
     parameter MAX_LENGTH = 256;
     parameter WIDTH = 2;
@@ -16,8 +16,8 @@ module list (clk, rst, push, init, en_read, data_in, complete_read, data_out);
     reg [`BITS(MAX_LENGTH) - 1:0] ptr, last_ptr, length;
     reg read_ing;
     integer result_file;
-    always @(posedge clk or posedge rst)
-    begin
+
+    always @(posedge clk or posedge rst) begin
         if (rst || init) begin
             ptr <= 1'b0;
             last_ptr <= 1'b0;

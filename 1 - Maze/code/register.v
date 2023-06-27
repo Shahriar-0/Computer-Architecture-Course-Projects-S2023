@@ -1,4 +1,4 @@
-module register(prl, clk, rst, ld, init, W);
+module Register(prl, clk, rst, ld, init, W);
     parameter N = 4;
 
     input [N - 1:0] prl;
