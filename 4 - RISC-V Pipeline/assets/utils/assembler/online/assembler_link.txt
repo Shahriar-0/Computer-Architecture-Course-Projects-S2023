@@ -1,2 +1,5 @@
 https://riscvasm.lucasteske.dev/#
 use this site to convert you assembly to hex file then use convert.py to have usable instructions.mem
+
+https://ascslab.org/research/briscv/simulator/simulator.html
+use this site to simulate RISC-V instructions
